@@ -10,8 +10,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
-import colors from "../../../config/colors";
-import hamid from "../../../../content/images/hamid.png";
+import colors from "src/main/app/config/colors";
+import hamid from "src/main/content/images/hamid.png";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {

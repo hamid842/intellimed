@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { loadProgressBar } from "axios-progress-bar";
 import { toast, ToastContainer } from "react-toastify";
-import { history } from "~/app/shared/history";
-import PrivateRoute from "~/app/shared/auth/private-config";
+import { history } from "./main/app/shared/history";
+import PrivateRoute from "./main/app/shared/auth/private-route";
 import axios from "axios";
-import Layout from "~/app/modules/pages/dashboard/Dashboard";
+import Layout from "./main/app/modules/pages/dashboard/Dashboard";
 import "react-toastify/dist/ReactToastify.css";
 import "axios-progress-bar/dist/nprogress.css";
 
-import Login from "~/app/modules/login/Login";
+import Login from "./main/app/modules/login/Login";
 
 const App = (props) => {
   useEffect(() => {
@@ -31,7 +31,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
-        <PrivateRoute exact path="/dashboard" component={Layout} />
+        <Route exact path="/dashboard" component={Layout} />
         <Layout></Layout>
       </Switch>
     </Router>
