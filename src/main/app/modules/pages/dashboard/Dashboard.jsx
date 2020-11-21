@@ -17,11 +17,15 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 import logo from "src/main/content/images/logo.png";
 import colors from "src/main/app/config/colors";
 import ToolbarContent from "./ToolbarContent";
 import CurrentMedication from "./current-medication/CurrentMedication";
 import AppCalendar from "./calendar/AppCalendar";
+import SideEffectQuestions from "./sideEffect-questions/SideEffectQuestions";
+import Prescriber from "./prescriber/Prescriber";
+import AddNewPrescription from "./add-prescription/AddNewPrescription";
 
 const drawerWidth = 200;
 
@@ -80,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ResponsiveDrawer = (props) => {
-  const { window } = props;
+  const { window, children } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -162,16 +166,25 @@ const ResponsiveDrawer = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Grid contaainer>
-          <Grid item>
+        {children}
+        <Grid container>
+          <Grid item xs={12} sm={2} lg={2}>
             <CurrentMedication />
           </Grid>
-          <Grid item className={classes.calendar}>
+          <Grid item xs={12} sm={10} lg={10} className={classes.calendar}>
             <AppCalendar />
           </Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12} sm={4} lg={4}>
+            <SideEffectQuestions />
+          </Grid>
+          <Grid item xs={12} sm={4} lg={4}>
+            <Prescriber />
+          </Grid>
+          <Grid item xs={12} sm={4} lg={4}>
+            <AddNewPrescription />
+          </Grid>
         </Grid>
       </main>
     </div>

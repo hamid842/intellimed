@@ -1,29 +1,19 @@
 import React from "react";
-import {
-  Calendar,
-  DateLocalizer,
-  momentLocalizer,
-  globalizeLocalizer,
-  move,
-  Views,
-  Navigate,
-  components,
-} from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import moment, { weekdays, weekdaysMin } from "moment";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: 820,
+    width: 777,
     height: 400,
   },
 }));
-// import events from "../events";
-// import * as dates from "../../src/utils/dates";
 
-// let allViews = Object.keys(Views).map((k) => Views[k]);
 const localizer = momentLocalizer(moment);
+
 const ColoredDateCellWrapper = ({ children }) =>
   React.cloneElement(React.Children.only(children), {
     style: {
@@ -31,10 +21,14 @@ const ColoredDateCellWrapper = ({ children }) =>
     },
   });
 
+// const timeFormat = (time) => {
+//   console.log(time);
+// };
+
 const formats = {
   dayFormat: "dddd",
   weekdayFormat: "dddd",
-  timeGutterFormat: (time) => (time >= 12 <= 6 ? "Morning" : null),
+  // timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {

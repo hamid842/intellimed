@@ -4,9 +4,9 @@ import { Router, Route, Switch } from "react-router-dom";
 import { loadProgressBar } from "axios-progress-bar";
 import { toast, ToastContainer } from "react-toastify";
 import { history } from "./main/app/shared/history";
-import PrivateRoute from "./main/app/shared/auth/private-route";
 import axios from "axios";
-import Layout from "./main/app/modules/pages/dashboard/Dashboard";
+import Layout from "src/main/app/modules/pages/dashboard/Dashboard";
+import NewPrescription from "src/main/app/modules/pages/add-new-prescription/NewPrescription";
 import "react-toastify/dist/ReactToastify.css";
 import "axios-progress-bar/dist/nprogress.css";
 
@@ -32,6 +32,7 @@ const App = (props) => {
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/dashboard" component={Layout} />
+        <Route exact path="/add-new-prescription" component={NewPrescription} />
         <Layout></Layout>
       </Switch>
     </Router>
