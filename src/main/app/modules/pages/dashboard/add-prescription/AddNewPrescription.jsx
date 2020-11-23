@@ -10,10 +10,10 @@ import colors from "src/main/app/config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: 360,
-    height: 100,
-    padding: 5,
-    marginTop: 130,
+    width: "100%",
+    height: 200,
+    padding: 10,
+    marginTop: 8,
   },
   sideInput: {
     backgroundColor: colors.mainGrey,
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: colors.mainGrey,
   },
   addIcon: {
-    fontSize: 50,
+    fontSize: 70,
     color: colors.darkBlue,
   },
 }));
@@ -33,9 +33,11 @@ const CurrentMedication = () => {
     <Paper className={classes.container}>
       <Grid container>
         <Grid item xs={12} sm={12} lg={12} className="text-center">
-          <Typography>Add New Prescription</Typography>
+          <Typography variant="h6" className="mt-2">
+            Add New Prescription
+          </Typography>
         </Grid>
-        <Grid item xs={12} sm={12} lg={12} className="text-center">
+        <Grid item xs={12} sm={12} lg={12} className="mt-4 text-center">
           <AddCircleIcon className={classes.addIcon} />
         </Grid>
       </Grid>

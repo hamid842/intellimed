@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
-import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/styles";
@@ -13,12 +13,15 @@ import colors from "src/main/app/config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: 345,
-    height: 280,
-    padding: 5,
+    width: "100%",
+    height: 350,
+    padding: 20,
+    borderRadius: 10,
   },
   divider: {
     color: "grey",
+    marginTop: 8,
+    marginBottom: 8,
   },
   icons: {
     backgroundColor: colors.mainGrey,
@@ -46,7 +49,7 @@ const CurrentMedication = () => {
             <Grid item xs={8} sm={8} lg={8}>
               <Grid container justify="center">
                 <Grid item xs={10}>
-                  <Typography>Atrovastatin 10 mg</Typography>
+                  <Typography color="primary">Atrovastatin 10 MG</Typography>
                 </Grid>
                 <Grid item xs={10}>
                   <Typography>Take 1 tablet by mouth</Typography>
@@ -55,7 +58,7 @@ const CurrentMedication = () => {
             </Grid>
             <Grid item xs={2} sm={2} lg={2}>
               <IconButton className={classes.icons}>
-                <MicNoneOutlinedIcon />
+                <VolumeUpIcon />
               </IconButton>
             </Grid>
           </Grid>
@@ -76,7 +79,7 @@ const CurrentMedication = () => {
       <Divider variant="middle" className={classes.divider} />
       <Grid container>
         <Grid item>
-          <Typography>Important information</Typography>
+          <Typography color="secondary">Important information</Typography>
         </Grid>
         <Grid item>
           <Typography>-Avoid eating or drinking grapefruit</Typography>
@@ -91,7 +94,7 @@ const CurrentMedication = () => {
       <Grid container>
         <Grid item xs={12} sm={12} lg={12}>
           {" "}
-          <Typography>Rifill status</Typography>
+          <Typography color="secondary">Rifill status</Typography>
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>
           {" "}
