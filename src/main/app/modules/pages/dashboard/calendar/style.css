@@ -1,0 +1,12 @@
+.rbc-timeslot-group {
+  height: 60px;
+}
+
+.rbc-time-slot {
+  writing-mode: vertical-rl;
+  font-size: 16px;
+}
+
+.rbc-time-header {
+  background-color: #f1f4f8;
+}

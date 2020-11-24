@@ -92,7 +92,7 @@ const Tool = ({ handleDrawerToggle }) => {
             <Grid item sm={3} lg={3}>
               <img src={hamid} alt="Hamid Pic" className={classes.userPic} />
             </Grid>
-            <Grid item sm={6} lg={6} wrap="wrap">
+            <Grid item sm={6} lg={6}>
               <Typography noWrap style={{ color: "grey" }}>
                 Hamid Mohamadi
               </Typography>

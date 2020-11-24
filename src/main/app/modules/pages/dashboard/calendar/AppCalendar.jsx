@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -22,14 +23,18 @@ const ColoredDateCellWrapper = ({ children }) =>
     },
   });
 
-// const timeFormat = (time) => {
-//   console.log(time);
-// };
+const timeFormat = (time) => {
+  const times = new moment(time).format("LT");
+  if (times === "12:00 AM") return "Morning";
+  if (times === "6:00 AM") return "Noon";
+  if (times === "12:00 PM") return "Evening";
+  if (times === "6:00 PM") return "Night";
+};
 
 const formats = {
   dayFormat: "dddd",
   weekdayFormat: "dddd",
-  // timeGutterFormat: timeFormat,
+  timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {
@@ -38,7 +43,7 @@ const AppCalendar = () => {
     <Paper className={classes.container}>
       <Calendar
         culture="en-GB"
-        events={["", ""]}
+        events={[{}, {}]}
         defaultView="week"
         views={["month", "week", "day"]}
         step={60}
