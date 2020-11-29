@@ -34,7 +34,7 @@ const timeFormat = (time) => {
 const formats = {
   dayFormat: "dddd",
   weekdayFormat: "dddd",
-  timeGutterFormat: timeFormat,
+  // timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {
@@ -48,13 +48,12 @@ const AppCalendar = () => {
         views={["month", "week", "day"]}
         step={60}
         showMultiDayTimes
+        min={new Date(2020, 1, 0, 0, 0, 0)}
+        max={new Date(2020, 1, 0, 23, 59, 59)}
         // max={dates.add(dates.endOf(new Date(2015, 17, 1), "day"), -1, "hours")}
         defaultDate={new Date(2015, 3, 1)}
-        // components={{
-        //   timeSlotWrapper: ColoredDateCellWrapper,
-        // }}
         localizer={localizer}
-        timeslots={6}
+        timeslots={4}
         formats={formats}
       />
     </Paper>

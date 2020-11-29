@@ -1,27 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  AppBar,
-  Grid,
-  CssBaseline,
-  Drawer,
-  Hidden,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import AppBar from "@material-ui/core/AppBar";
+import Grid from "@material-ui/core/Grid";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
+// ====
 import logo from "src/main/content/images/logo.png";
 import colors from "src/main/app/config/colors";
 import ToolbarContent from "./ToolbarContent";
-
+import MenuList from "./MenuList";
 
 const drawerWidth = 200;
 
@@ -103,18 +95,7 @@ const ResponsiveDrawer = (props) => {
       <div className={classes.toolbar} />
 
       {/* <Divider /> */}
-      <List>
-        {["Dashboard", "Medication", "Users", "Doctors", "Prescription"].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
-      </List>
+      <MenuList />
     </div>
   );
 

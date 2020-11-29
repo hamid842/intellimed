@@ -11,7 +11,10 @@ import Login from "src/main/app/modules/login/Login";
 import { history } from "src/main/app/shared/history";
 import Layout from "src/main/app/shared/layout/Navigation";
 import NewPrescription from "src/main/app/modules/pages/add-new-prescription/NewPrescription";
-import Dashboard from 'src/main/app/modules/pages/dashboard/Dashboard'
+import Dashboard from "src/main/app/modules/pages/dashboard/Dashboard";
+import Medication from "src/main/app/modules/pages/medication/Medication";
+import Doctors from "src/main/app/modules/pages/doctors/Doctors";
+import Profile from "src/main/app/modules/pages/profile/Profile";
 
 const App = (props) => {
   useEffect(() => {
@@ -33,8 +36,15 @@ const App = (props) => {
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
         <Layout>
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/add-new-prescription" component={NewPrescription} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route
+            exact
+            path="/add-new-prescription"
+            component={NewPrescription}
+          />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/medication" component={Medication} />
+          <Route exact path="/doctors" component={Doctors} />
         </Layout>
       </Switch>
     </Router>

@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  Button,
-  Grid,
-  CircularProgress,
-} from "@material-ui/core";
-import { Person, Lock} from "@material-ui/icons";
-import PasswordField from '../../shared/components/PasswordField'
+import { TextField, Button, Grid, CircularProgress } from "@material-ui/core";
+import { Person, Lock } from "@material-ui/icons";
+import PasswordField from "../../shared/components/PasswordField";
 import colors from "../../config/colors";
 
 const CssTextField = withStyles({
@@ -23,18 +18,18 @@ const CssTextField = withStyles({
 
 const LoginButton = withStyles((theme) => ({
   root: {
-    color:colors.darkBlue,
-    borderColor:colors.darkBlue,
+    color: colors.darkBlue,
+    borderColor: colors.darkBlue,
     fontWeight: "bold",
     backgroundColor: colors.white,
-    borderRadius:'25px',
-    width:150
+    borderRadius: "25px",
+    width: 150,
   },
 }))(Button);
 
 const LoginTab = (props) => {
   const { errorMessage } = props;
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [userInfo, setUserInfo] = useState({
     userName: "",
     password: "",
@@ -45,14 +40,12 @@ const LoginTab = (props) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = () =>{
-
-  }
+  const handleLogin = () => {};
 
   return (
     <>
       <form onSubmit={handleLogin}>
-        <Grid container spacing={errorMessage ? 4 : 5} justify="center" >
+        <Grid container spacing={errorMessage ? 4 : 5} justify="center">
           <Grid item xs={12}>
             <Grid container spacing={1} alignItems="flex-end" justify="center">
               <Grid item>
@@ -78,18 +71,17 @@ const LoginTab = (props) => {
                 <Lock />
               </Grid>
               <Grid item>
-               <PasswordField />
+                <PasswordField />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ color: "red", textAlign: "center" }} xs={12}>
-         
-          </Grid>
+          <Grid
+            item
+            style={{ color: "red", textAlign: "center" }}
+            xs={12}
+          ></Grid>
           <Grid item>
-            <LoginButton
-              variant="outlined"
-              type='submit'
-            >
+            <LoginButton variant="outlined" type="submit">
               {loading && <CircularProgress size={26} color="inherit" />}
               {!loading && "Login"}
             </LoginButton>
