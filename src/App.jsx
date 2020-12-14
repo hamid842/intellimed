@@ -15,6 +15,7 @@ import Dashboard from "src/main/app/modules/pages/dashboard/Dashboard";
 import Medication from "src/main/app/modules/pages/medication/Medication";
 import Doctors from "src/main/app/modules/pages/doctors/Doctors";
 import Profile from "src/main/app/modules/pages/profile/Profile";
+import SampleScheduler from "src/main/app/modules/pages/SampleScheduler";
 
 const App = (props) => {
   useEffect(() => {
@@ -45,6 +46,11 @@ const App = (props) => {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/medication" component={Medication} />
           <Route exact path="/doctors" component={Doctors} />
+          <Route
+            exact
+            path="/sample-full-calendar"
+            component={SampleScheduler}
+          />
         </Layout>
       </Switch>
     </Router>
