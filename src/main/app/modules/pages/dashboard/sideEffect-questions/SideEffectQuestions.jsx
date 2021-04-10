@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import { makeStyles } from "@material-ui/styles";
 
-import colors from "src/main/app/config/colors";
+import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {

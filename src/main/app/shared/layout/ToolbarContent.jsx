@@ -10,7 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
-import hamid from "src/main/content/images/hamid.png";
+import hamid from "@images/hamid.png";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {

@@ -9,7 +9,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/styles";
 
-import colors from "src/main/app/config/colors";
+import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -40,7 +40,7 @@ const CurrentMedication = () => {
           <Grid container spacing={1}>
             <Grid item xs={2} sm={2} lg={2}>
               <img
-                src={require("src/main/content/images/atorvastatin.jpg")}
+                src={require("@images/atorvastatin.jpg")}
                 width="50px"
                 height="50px"
                 alt="Current Med Pic"

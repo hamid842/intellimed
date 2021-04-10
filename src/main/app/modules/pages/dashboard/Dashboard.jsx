@@ -1,11 +1,11 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-import CurrentMedication from "src/main/app/modules/pages/dashboard/current-medication/CurrentMedication";
-import AppCalendar from "src/main/app/modules/pages/dashboard/calendar/AppCalendar";
-import SideEffectQuestions from "src/main/app/modules/pages/dashboard/sideEffect-questions/SideEffectQuestions";
-import Prescriber from "src/main/app/modules/pages/dashboard/prescriber/Prescriber";
-import AddNewPrescription from "src/main/app/modules/pages/dashboard/add-prescription/AddNewPrescription";
+import CurrentMedication from "@pages/dashboard/current-medication/CurrentMedication";
+import AppCalendar from "@pages/dashboard/calendar/AppCalendar";
+import SideEffectQuestions from "@pages/dashboard/sideEffect-questions/SideEffectQuestions";
+import Prescriber from "@pages/dashboard/prescriber/Prescriber";
+import AddNewPrescription from "@pages/dashboard/add-prescription/AddNewPrescription";
 
 const Dashboard = () => {
   return (

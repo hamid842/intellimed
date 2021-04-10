@@ -10,8 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 // ====
-import logo from "src/main/content/images/logo.png";
-import colors from "src/main/app/config/colors";
+import logo from "@images/logo.png";
+import colors from "@config/colors";
 import ToolbarContent from "./ToolbarContent";
 import MenuList from "./MenuList";
 

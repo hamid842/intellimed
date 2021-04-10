@@ -7,7 +7,7 @@ import LinkIcon from "@material-ui/icons/Link";
 
 import { makeStyles } from "@material-ui/styles";
 
-import colors from "src/main/app/config/colors";
+import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {

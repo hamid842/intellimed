@@ -13,7 +13,7 @@ import { AiFillMedicineBox } from "react-icons/ai";
 import { GiDoctorFace } from "react-icons/gi";
 import { FaPrescription } from "react-icons/fa";
 // ====
-import { history } from "src/main/app/shared/history";
+import { history } from "@shared/history";
 
 const useStyles = makeStyles(() => ({}));
 
