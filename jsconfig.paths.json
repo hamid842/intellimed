@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target":"Es6",
+        "module":"commonjs",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+      "paths": {
+        "@images/*": ["src/main/content/images/*"],
+        "@login/*": ["src/main/app/modules/login/*"],
+        "@register/*": ["src/main/app/modules/register/*"],
+        "@shared/*": ["src/main/app/shared/*"],
+        "@config/*": ["src/main/app/config/*"],
+        "@pages/*": ["src/main/app/modules/pages/*"],
+        "@components/*":["src/main/app/shared/components/*"]
+      }
+    }
+  }

@@ -1,8 +1,10 @@
-const { override, fixBabelImports } = require("customize-cra");
+const { alias, configPaths } = require("react-app-rewire-alias");
 
-module.exports = override(
-  fixBabelImports("root-import", {
-    rootPathPrefixe: "~",
-    rootPathSuffix: "src",
-  })
-);
+module.exports = function override(config) {
+  console.log("overrides!");
+  alias({
+    ...configPaths("./jsconfig.paths.json"),
+  })(config);
+
+  return config;
+};
