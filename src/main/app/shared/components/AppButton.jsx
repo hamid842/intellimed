@@ -12,17 +12,20 @@ const AppButton = ({
   hoverColor,
   icon,
   className,
+  width,
 }) => {
   const ColorButton = withStyles((theme) => ({
     root: {
-      color: color,
+      width,
+      color,
+      borderColor: color,
       backgroundColor: backgroundColor,
       "&:hover": {
         backgroundColor: hoverColor,
       },
       borderRadius: 50,
       textTransform: "capitalize",
-      fontSize: 25,
+      fontSize: 18,
     },
   }))(Button);
 

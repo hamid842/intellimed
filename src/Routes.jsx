@@ -7,36 +7,37 @@ import ErrorBoundaryRoute from "@shared/error/error-boundry-route";
 import PageNotFound from "@shared/error/page-not-found";
 import { history } from "@shared/history";
 import Layout from "@shared/layout/Navigation";
+import AppLoading from "@components/AppLoading";
 // import PrivateRoute from "@shared/auth/private-route";
 
 const Login = Loadable({
   loader: () => import("@login/LoginScreen"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const Dashboard = Loadable({
   loader: () => import("@pages/dashboard/Dashboard"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const NewPrescription = Loadable({
   loader: () => import("@pages/add-new-prescription/NewPrescription"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const Profile = Loadable({
   loader: () => import("@pages/profile/Profile"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const Doctors = Loadable({
   loader: () => import("@pages/doctors/Doctors"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const Medication = Loadable({
   loader: () => import("@pages/medication/Medication"),
-  loading: () => <div style={{ textAlign: "center" }}>Just a sec ...</div>,
+  loading: () => <AppLoading />,
 });
 
 const Routes = () => (

@@ -1,13 +1,13 @@
 import React from "react";
-import { setConfig } from "react-hot-loader";
+// import { setConfig, hot } from "react-hot-loader";
 import { SnackbarProvider } from "notistack";
 
 import ErrorBoundary from "@shared/error/error-boundary";
 import AppRoutes from "./Routes";
 
-setConfig({
-  showReactDomPatchNotification: false,
-});
+// setConfig({
+//   showReactDomPatchNotification: false,
+// });
 
 function App() {
   return (

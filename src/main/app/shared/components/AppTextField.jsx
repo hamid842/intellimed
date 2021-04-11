@@ -1,7 +1,16 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
-const AppTextField = ({ required, name, label, onChange, value, type }) => {
+const AppTextField = ({
+  required,
+  name,
+  label,
+  onChange,
+  value,
+  type,
+  endAdornment,
+}) => {
   return (
     <TextField
       fullWidth
@@ -13,6 +22,11 @@ const AppTextField = ({ required, name, label, onChange, value, type }) => {
       onChange={onChange}
       size="small"
       variant="outlined"
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="start">{endAdornment || ""}</InputAdornment>
+        ),
+      }}
     />
   );
 };

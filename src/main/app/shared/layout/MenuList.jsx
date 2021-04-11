@@ -30,10 +30,12 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Dashboard">
-              <DashboardIcon
-                className={classes.icon}
-                //   onClick={handleDrawerOpen}
-              />
+              <span>
+                <DashboardIcon
+                  className={classes.icon}
+                  //   onClick={handleDrawerOpen}
+                />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
@@ -49,7 +51,9 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Profile">
-              <PersonIcon className={classes.icon} />
+              <span>
+                <PersonIcon className={classes.icon} />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Profile" />
@@ -65,7 +69,9 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Medication">
-              <AiFillMedicineBox size={24} />
+              <span>
+                <AiFillMedicineBox size={24} />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Medication" />
@@ -80,7 +86,9 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Doctors">
-              <GiDoctorFace size={24} />
+              <span>
+                <GiDoctorFace size={24} />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Doctors" />
@@ -95,7 +103,9 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Prescription">
-              <FaPrescription size={24} />
+              <span>
+                <FaPrescription size={24} />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Prescription" />
@@ -109,7 +119,9 @@ const MenuList = () => {
         >
           <ListItemIcon>
             <Tooltip title="Logout">
-              <ExitToAppIcon className={classes.icon} />
+              <span>
+                <ExitToAppIcon className={classes.icon} />
+              </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Logout" />
