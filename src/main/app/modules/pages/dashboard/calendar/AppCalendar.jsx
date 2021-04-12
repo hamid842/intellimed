@@ -50,10 +50,9 @@ const AppCalendar = () => {
         showMultiDayTimes
         min={new Date(2020, 1, 0, 0, 0, 0)}
         max={new Date(2020, 1, 0, 23, 59, 59)}
-        // max={dates.add(dates.endOf(new Date(2015, 17, 1), "day"), -1, "hours")}
         defaultDate={new Date(2015, 3, 1)}
         localizer={localizer}
-        timeslots={4}
+        timeslots={6}
         formats={formats}
       />
     </Paper>

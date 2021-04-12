@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
       backgroundColor: colors.mainGrey,
-      height: 120,
     },
   },
 
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
   },
   content: {
-    marginTop: 110,
+    marginTop: 60,
     flexGrow: 1,
     padding: theme.spacing(3),
     backgroundColor: colors.mainGrey,
