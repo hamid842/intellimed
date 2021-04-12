@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSnackbar } from "notistack";
+import { connect } from "react-redux";
 
 import "./login-style.css";
 import SignUpContent from "./SignUpContent";
 import SignInContent from "./SignInContent";
+import { login } from "@shared/reducers/login/login-reducer";
 
 // Endpoints
 const registerUserApi = process.env.REACT_APP_REGISTER_USER_API;
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [registerLoading, setRegisterLoading] = useState(false);
   const [user, setUser] = useState({
@@ -23,6 +25,7 @@ const LoginScreen = () => {
   const [loginUser, setLoginUser] = useState({
     userName: "",
     password: "",
+    rememberMe: false,
   });
 
   const handleRegisterUser = async (e) => {
@@ -53,7 +56,12 @@ const LoginScreen = () => {
 
   const handleSignInUser = (e) => {
     e.preventDefault();
-    alert("clicked");
+    props.login(
+      loginUser.userName,
+      loginUser.password,
+      loginUser.rememberMe,
+      enqueueSnackbar
+    );
   };
 
   const handleChangeSignUpCredentials = (e) => {
@@ -65,7 +73,11 @@ const LoginScreen = () => {
   const handleChangeLoginCredentials = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setLoginUser({ ...user, [name]: value });
+    setLoginUser({ ...loginUser, [name]: value });
+  };
+
+  const handleCheck = (e) => {
+    setLoginUser({ ...loginUser, rememberMe: e.target.checked });
   };
 
   return (
@@ -86,6 +98,7 @@ const LoginScreen = () => {
             user={loginUser}
             handleChange={handleChangeLoginCredentials}
             handleSignInUser={handleSignInUser}
+            handleCheck={handleCheck}
           />
         </div>
         <div className="overlay-container">
@@ -129,4 +142,8 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+const mapStateToProps = ({ login }) => ({
+  loading: login.loading,
+});
+
+export default connect(mapStateToProps, { login })(LoginScreen);
