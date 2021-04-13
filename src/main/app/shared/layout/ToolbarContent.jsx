@@ -53,7 +53,7 @@ const Tool = ({ handleDrawerToggle }) => {
         alignItems="center"
         className={classes.topDetails}
       >
-        <Grid item xs={6} sm={6} lg={6} justify="flex-start">
+        <Grid item xs={6} sm={6} lg={6}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
