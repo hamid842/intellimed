@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
+import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/styles";
 import axios from "axios";
 
 import MedicationItem from "./MedicationItem";
 
 const useStyles = makeStyles(() => ({
+  carouselContainer: {
+    backgroundColor: "transparent",
+    boxShadow: "none",
+  },
   navButtons: {
-    backgroundColor: "#b5b5b5",
-    opacity: 0.5,
+    backgroundColor: "transparent",
+    color: "black",
+    "&:hover": {
+      background: "none !important",
+    },
   },
   container: {
     height: 300,
@@ -34,18 +42,28 @@ const CurrentMedication = () => {
   }, []);
 
   return (
-    <Carousel
-      navButtonsAlwaysVisible
-      indicators={false}
-      animation="slide"
-      autoPlay={false}
-      navButtonsProps={{ className: classes.navButtons }}
-    >
-      {medications.map((item, i) => (
-        <MedicationItem key={i} medication={item} />
-      ))}
-    </Carousel>
+    <>
+      <Paper className={classes.carouselContainer}>
+        <Carousel
+          navButtonsAlwaysVisible
+          fullHeightHover={false}
+          indicators={false}
+          animation="slide"
+          autoPlay={false}
+          navButtonsProps={{ className: classes.navButtons }}
+          navButtonsWrapperProps={{
+            style: {
+              height: 5,
+              top: 10,
+            },
+          }}
+        >
+          {medications.map((item, i) => (
+            <MedicationItem key={i} medication={item} />
+          ))}
+        </Carousel>
+      </Paper>
+    </>
   );
 };
-
 export default CurrentMedication;

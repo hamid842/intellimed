@@ -20,6 +20,7 @@ const LoginScreen = (props) => {
     firstName: "",
     lastName: "",
     email: "",
+    username: "",
     password: "",
   });
   const [loginUser, setLoginUser] = useState({

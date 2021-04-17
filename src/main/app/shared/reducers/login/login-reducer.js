@@ -51,7 +51,9 @@ export const login = (username, password, rememberMe, toast) => async (
     .catch((err) => {
       dispatch({ type: TOGGLE_LOAD });
       if (err) {
-        toast(err.response.data?.detail, { variant: "error" });
+        toast(err.response?.data?.detail, { variant: "error" });
+      } else {
+        toast("Something went wrong!", { variant: "error" });
       }
     });
 };

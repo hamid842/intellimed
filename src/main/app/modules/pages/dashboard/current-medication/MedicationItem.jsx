@@ -48,7 +48,7 @@ const MedicationItem = ({ medication }) => {
     <>
       <Paper className={classes.container}>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={12} lg={12}>
+          <Grid item xs={12} sm={12} lg={12} className="text-center">
             <Typography variant="subtitle2">Current Medications</Typography>
           </Grid>
           <Divider className={classes.divider} />

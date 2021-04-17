@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 
 const SignUpContent = ({ handleRegisterUser, handleChange, user, loading }) => {
   const classes = useStyles();
-  const { firstName, lastName, email, password } = user;
+  const { firstName, lastName, email, password, username } = user;
   return (
     <ThemeProvider theme={formLabelsTheme}>
       <form onSubmit={handleRegisterUser}>
@@ -57,6 +57,16 @@ const SignUpContent = ({ handleRegisterUser, handleChange, user, loading }) => {
               name="email"
               label="Email"
               value={email}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} lg={12}>
+            <AppTextField
+              required={true}
+              type="username"
+              name="username"
+              label="Username"
+              value={username}
               onChange={handleChange}
             />
           </Grid>
