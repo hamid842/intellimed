@@ -14,7 +14,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Dayjs from "dayjs";
+import dayjs from "dayjs";
 
 import image from "@images/atorvastatin.jpg";
 import { CircularProgress } from "@material-ui/core";
@@ -89,10 +89,10 @@ const MedicationItem = ({ medicine }) => {
       <CardMedia className={classes.media} image={image} title={name} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Issue Date: {Dayjs(issueDate).format("YYYY-MM-DD HH:mm")}
+          Issue Date: {dayjs(issueDate).format("YYYY-MM-DD HH:mm")}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Refill Time: {Dayjs(refillTime).format("YYYY-MM-DD HH:mm")}
+          Refill Time: {dayjs(refillTime).format("YYYY-MM-DD HH:mm")}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -112,18 +112,19 @@ const MedicationItem = ({ medicine }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph color="secondary">
-            Usage Description:
-          </Typography>
-          <Typography paragraph>{usageDescription}</Typography>
-          <Typography paragraph color="secondary">
+          <Typography variant="body2" color="secondary">
             Important Information:
           </Typography>
-          <Typography paragraph>{importantInfo}</Typography>
-          <Typography paragraph color="secondary">
+          <Typography variant="subtitle2">{importantInfo}</Typography>
+          <Typography variant="body2" color="primary">
+            Usage Description:
+          </Typography>
+          <Typography variant="subtitle2">{usageDescription}</Typography>
+
+          <Typography variant="body2" color="primary">
             Side Effects:
           </Typography>
-          <Typography paragraph>{sideEffects}</Typography>
+          <Typography variant="subtitle2">{sideEffects}</Typography>
         </CardContent>
       </Collapse>
     </Card>

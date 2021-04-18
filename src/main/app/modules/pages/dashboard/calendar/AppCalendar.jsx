@@ -23,18 +23,18 @@ const localizer = momentLocalizer(moment);
 //     },
 //   });
 
-// const timeFormat = (time) => {
-//   const times = new moment(time).format("LT");
-//   if (times === "12:00 AM") return "Morning";
-//   if (times === "6:00 AM") return "Noon";
-//   if (times === "12:00 PM") return "Evening";
-//   if (times === "6:00 PM") return "Night";
-// };
+const timeFormat = (time) => {
+  const times = new moment(time).format("LT");
+  if (times === "12:00 AM") return "Morning";
+  if (times === "6:00 AM") return "Noon";
+  if (times === "12:00 PM") return "Evening";
+  if (times === "6:00 PM") return "Night";
+};
 
 const formats = {
   dayFormat: "dddd",
   weekdayFormat: "dddd",
-  // timeGutterFormat: timeFormat,
+  timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {
