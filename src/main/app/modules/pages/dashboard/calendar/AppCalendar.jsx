@@ -1,10 +1,12 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+
+import { getTimeTables } from "@shared/constants/get-time-tables";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -23,36 +25,44 @@ const localizer = momentLocalizer(moment);
 //     },
 //   });
 
-const timeFormat = (time) => {
-  const times = new moment(time).format("LT");
-  if (times === "12:00 AM") return "Morning";
-  if (times === "6:00 AM") return "Noon";
-  if (times === "12:00 PM") return "Evening";
-  if (times === "6:00 PM") return "Night";
-};
+// const timeFormat = (time) => {
+//   const times = new moment(time).format("LT");
+//   if (times === "12:00 AM") return "Morning";
+//   if (times === "6:00 AM") return "Noon";
+//   if (times === "12:00 PM") return "Evening";
+//   if (times === "6:00 PM") return "Night";
+// };
 
 const formats = {
   dayFormat: "dddd",
   weekdayFormat: "dddd",
-  timeGutterFormat: timeFormat,
+  // timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {
   const classes = useStyles();
+  const [timeTables, setTimeTables] = useState([]);
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      setTimeTables(await getTimeTables());
+    };
+    fetchStates();
+  }, []);
   return (
     <Paper className={classes.container}>
       <Calendar
         culture="en-GB"
-        events={[{}, {}]}
+        events={timeTables}
         defaultView="week"
         views={["month", "week", "day"]}
         step={60}
         showMultiDayTimes
         min={new Date(2020, 1, 0, 0, 0, 0)}
-        max={new Date(2020, 1, 0, 23, 59, 59)}
-        defaultDate={new Date(2015, 3, 1)}
+        max={new Date(2022, 1, 0, 23, 59, 59)}
+        defaultDate={new Date(2020, 11, 20)}
         localizer={localizer}
-        timeslots={6}
+        // timeslots={6}
         formats={formats}
       />
     </Paper>

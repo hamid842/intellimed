@@ -88,10 +88,10 @@ const MedicationItem = ({ medicine }) => {
       />
       <CardMedia className={classes.media} image={image} title={name} />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p" id="1">
           Issue Date: {dayjs(issueDate).format("YYYY-MM-DD HH:mm")}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p" id="2">
           Refill Time: {dayjs(refillTime).format("YYYY-MM-DD HH:mm")}
         </Typography>
       </CardContent>
