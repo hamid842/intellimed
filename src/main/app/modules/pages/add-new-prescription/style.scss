@@ -1,0 +1,18 @@
+my-vertical-cron .c-host {
+    display: flex;
+    flex-direction: row;
+    .c-tabs {
+        flex-direction: column;
+        border: 0;
+        border-right: 1px solid #ccc;
+        .c-tab {
+            text-align: left;
+            border: 0;
+            border-radius: 0;
+        }
+    }
+    .c-tab-content {
+        padding-top: 0.5rem;
+        padding-left: 1rem;
+    }
+}
