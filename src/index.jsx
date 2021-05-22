@@ -3,12 +3,16 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
+
 import App from "./App";
 import "./App.css";
 import configureStore from "@config/store";
 import ErrorBoundary from "@shared/error/error-boundary";
+import AxiosInterceptors from "@shared/axios-interceptors";
 
 const { store, persistor } = configureStore();
+
+AxiosInterceptors() ; 
 
 ReactDOM.render(
   <ErrorBoundary>
