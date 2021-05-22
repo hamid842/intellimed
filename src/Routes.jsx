@@ -35,8 +35,8 @@ const Patient = Loadable({
   loading: () => <AppLoading />,
 });
 
-const Doctors = Loadable({
-  loader: () => import("@pages/doctors/Doctors"),
+const Prescriber = Loadable({
+  loader: () => import("@pages/prescriber/Prescriber"),
   loading: () => <AppLoading />,
 });
 
@@ -51,16 +51,12 @@ const Routes = () => (
       <ErrorBoundaryRoute exact path="/" component={Login} />
       <ErrorBoundaryRoute exact path="/login" component={Login} />
       <Layout>
-        <ErrorBoundaryRoute exact path="/dashboard" component={Dashboard} />
-        <ErrorBoundaryRoute
-          exact
-          path="/add-new-prescription"
-          component={NewPrescription}
-        />
-        <ErrorBoundaryRoute exact path="/profile" component={Profile} />
         <ErrorBoundaryRoute exact path="/patient" component={Patient} />
+        <ErrorBoundaryRoute exact path="/profile" component={Profile} />
+        <ErrorBoundaryRoute exact path="/dashboard" component={Dashboard} />
+        <ErrorBoundaryRoute exact path="/prescriber" component={Prescriber} />
         <ErrorBoundaryRoute exact path="/prescription" component={Prescription} />
-        <ErrorBoundaryRoute exact path="/doctors" component={Doctors} />
+        <ErrorBoundaryRoute exact path="/add-new-prescription" component={NewPrescription} />
       </Layout>
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>

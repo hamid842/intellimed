@@ -54,13 +54,13 @@ const AppCalendar = () => {
       <Calendar
         culture="en-GB"
         events={timeTables}
-        defaultView="week"
+        defaultView="month"
         views={["month", "week", "day"]}
         step={60}
         showMultiDayTimes
-        min={new Date(2020, 1, 0, 0, 0, 0)}
-        max={new Date(2022, 1, 0, 23, 59, 59)}
-        defaultDate={new Date(2020, 11, 20)}
+        //min={new Date(2021, 1, 1, 0, 0, 0)}
+        // max={new Date(2022, 1, 0, 23, 59, 59)}
+        defaultDate={new Date()}
         localizer={localizer}
         // timeslots={6}
         formats={formats}

@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 
+import CustomCron from "./CustomCron"
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -53,6 +55,7 @@ export default function FullWidthTabs() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -102,6 +105,8 @@ export default function FullWidthTabs() {
           <TextField variant="outlined" size="small" label="Medicine Name" />
         </TabPanel>
       </SwipeableViews>
+      <CustomCron></CustomCron>
+
     </div>
   );
 }

@@ -76,22 +76,22 @@ const MenuList = () => {
           </ListItemIcon>
           <ListItemText primary="Prescription" />
         </ListItem>
-        {/* Doctors */}
+        {/* Prescriber */}
         <ListItem
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/doctors");
+            history.push("/prescriber");
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Doctors">
+            <Tooltip title="Prescriber">
               <span>
                 <GiDoctorFace size={24} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Doctors" />
+          <ListItemText primary="Prescriber" />
         </ListItem>
         {/* Prescription */}
         <ListItem

@@ -6,7 +6,7 @@ const getTimeTablesApi = process.env.REACT_APP_GET_TIME_TABLES;
 
 export const getTimeTables = async () => {
   let instance = axios.create();
-  delete instance.defaults.headers.common["Authorization"];
+    
   try {
     const { data } = await instance(getTimeTablesApi);
 
