@@ -15,11 +15,11 @@ const Medication = () => {
   }, []);
   return (
     <Grid container spacing={2}>
-      {medicines.map((item, i) => (
+      {/* {medicines.map((item, i) => (
         <Grid item xs={12} sm={4} lg={4}>
           <MedicationItem key={i} medicine={item} />
         </Grid>
-      ))}
+      ))} */}
     </Grid>
   );
 };

@@ -58,23 +58,23 @@ const MenuList = () => {
           </ListItemIcon>
           <ListItemText primary="Patient" />
         </ListItem>
-        {/* Medication */}
+        {/* Prescription */}
         <ListItem
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/medication");
+            history.push("/prescription");
             //   handleDrawerOpen();
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Medication">
+            <Tooltip title="Prescription">
               <span>
                 <AiFillMedicineBox size={24} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Medication" />
+          <ListItemText primary="Prescription" />
         </ListItem>
         {/* Doctors */}
         <ListItem
@@ -102,13 +102,13 @@ const MenuList = () => {
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Prescription">
+            <Tooltip title="Add a new Prescription">
               <span>
                 <FaPrescription size={24} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Prescription" />
+          <ListItemText primary="Add a new Prescription" />
         </ListItem>
         {/* Profile */}
         <ListItem
