@@ -30,6 +30,11 @@ const Profile = Loadable({
   loading: () => <AppLoading />,
 });
 
+const Patient = Loadable({
+  loader: () => import("@pages/patient/Patient"),
+  loading: () => <AppLoading />,
+});
+
 const Doctors = Loadable({
   loader: () => import("@pages/doctors/Doctors"),
   loading: () => <AppLoading />,
@@ -53,6 +58,7 @@ const Routes = () => (
           component={NewPrescription}
         />
         <ErrorBoundaryRoute exact path="/profile" component={Profile} />
+        //TODO <ErrorBoundaryRoute exact path="/patient" component={Patient} />
         <ErrorBoundaryRoute exact path="/medication" component={Medication} />
         <ErrorBoundaryRoute exact path="/doctors" component={Doctors} />
       </Layout>

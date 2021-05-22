@@ -33,30 +33,30 @@ const MenuList = () => {
               <span>
                 <DashboardIcon
                   className={classes.icon}
-                  //   onClick={handleDrawerOpen}
+                //   onClick={handleDrawerOpen}
                 />
               </span>
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        {/* Profile */}
+        {/* Patient */}
         <ListItem
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/profile");
+            history.push("/patient");
             //   handleDrawerOpen();
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Profile">
+            <Tooltip title="Patient">
               <span>
                 <PersonIcon className={classes.icon} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText primary="Patient" />
         </ListItem>
         {/* Medication */}
         <ListItem
@@ -109,6 +109,24 @@ const MenuList = () => {
             </Tooltip>
           </ListItemIcon>
           <ListItemText primary="Prescription" />
+        </ListItem>
+        {/* Profile */}
+        <ListItem
+          button
+          className={classes.menu}
+          onClick={() => {
+            history.push("/profile");
+            //   handleDrawerOpen();
+          }}
+        >
+          <ListItemIcon>
+            <Tooltip title="Profile">
+              <span>
+                <PersonIcon className={classes.icon} />
+              </span>
+            </Tooltip>
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
         </ListItem>
         {/* Logout */}
         <ListItem

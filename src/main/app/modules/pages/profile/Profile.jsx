@@ -7,8 +7,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { useSnackbar } from "notistack";
 
 import { formLabelsTheme } from "@shared/constants/formLabelsTheme";
-import GeneralInfo from "./GeneralInfo";
-import SpecialInfo from "./SpecialInfo";
+import ProfileGeneralInfo from "./ProfileGeneralInfo";
+import ProfileExtraInfo from "./ProfileExtraInfo";
+import ProfileMobileDevicesInfo from "./ProfileMobileDevicesInfo";
+
 import AppButton from "@components/AppButton";
 import UploadButton from "@components/UploadButton";
 import axios from "axios";
@@ -26,91 +28,99 @@ const createPatientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
 
 const Profile = () => {
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
-  const [patientInfo, setPatientInfo] = useState({
-    firstName: "",
-    lastName: "",
-    birthDate: null,
-    address: "",
-    age: "",
-    weight: "",
-    height: "",
-    phoneNumber1: null,
-    phoneNumber2: null,
-    bloodType: "",
+  // const { enqueueSnackbar } = useSnackbar();
+  // const [loading, setLoading] = useState(false);
+  const [profileInfo, setProfileInfo] = useState({
+    login: "admin",
+    firstName: "Administrator",
+    lastName: "Administrator",
+    email: "admin@localhost",
+    imageUrl: "",
+    activated: true,
+    userCode: "0001",
+    phoneNumber1: "11231234567",
+    phoneNumber2: "11231234567",
+    address: "LA",
+    deviceInfos: [
+      { name: "samsung", os: "android", deviceId: "1", },
+      { name: "iphone", os: "ios", deviceId: "2", },
+    ],
   });
 
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
-    setPatientInfo({ ...patientInfo, [name]: value });
-  };
-
-  const handleChangeDate = (date) => {
-    setPatientInfo({ ...patientInfo, birthDate: date });
+    setProfileInfo({ ...profileInfo, [name]: value });
   };
 
   const handleChangePhone = (name, value) => {
-    setPatientInfo({ ...patientInfo, [name]: "+" + value });
+    setProfileInfo({ ...profileInfo, [name]: "+" + value });
   };
 
-  const handleCreatePatientInfo = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    axios
-      .post(createPatientInfosApi, patientInfo)
-      .then((res) => {
-        if (res.status === 200 || 201) {
-          enqueueSnackbar("Profile is created successfully.", {
-            variant: "success",
-          });
-          setPatientInfo({
-            firstName: "",
-            lastName: "",
-            birthDate: null,
-            address: "",
-            age: "",
-            weight: "",
-            height: "",
-            phoneNumber1: null,
-            phoneNumber2: null,
-            bloodType: "",
-          });
-          console.log(res.data);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
-  };
+  // const handleCreatePatientInfo = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   axios
+  //     .post(createPatientInfosApi, patientInfo)
+  //     .then((res) => {
+  //       if (res.status === 200 || 201) {
+  //         enqueueSnackbar("Profile is created successfully.", {
+  //           variant: "success",
+  //         });
+  //         setPatientInfo({
+  //           firstName: "",
+  //           lastName: "",
+  //           birthDate: null,
+  //           address: "",
+  //           age: "",
+  //           weight: "",
+  //           height: "",
+  //           phoneNumber1: null,
+  //           phoneNumber2: null,
+  //           bloodType: "",
+  //         });
+  //         console.log(res.data);
+  //         setLoading(false);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       setLoading(false);
+  //       console.log(err.response);
+  //     });
+  // };
   return (
     <Box className={classes.box}>
       <ThemeProvider theme={formLabelsTheme}>
-        <form onSubmit={handleCreatePatientInfo}>
+        <form //onSubmit={handleCreatePatientInfo}
+        >
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4} lg={4}>
-              <GeneralInfo
-                data={patientInfo}
+              <ProfileGeneralInfo
+                data={profileInfo}
                 onChange={handleChange}
-                handleChangeDate={handleChangeDate}
-                handleChangePhone={handleChangePhone}
               />
             </Grid>
             <Grid item xs={12} sm={4} lg={4}>
-              <SpecialInfo data={patientInfo} onChange={handleChange} />
+              <ProfileExtraInfo
+                data={profileInfo}
+                onChange={handleChange}
+              />
             </Grid>
             <Grid item xs={12} sm={4} lg={4}>
+              <ProfileMobileDevicesInfo
+                data={profileInfo}
+                onChange={handleChange}
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={4} lg={4}>
               <Grid container>
                 <Grid item xs={12} sm={12} lg={12} className="text-center">
                   <UploadButton />
                 </Grid>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Grid>
-          <Grid container spacing={1}>
+          {/* <Grid container spacing={1}>
             <Grid item xs={12} sm={12} lg={12} className="text-right">
               <AppButton
                 type="submit"
@@ -127,7 +137,7 @@ const Profile = () => {
                 }
               />
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </ThemeProvider>
     </Box>
