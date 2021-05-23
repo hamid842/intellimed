@@ -1,21 +1,27 @@
-import React, { useState } from "react";
-import { ReCron, Tab } from "@sbzen/re-cron";
-import "./style.scss";
+import React, { useEffect, useState } from "react";
+import Cron from "react-js-cron";
+
+
+import "./style.css";
+
 
 const CustomCron = () => {
-  const [cronValue, setCronValue] = useState("");
+
+  const defaultValue = '*/7 */2 */3 * *'
+  const [value, setValue] = useState(defaultValue)
+
   return (
-    <>
-      <div className="py-2">
-        <b>Cron Value: </b>
-        <code>{cronValue}</code>
+    <div>
+      <p>Default value: {defaultValue}</p>
+      <p>Value: {value}</p>
+      <Cron value={value} setValue={setValue} />
+      <div>
+        <span style={{ fontSize: 12 }}>
+          The first value will always be used as default value
+          </span>
       </div>
-      <ReCron
-        tabs={[Tab.MINUTES, Tab.HOURS, Tab.DAY, Tab.MONTH]}
-        value={cronValue}
-        onChange={(value) => setCronValue(value)}
-      />
-    </>
-  );
-};
+    </div>
+  )
+}
+
 export default CustomCron;
