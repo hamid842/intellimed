@@ -22,41 +22,40 @@ const initialState = {
 };
 
 // Actions
-export const login = (username, password, rememberMe, toast) => async (
-  dispatch
-) => {
-  dispatch({ type: TOGGLE_LOAD });
-  const requestBody = {
-    username,
-    password,
-    rememberMe,
-  };
+export const login =
+  (username, password, rememberMe, toast) => async (dispatch) => {
+    dispatch({ type: TOGGLE_LOAD });
+    const requestBody = {
+      username,
+      password,
+      rememberMe,
+    };
 
-  var instance = axios.create();
-  delete instance.defaults.headers.common["Authorization"];
-  await instance
-    .post(loginApi, requestBody)
-    .then((response) => {
-      const status = response?.status;
-      if (status === 200 || 201) {
-        localStorage.setItem("token", response.data.id_token);
-        dispatch({
-          type: LOGIN,
-          payload: response,
-        });
+    var instance = axios.create();
+    delete instance.defaults.headers.common["Authorization"];
+    await instance
+      .post(loginApi, requestBody)
+      .then((response) => {
+        const status = response?.status;
+        if (status === 200 || 201) {
+          localStorage.setItem("token", response.data.id_token);
+          dispatch({
+            type: LOGIN,
+            payload: response,
+          });
+          dispatch({ type: TOGGLE_LOAD });
+          history.push("/dashboard");
+        }
+      })
+      .catch((err) => {
         dispatch({ type: TOGGLE_LOAD });
-        history.push("/dashboard");
-      }
-    })
-    .catch((err) => {
-      dispatch({ type: TOGGLE_LOAD });
-      if (err) {
-        toast(err.response?.data?.detail, { variant: "error" });
-      } else {
-        toast("Something went wrong!", { variant: "error" });
-      }
-    });
-};
+        if (err) {
+          toast(err.response?.data?.detail, { variant: "error" });
+        } else {
+          toast("Something went wrong!", { variant: "error" });
+        }
+      });
+  };
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
   dispatch({
@@ -77,7 +76,6 @@ export default (state = initialState, action) => {
     }
     case LOGIN: {
       const status = action.payload.status === 200 || 201;
-
       return {
         ...state,
         status,

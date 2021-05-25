@@ -53,7 +53,8 @@ const AppCalendar = () => {
     <Paper className={classes.container}>
       <Calendar
         culture="en-GB"
-        events={timeTables}
+        // events={timeTables}
+        events={([], [])}
         defaultView="month"
         views={["month", "week", "day"]}
         step={60}
