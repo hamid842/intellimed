@@ -1,27 +1,36 @@
-import { Grid, Typography } from "@material-ui/core";
+import { useState } from "react";
+import MaterialTable from "material-table";
 
-const Devices = ({ accountInfo }) => {
+const Devices = ({ id }) => {
+  const [columns] = useState([
+    { title: "Device Name", field: "name" },
+    { title: "Divise OS", field: "surname" },
+    { title: "Device ID", field: "birthYear" },
+  ]);
   return (
-    <Grid container>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">Device Name:</Typography>
-      </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.name}</Typography>
-      </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">OS:</Typography>
-      </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.os}</Typography>
-      </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">Devise ID:</Typography>
-      </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.deviceId}</Typography>
-      </Grid>
-    </Grid>
+    <MaterialTable
+      columns={columns}
+      options={{
+        toolbar: false,
+        emptyRowsWhenPaging: false,
+        paging: false,
+        actionsColumnIndex: -1,
+      }}
+      actions={[
+        {
+          icon: "save",
+          tooltip: "Save User",
+          // onClick: (event, rowData) => alert("You saved " + rowData.name),
+        },
+        (rowData) => ({
+          icon: "delete",
+          tooltip: "Delete User",
+          // onClick: (event, rowData) =>
+          //   confirm("You want to delete " + rowData.name),
+          // disabled: rowData.birthYear < 2000,
+        }),
+      ]}
+    />
   );
 };
 

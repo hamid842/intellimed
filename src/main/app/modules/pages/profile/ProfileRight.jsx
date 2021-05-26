@@ -33,7 +33,7 @@ const ProfileRight = ({ accountInfo }) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} lg={12} className="mt-3 mb-3">
-          <Devices />
+          <Devices id={accountInfo?.id} />
         </Grid>
       </Grid>
     </>

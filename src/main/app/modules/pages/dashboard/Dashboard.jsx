@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import AppCalendar from "@pages/dashboard/calendar/AppCalendar";
-import CurrentMedication from "@pages/dashboard/recent-prescription/RecentPrescription";
+// import CurrentMedication from "@pages/dashboard/recent-prescription/RecentPrescription";
 
 const Dashboard = () => {
   return (

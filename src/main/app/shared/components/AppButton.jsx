@@ -25,7 +25,7 @@ const AppButton = ({
       },
       borderRadius: 50,
       textTransform: "capitalize",
-      fontSize: 18,
+      fontSize: 16,
     },
   }))(Button);
 

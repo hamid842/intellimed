@@ -146,7 +146,7 @@
 
 // export default Profile;
 import { useState, useEffect } from "react";
-import { Paper, Grid, Typography } from "@material-ui/core";
+import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -154,6 +154,8 @@ import axios from "axios";
 import colors from "@config/colors";
 import ProfileLeft from "./ProfileLeft";
 import ProfileRight from "./ProfileRight";
+import EditProfile from "./EditProfile";
+import ResetPass from "./ResetPass";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -172,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    placeItems: "center",
     textAlign: "center",
     justifyContent: "center",
     backgroundColor: colors.mainBlue,
@@ -181,13 +184,16 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
 }));
-
+// Endpoints
+const getDevicesListApi = process.env.REACT_APP_GET_DEVICES_LIST_API;
 const getAccountInfoApi = process.env.REACT_APP_ACCOUNT_API;
 
 const Profile = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [accountInfo, setAccountInfo] = useState();
+  const [editProfile, setEditProfile] = useState(false);
+  const [showResetPass, setShowResetPass] = useState(false);
 
   const getAccountInfo = async () => {
     await axios(getAccountInfoApi)
@@ -203,8 +209,15 @@ const Profile = () => {
       });
   };
 
+  const getDevicesList = async () => {
+    axios(`${getDevicesListApi}/${accountInfo.id}`).then((res) =>
+      console.log(res.data)
+    );
+  };
+
   useEffect(() => {
     getAccountInfo();
+    getDevicesList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -212,10 +225,25 @@ const Profile = () => {
     <Paper elevation={3} className={classes.container}>
       <Grid container>
         <Grid item xs={12} sm={4} lg={4} className={classes.left}>
-          <ProfileLeft accountInfo={accountInfo} />
+          <ProfileLeft
+            accountInfo={accountInfo}
+            editProfile={editProfile}
+            setEditProfile={setEditProfile}
+            showResetPass={showResetPass}
+            setShowResetPass={setShowResetPass}
+          />
         </Grid>
         <Grid item xs={12} sm={8} lg={8} className={classes.right}>
-          <ProfileRight accountInfo={accountInfo} />
+          {editProfile && (
+            <EditProfile
+              accountInfo={accountInfo}
+              setEditProfile={setEditProfile}
+            />
+          )}
+          {showResetPass && <ResetPass setShowResetPass={setShowResetPass} />}
+          {!editProfile && !showResetPass && (
+            <ProfileRight accountInfo={accountInfo} />
+          )}
         </Grid>
       </Grid>
     </Paper>

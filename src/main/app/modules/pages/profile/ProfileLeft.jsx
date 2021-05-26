@@ -31,8 +31,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ProfileLeft = ({ accountInfo }) => {
+const ProfileLeft = ({
+  accountInfo,
+  setEditProfile,
+  editProfile,
+  showResetPass,
+  setShowResetPass,
+}) => {
   const classes = useStyles();
+
+  const handleClickEditProfile = () => {
+    setShowResetPass(false);
+    setEditProfile(!editProfile);
+  };
+
+  const handleClickResetPass = () => {
+    setEditProfile(false);
+    setShowResetPass(!showResetPass);
+  };
+
   return (
     <>
       <img src={hamid} alt="ProfileImage" className={classes.image} />
@@ -41,12 +58,12 @@ const ProfileLeft = ({ accountInfo }) => {
       </Typography>
       <Typography className={classes.email}>{accountInfo?.email}</Typography>
       <div className={classes.iconsContainer}>
-        <IconButton>
+        <IconButton onClick={handleClickEditProfile}>
           <Tooltip title="Edit Profile">
             <EditIcon className={classes.icons} />
           </Tooltip>
         </IconButton>
-        <IconButton>
+        <IconButton onClick={handleClickResetPass}>
           <Tooltip title="Reset Password">
             <LockIcon className={classes.icons} />
           </Tooltip>

@@ -16,6 +16,7 @@
     "bootstrap": "^5.0.1",
     "date-fns": "^2.20.1",
     "dayjs": "^1.10.4",
+    "material-table": "^1.69.3",
     "moment": "^2.29.1",
     "notistack": "^1.0.5",
     "react": "^16.8.0",

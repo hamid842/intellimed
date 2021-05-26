@@ -19,6 +19,7 @@ const PhoneNumber = ({ name, label, value, onChange }) => {
         }}
         inputStyle={{
           width: "100%",
+          height: 45,
           backgroundColor: "transparent",
           // borderColor: "#2e3191",
         }}

@@ -1,17 +1,11 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import { Button } from "@material-ui/core";
-// import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import image from "@images/images.png";
+import { Button } from "@material-ui/core";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles(() => ({
   input: {
+    width: 0,
     display: "none",
-  },
-  image: {
-    width: "70%",
-    borderRadius: 10,
-    cursor: "pointer",
   },
 }));
 
@@ -19,7 +13,6 @@ const UploadButton = ({ title, handleChange }) => {
   const classes = useStyles();
   return (
     <>
-      <h5>Profile Image</h5>
       <input
         accept="image/*"
         className={classes.input}
@@ -28,15 +21,15 @@ const UploadButton = ({ title, handleChange }) => {
         onChange={handleChange}
       />
       <label htmlFor="contained-button-file">
-        {/* <Button
-          style={{ height: "40px" }}
+        <Button
+          fullWidth
+          style={{ height: 45 }}
           variant="outlined"
           component="span"
           startIcon={<CloudUploadIcon />}
         >
           {title}
-        </Button> */}
-        <img src={image} alt="Images" className={classes.image} />
+        </Button>
       </label>
     </>
   );

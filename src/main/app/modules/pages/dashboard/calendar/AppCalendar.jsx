@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import "./style.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { Paper } from "@material-ui/core";
@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import { getTimeTables } from "@shared/constants/get-time-tables";
+// import { getTimeTables } from "@shared/constants/get-time-tables";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -41,14 +41,14 @@ const formats = {
 
 const AppCalendar = () => {
   const classes = useStyles();
-  const [timeTables, setTimeTables] = useState([]);
+  // const [timeTables, setTimeTables] = useState([]);
 
-  useEffect(() => {
-    const fetchStates = async () => {
-      setTimeTables(await getTimeTables());
-    };
-    fetchStates();
-  }, []);
+  // useEffect(() => {
+  //   const fetchStates = async () => {
+  //     setTimeTables(await getTimeTables());
+  //   };
+  //   fetchStates();
+  // }, []);
   return (
     <Paper className={classes.container}>
       <Calendar
