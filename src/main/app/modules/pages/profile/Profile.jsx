@@ -210,7 +210,7 @@ const Profile = () => {
   };
 
   const getDevicesList = async () => {
-    axios(`${getDevicesListApi}/${accountInfo.id}`).then((res) =>
+    axios(`${getDevicesListApi}/${accountInfo?.id}`).then((res) =>
       console.log(res.data)
     );
   };

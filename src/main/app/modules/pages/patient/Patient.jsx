@@ -101,18 +101,18 @@ const Patient = () => {
       <ThemeProvider theme={formLabelsTheme}>
         <form onSubmit={handleCreatePatientInfo}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={4} lg={4}>
+            <Grid item xs={12} sm={12} lg={12}>
               <PatientGeneralInfo
                 data={patientInfo}
                 onChange={handleChange}
                 handleChangeDate={handleChangeDate}
                 handleChangePhone={handleChangePhone}
               />
-            </Grid>           
-            <Grid item xs={12} sm={4} lg={4}>
+            </Grid>
+            <Grid item xs={12} sm={12} lg={12}>
               <Grid container>
                 <Grid item xs={12} sm={12} lg={12} className="text-center">
-                  <UploadButton />
+                  <UploadButton title="Upload image" />
                 </Grid>
               </Grid>
             </Grid>

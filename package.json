@@ -8,7 +8,7 @@
     "@fullcalendar/interaction": "^5.4.0",
     "@fullcalendar/react": "^5.4.0",
     "@fullcalendar/timegrid": "^5.4.0",
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/pickers": "^3.2.10",
     "@sbzen/re-cron": "^1.0.1",

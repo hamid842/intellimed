@@ -34,7 +34,7 @@ const PatientGeneralInfo = ({
   } = data;
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="firstName"
@@ -43,7 +43,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="lastName"
@@ -52,7 +52,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="id"
@@ -61,15 +61,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
-        <AppTextField
-          name="address"
-          label="Address"
-          value={address}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             fullWidth
@@ -92,8 +84,16 @@ const PatientGeneralInfo = ({
           />
         </MuiPickersUtilsProvider>
       </Grid>
-
       <Grid item xs={12} sm={12} lg={12}>
+        <AppTextField
+          name="address"
+          label="Address"
+          value={address}
+          onChange={onChange}
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} lg={6}>
         <PhoneInput
           name="phoneNumber1"
           label="Phone Number 1"
@@ -101,23 +101,23 @@ const PatientGeneralInfo = ({
           onChange={(phone) => handleChangePhone("phoneNumber1", phone)}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <PhoneInput
           name="phoneNumber2"
           label="Phone Number 2"
           value={phoneNumber2}
           onChange={(phone) => handleChangePhone("phoneNumber2", phone)}
         />
-      </Grid>   
-      <Grid item xs={12} sm={12} lg={12}>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           name="email"
           label="email"
           value={email}
           onChange={onChange}
         />
-      </Grid>   
-      <Grid item xs={12} sm={12} lg={12}>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           type="number"
@@ -127,7 +127,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           type="number"
@@ -138,7 +138,7 @@ const PatientGeneralInfo = ({
           endAdornment="Kg"
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           type="number"
@@ -149,7 +149,7 @@ const PatientGeneralInfo = ({
           endAdornment="Cm"
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="bloodType"
@@ -158,7 +158,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="maritalStatus"
@@ -167,7 +167,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           required
           name="relationshipWithUser"
@@ -176,7 +176,7 @@ const PatientGeneralInfo = ({
           onChange={onChange}
         />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AppTextField
           name="patientImageUrl"
           label="Image"
