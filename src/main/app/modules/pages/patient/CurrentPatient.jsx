@@ -16,23 +16,7 @@ const useStyles = makeStyles(() => ({
 
 const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
   const classes = useStyles();
-  const {
-    firstName,
-    lastName,
-    birthDate,
-    idNo,
-    maritalStatus,
-    phoneNumber1,
-    phoneNumber2,
-    age,
-    height,
-    weight,
-    bloodType,
-    relationshipWithUser,
-    address,
-    email,
-    patientImageUrl,
-  } = patientInfo;
+
   return (
     <>
       <Grid container spacing={3}>
@@ -41,7 +25,7 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} lg={12}>
               <img
-                src={hamid || patientImageUrl}
+                src={hamid || patientInfo?.patientImageUrl}
                 alt="Pic"
                 className={classes.image}
               />
@@ -73,61 +57,69 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
               <Typography variant="subtitle2">First Name:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{firstName}</Typography>
+              <Typography variant="body2">{patientInfo?.firstName}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Last Name:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{lastName}</Typography>
+              <Typography variant="body2">{patientInfo?.lastName}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Birth Date:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{birthDate}</Typography>
+              <Typography variant="body2">{patientInfo?.birthDate}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Email:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{email}</Typography>
+              <Typography variant="body2">{patientInfo?.email}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">ID No.:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{idNo}</Typography>
+              <Typography variant="body2">{patientInfo?.idNo}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Marital Status:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{maritalStatus}</Typography>
+              <Typography variant="body2">
+                {patientInfo?.maritalStatus}
+              </Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Phone Number:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{phoneNumber1}</Typography>
+              <Typography variant="body2">
+                {patientInfo?.phoneNumber1}
+              </Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Mobile Number:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{phoneNumber2}</Typography>
+              <Typography variant="body2">
+                {patientInfo?.phoneNumber2}
+              </Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Relationship:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{relationshipWithUser}</Typography>
+              <Typography variant="body2">
+                {patientInfo?.relationshipWithUser}
+              </Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Address:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{address}</Typography>
+              <Typography variant="body2">{patientInfo?.address}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -138,25 +130,25 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
               <Typography variant="subtitle2">Age:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{age}</Typography>
+              <Typography variant="body2">{patientInfo?.age}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Height:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{height}</Typography>
+              <Typography variant="body2">{patientInfo?.height}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Weight:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{weight}</Typography>
+              <Typography variant="body2">{patientInfo?.weight}</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
               <Typography variant="subtitle2">Blood Type:</Typography>
             </Grid>
             <Grid item xs={6} sm={6} lg={6}>
-              <Typography variant="body2">{bloodType}</Typography>
+              <Typography variant="body2">{patientInfo?.bloodType}</Typography>
             </Grid>
           </Grid>
         </Grid>

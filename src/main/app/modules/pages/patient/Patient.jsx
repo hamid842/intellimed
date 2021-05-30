@@ -3,12 +3,12 @@ import { Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { connect } from "react-redux";
-import axios from "axios";
 
 import PatientGeneralInfo from "./PatientGeneralInfo";
 import AppButton from "@components/AppButton";
 import CurrentPatient from "./CurrentPatient";
 import colors from "@config/colors";
+import { getPatients } from "@shared/constants/get-patients";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -26,12 +26,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// Endpoints
-const getPatientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
-
 const Patient = ({ account }) => {
   const classes = useStyles();
-  const [patientInfo, setPatientInfo] = useState({});
+  const [patientInfo, setPatientInfo] = useState();
   const [editMode, setEditMode] = useState(false);
   const [addMode, setAddMode] = useState(false);
 
@@ -49,20 +46,11 @@ const Patient = ({ account }) => {
     setPatientInfo({ ...patientInfo, [name]: "+" + value });
   };
 
-  const getPatientInfo = async () => {
-    await axios(`${getPatientInfosApi}/${account?.id}`)
-      .then((res) => {
-        if (res.status === 200 || 201) {
-          setPatientInfo(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
-
   useEffect(() => {
-    getPatientInfo();
+    const fetchPatients = async () => {
+      setPatientInfo(await getPatients(account?.id));
+    };
+    fetchPatients();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

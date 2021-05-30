@@ -40,8 +40,8 @@ const Prescriber = Loadable({
   loading: () => <AppLoading />,
 });
 
-const Prescription = Loadable({
-  loader: () => import("@pages/prescription/Prescription"),
+const Prescriptions = Loadable({
+  loader: () => import("@pages/prescription/Prescriptions"),
   loading: () => <AppLoading />,
 });
 
@@ -55,8 +55,16 @@ const Routes = () => (
         <ErrorBoundaryRoute exact path="/profile" component={Profile} />
         <ErrorBoundaryRoute exact path="/dashboard" component={Dashboard} />
         <ErrorBoundaryRoute exact path="/prescriber" component={Prescriber} />
-        <ErrorBoundaryRoute exact path="/prescription" component={Prescription} />
-        <ErrorBoundaryRoute exact path="/add-new-prescription" component={NewPrescription} />
+        <ErrorBoundaryRoute
+          exact
+          path="/prescription"
+          component={Prescriptions}
+        />
+        <ErrorBoundaryRoute
+          exact
+          path="/add-new-prescription"
+          component={NewPrescription}
+        />
       </Layout>
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
