@@ -1,3 +1,5 @@
+import { memo } from "react";
+import { connect } from "react-redux";
 import { Typography, IconButton, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
@@ -32,7 +34,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProfileLeft = ({
-  accountInfo,
+  account,
   setEditProfile,
   editProfile,
   showResetPass,
@@ -54,9 +56,9 @@ const ProfileLeft = ({
     <>
       <img src={hamid} alt="ProfileImage" className={classes.image} />
       <Typography className={classes.name}>
-        {accountInfo?.firstName + " " + accountInfo?.lastName}
+        {account?.firstName + " " + account?.lastName}
       </Typography>
-      <Typography className={classes.email}>{accountInfo?.email}</Typography>
+      <Typography className={classes.email}>{account?.email}</Typography>
       <div className={classes.iconsContainer}>
         <IconButton onClick={handleClickEditProfile}>
           <Tooltip title="Edit Profile">
@@ -73,4 +75,8 @@ const ProfileLeft = ({
   );
 };
 
-export default ProfileLeft;
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+
+export default connect(mapStateToProps, {})(memo(ProfileLeft));

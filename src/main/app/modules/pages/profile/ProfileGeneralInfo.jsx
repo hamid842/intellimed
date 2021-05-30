@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
+import { connect } from "react-redux";
 import PersonIcon from "@material-ui/icons/Person";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
@@ -22,14 +23,14 @@ const useStyles = makeStyles(() => ({
 // Endpoints
 const getUserInfosApi = process.env.REACT_APP_GET_USER_INFOS_API;
 
-const ProfileGeneralInfo = ({ accountInfo }) => {
+const ProfileGeneralInfo = ({ account }) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [userInfos, setUserInfos] = useState();
 
   const getUserInfos = async () => {
-    accountInfo?.id &&
-      (await axios(`${getUserInfosApi}/${accountInfo?.id}`)
+    account?.id &&
+      (await axios(`${getUserInfosApi}/${account?.id}`)
         .then((res) => {
           if (res.status === 200 || 201) {
             setUserInfos(res.data);
@@ -44,7 +45,8 @@ const ProfileGeneralInfo = ({ accountInfo }) => {
 
   useEffect(() => {
     getUserInfos();
-  }, [accountInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Grid container alignItems="center">
@@ -53,28 +55,28 @@ const ProfileGeneralInfo = ({ accountInfo }) => {
         <Typography variant="subtitle2">First Name :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.firstName}</Typography>
+        <Typography variant="subtitle2">{account?.firstName}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className="d-flex">
         <PersonIcon className={classes.icons} />
         <Typography variant="subtitle2">Last Name :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.lastName}</Typography>
+        <Typography variant="subtitle2">{account?.lastName}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className="d-flex">
         <AlternateEmailIcon className={classes.icons} />
         <Typography variant="subtitle2">Email :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.email}</Typography>
+        <Typography variant="subtitle2">{account?.email}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className="d-flex">
         <HowToRegIcon className={classes.icons} />
         <Typography variant="subtitle2">Username :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{accountInfo?.username}</Typography>
+        <Typography variant="subtitle2">{account?.username}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className="d-flex">
         <HowToRegIcon className={classes.icons} />
@@ -108,4 +110,8 @@ const ProfileGeneralInfo = ({ accountInfo }) => {
   );
 };
 
-export default memo(ProfileGeneralInfo);
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+
+export default connect(mapStateToProps, {})(memo(ProfileGeneralInfo));

@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSnackbar } from "notistack";
-import axios from "axios";
 
 import colors from "@config/colors";
 import ProfileLeft from "./ProfileLeft";
@@ -37,41 +35,17 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
 }));
-// Endpoints
-const getAccountInfoApi = process.env.REACT_APP_ACCOUNT_API;
 
 const Profile = () => {
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
-  const [accountInfo, setAccountInfo] = useState({});
   const [editProfile, setEditProfile] = useState(false);
   const [showResetPass, setShowResetPass] = useState(false);
-
-  const getAccountInfo = async () => {
-    await axios(getAccountInfoApi)
-      .then((res) => {
-        if (res.status === 200 || 201) {
-          setAccountInfo(res.data);
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          enqueueSnackbar("Could not get account info!", { variant: "error" });
-        }
-      });
-  };
-
-  useEffect(() => {
-    getAccountInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Paper elevation={3} className={classes.container}>
       <Grid container>
         <Grid item xs={12} sm={4} lg={4} className={classes.left}>
           <ProfileLeft
-            accountInfo={accountInfo}
             editProfile={editProfile}
             setEditProfile={setEditProfile}
             showResetPass={showResetPass}
@@ -79,16 +53,9 @@ const Profile = () => {
           />
         </Grid>
         <Grid item xs={12} sm={8} lg={8} className={classes.right}>
-          {editProfile && (
-            <EditProfile
-              accountInfo={accountInfo}
-              setEditProfile={setEditProfile}
-            />
-          )}
+          {editProfile && <EditProfile setEditProfile={setEditProfile} />}
           {showResetPass && <ResetPass setShowResetPass={setShowResetPass} />}
-          {!editProfile && !showResetPass && (
-            <ProfileRight accountInfo={accountInfo} />
-          )}
+          {!editProfile && !showResetPass && <ProfileRight />}
         </Grid>
       </Grid>
     </Paper>

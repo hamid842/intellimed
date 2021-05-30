@@ -1,50 +1,39 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
-import CheckIcon from "@material-ui/icons/Check";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useSnackbar } from "notistack";
-
-import { formLabelsTheme } from "@shared/constants/formLabelsTheme";
-import PatientGeneralInfo from "./PatientGeneralInfo";
-
-import AppButton from "@components/AppButton";
-import UploadButton from "@components/UploadButton";
+import { memo, useState, useEffect } from "react";
+import { Grid, Paper, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+import { connect } from "react-redux";
 import axios from "axios";
 
+import PatientGeneralInfo from "./PatientGeneralInfo";
+import AppButton from "@components/AppButton";
+import CurrentPatient from "./CurrentPatient";
+import colors from "@config/colors";
+
 const useStyles = makeStyles(() => ({
-  box: {
+  container: {
+    borderRadius: 10,
     backgroundColor: "#fff",
     width: "100%",
     padding: 20,
   },
+  saveBtn: {
+    textAlign: "end",
+  },
+  header: {
+    borderBottom: "1px solid grey",
+    paddingBottom: 10,
+  },
 }));
 
 // Endpoints
-const createPatientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
+const getPatientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
 
-const Patient = () => {
+const Patient = ({ account }) => {
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
-  const [patientInfo, setPatientInfo] = useState({
-    firstName: "Lela",
-    lastName: "Abshire",
-    birthDate: "2021-05-14T00:44:13Z",
-    idNo: "Ergonomic",
-    address: "convergence Home",
-    phoneNumber1: "orchid",
-    phoneNumber2: "monitor XML",
-    email: "Kayley65@gmail.com",
-    height: 30179,
-    age: 34012,
-    weight: 49949,
-    bloodType: "B_n",
-    maritalStatus: "SINGLE",
-    relationshipWithUser: "Dynamic",
-    patientImageUrl: "overriding",
-  });
+  const [patientInfo, setPatientInfo] = useState({});
+  const [editMode, setEditMode] = useState(false);
+  const [addMode, setAddMode] = useState(false);
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -60,85 +49,78 @@ const Patient = () => {
     setPatientInfo({ ...patientInfo, [name]: "+" + value });
   };
 
-  const handleCreatePatientInfo = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    axios
-      .post(createPatientInfosApi, patientInfo)
+  const getPatientInfo = async () => {
+    await axios(`${getPatientInfosApi}/${account?.id}`)
       .then((res) => {
         if (res.status === 200 || 201) {
-          enqueueSnackbar("Profile is created successfully.", {
-            variant: "success",
-          });
-          setPatientInfo({
-            firstName: "",
-            lastName: "",
-            birthDate: null,
-            idNo: "",
-            address: "",
-            phoneNumber1: "null",
-            phoneNumber2: "null",
-            email: "",
-            height: null,
-            age: null,
-            weight: null,
-            bloodType: "",
-            maritalStatus: "",
-            relationshipWithUser: "",
-            patientImageUrl: "",
-          });
-          console.log(res.data);
-          setLoading(false);
+          setPatientInfo(res.data);
         }
       })
       .catch((err) => {
-        setLoading(false);
         console.log(err.response);
       });
   };
+
+  useEffect(() => {
+    getPatientInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <Box className={classes.box}>
-      <ThemeProvider theme={formLabelsTheme}>
-        <form onSubmit={handleCreatePatientInfo}>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} lg={12}>
-              <PatientGeneralInfo
-                data={patientInfo}
-                onChange={handleChange}
-                handleChangeDate={handleChangeDate}
-                handleChangePhone={handleChangePhone}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} lg={12}>
-              <Grid container>
-                <Grid item xs={12} sm={12} lg={12} className="text-center">
-                  <UploadButton title="Upload image" />
-                </Grid>
-              </Grid>
-            </Grid>
+    <Paper className={classes.container}>
+      <Grid
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.header}
+      >
+        <Grid item>
+          <Typography variant="h5" className={classes.title}>
+            Patient(s)
+          </Typography>
+        </Grid>
+        {!editMode && (
+          <Grid item>
+            <AppButton
+              label="Add New"
+              variant="outlined"
+              color={colors.mainBlue}
+              icon={<AddIcon />}
+              onClick={() => setAddMode(!addMode)}
+            />
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} lg={12} className="text-right">
-              <AppButton
-                type="submit"
-                label="save"
-                variant="outlined"
-                color="green"
-                width={100}
-                icon={
-                  loading ? (
-                    <CircularProgress size="18px" color="inherit" />
-                  ) : (
-                    <CheckIcon color="inherit" />
-                  )
-                }
-              />
-            </Grid>
+        )}
+      </Grid>
+      <Grid container spacing={1} className="mt-3">
+        {editMode || addMode ? (
+          <Grid item xs={12} sm={12} lg={12}>
+            <PatientGeneralInfo
+              data={patientInfo}
+              editMode={editMode}
+              setEditMode={setEditMode}
+              addMode={addMode}
+              setAddMode={setAddMode}
+              // onSubmit={handleCreatePatientInfo}
+              onChange={handleChange}
+              handleChangeDate={handleChangeDate}
+              handleChangePhone={handleChangePhone}
+            />
           </Grid>
-        </form>
-      </ThemeProvider>
-    </Box>
+        ) : (
+          <Grid item xs={12} sm={12} lg={12}>
+            <CurrentPatient
+              patientInfo={patientInfo}
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
+          </Grid>
+        )}
+      </Grid>
+    </Paper>
   );
 };
 
-export default Patient;
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+
+export default connect(mapStateToProps, {})(memo(Patient));

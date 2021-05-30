@@ -1,11 +1,12 @@
 import { memo, useState, useEffect } from "react";
+import { connect } from "react-redux";
 import MaterialTable from "material-table";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import axios from "axios";
 
 const getDevicesListApi = process.env.REACT_APP_GET_DEVICES_LIST_API;
 
-const Devices = ({ id }) => {
+const Devices = ({ account }) => {
   const [devices, setDevices] = useState();
   const [columns] = useState([
     { title: "Name", field: "name" },
@@ -14,7 +15,7 @@ const Devices = ({ id }) => {
   ]);
 
   const getDevicesList = async () => {
-    await axios(`${getDevicesListApi}/${id}`)
+    await axios(`${getDevicesListApi}/${account?.id}`)
       .then((res) => {
         if (res.status === 200 || 201) {
           setDevices(res.data);
@@ -31,7 +32,7 @@ const Devices = ({ id }) => {
     getDevicesList();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   const createTableData = (obj) => {
     const data = [];
@@ -63,4 +64,8 @@ const Devices = ({ id }) => {
   );
 };
 
-export default memo(Devices);
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+
+export default connect(mapStateToProps, {})(memo(Devices));

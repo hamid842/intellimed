@@ -7,10 +7,12 @@ import {
   LOGIN_FAILED,
   LOGOUT,
   TOGGLE_LOAD,
+  GET_ACCOUNT_INFO,
 } from "@shared/action-types/action-types";
 
 // Endpoints
 const loginApi = process.env.REACT_APP_LOGIN_API;
+const getAccountInfoApi = process.env.REACT_APP_ACCOUNT_API;
 
 // Initial state
 const initialState = {
@@ -25,6 +27,22 @@ const initialState = {
 export const login =
   (username, password, rememberMe, toast) => async (dispatch) => {
     dispatch({ type: TOGGLE_LOAD });
+    const getAccountInfo = async () => {
+      await axios(getAccountInfoApi)
+        .then((res) => {
+          if (res.status === 200 || 201) {
+            dispatch({
+              type: GET_ACCOUNT_INFO,
+              payload: res.data,
+            });
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            toast("Could not get account info!", { variant: "error" });
+          }
+        });
+    };
     const requestBody = {
       username,
       password,
@@ -45,6 +63,7 @@ export const login =
           });
           dispatch({ type: TOGGLE_LOAD });
           history.push("/dashboard");
+          getAccountInfo();
         }
       })
       .catch((err) => {
@@ -80,6 +99,12 @@ export default (state = initialState, action) => {
         ...state,
         status,
         errorMessage: "",
+      };
+    }
+    case GET_ACCOUNT_INFO: {
+      return {
+        ...state,
+        account: action.payload,
       };
     }
     case LOGIN_FAILED: {

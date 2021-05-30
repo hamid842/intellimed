@@ -1,39 +1,24 @@
-import { Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
 import ProfileGeneralInfo from "./ProfileGeneralInfo";
 import Devices from "./Devices";
-
-const useStyles = makeStyles(() => ({
-  titles: {
-    borderBottom: "1px solid black",
-  },
-  divider: {
-    color: "red",
-    height: 3,
-  },
-}));
+import Title from "@shared/components/Title";
 
 const ProfileRight = ({ accountInfo }) => {
-  const classes = useStyles();
   return (
     <>
       <Grid container>
         <Grid item xs={12} sm={12} lg={12}>
-          <Typography variant="h5" className={classes.titles}>
-            General Information
-          </Typography>
+          <Title title="General Information" />
         </Grid>
         <Grid item xs={12} sm={12} lg={12} className="mt-3 mb-3">
-          <ProfileGeneralInfo accountInfo={accountInfo} />
+          <ProfileGeneralInfo />
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>
-          <Typography variant="h5" className={classes.titles}>
-            Devices
-          </Typography>
+          <Title title="Devices" />
         </Grid>
         <Grid item xs={12} sm={12} lg={12} className="mt-3 mb-3">
-          <Devices id={accountInfo?.id} />
+          <Devices />
         </Grid>
       </Grid>
     </>
