@@ -57,7 +57,11 @@ const SignInContent = ({
             />
           </Grid>
           <Grid item xs={12} sm={12} lg={12}>
-            <PasswordField value={password} onChange={handleChange} />
+            <PasswordField
+              label="Password"
+              value={password}
+              onChange={handleChange}
+            />
           </Grid>
           <Grid item xs={12} sm={12} lg={12} className="text-left">
             <FormControlLabel

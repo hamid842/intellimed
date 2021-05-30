@@ -10,11 +10,13 @@ const AppTextField = ({
   value,
   type,
   endAdornment,
+  error,
 }) => {
   return (
     <TextField
       fullWidth
       type={type}
+      error={error}
       required={required}
       name={name}
       label={label}

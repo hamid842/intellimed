@@ -1,12 +1,45 @@
-import { useState } from "react";
+import { memo, useState, useEffect } from "react";
 import MaterialTable from "material-table";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import axios from "axios";
+
+const getDevicesListApi = process.env.REACT_APP_GET_DEVICES_LIST_API;
 
 const Devices = ({ id }) => {
+  const [devices, setDevices] = useState();
   const [columns] = useState([
-    { title: "Device Name", field: "name" },
-    { title: "Divise OS", field: "surname" },
-    { title: "Device ID", field: "birthYear" },
+    { title: "Name", field: "name" },
+    { title: "Model", field: "model" },
+    { title: "Serial No.", field: "serialNo" },
   ]);
+
+  const getDevicesList = async () => {
+    await axios(`${getDevicesListApi}/${id}`)
+      .then((res) => {
+        if (res.status === 200 || 201) {
+          setDevices(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          return;
+        }
+      });
+  };
+
+  useEffect(() => {
+    getDevicesList();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const createTableData = (obj) => {
+    const data = [];
+    if (obj) {
+      data.push(obj);
+    }
+    return data;
+  };
   return (
     <MaterialTable
       columns={columns}
@@ -16,22 +49,18 @@ const Devices = ({ id }) => {
         paging: false,
         actionsColumnIndex: -1,
       }}
+      icons={{
+        Delete: () => <DeleteOutlineIcon color="secondary" />,
+      }}
       actions={[
-        {
-          icon: "save",
-          tooltip: "Save User",
-          // onClick: (event, rowData) => alert("You saved " + rowData.name),
-        },
         (rowData) => ({
-          icon: "delete",
-          tooltip: "Delete User",
-          // onClick: (event, rowData) =>
-          //   confirm("You want to delete " + rowData.name),
-          // disabled: rowData.birthYear < 2000,
+          icon: "delete_outline",
+          tooltip: "Delete Device",
         }),
       ]}
+      data={createTableData(devices)}
     />
   );
 };
 
-export default Devices;
+export default memo(Devices);

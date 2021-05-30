@@ -13,6 +13,7 @@ const AppButton = ({
   icon,
   className,
   width,
+  disabled,
 }) => {
   const ColorButton = withStyles((theme) => ({
     root: {
@@ -37,6 +38,7 @@ const AppButton = ({
       onClick={onClick}
       startIcon={icon}
       className={className}
+      disabled={disabled}
     >
       {label}
     </ColorButton>

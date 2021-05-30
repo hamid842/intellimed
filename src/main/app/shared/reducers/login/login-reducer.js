@@ -16,9 +16,9 @@ const loginApi = process.env.REACT_APP_LOGIN_API;
 const initialState = {
   isAuthenticated: false,
   errorMessage: "",
+  account: {},
   status: false,
   loading: false,
-  name: "",
 };
 
 // Actions
@@ -39,7 +39,6 @@ export const login =
         const status = response?.status;
         if (status === 200 || 201) {
           localStorage.setItem("token", response.data.id_token);
-          console.log(response.data.id_token);
           dispatch({
             type: LOGIN,
             payload: response,

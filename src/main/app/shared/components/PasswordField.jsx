@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { memo, useState } from "react";
 
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-const PasswordField = ({ value, onChange }) => {
+const PasswordField = ({ label, value, onChange }) => {
   const [showPass, setShowPass] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -22,10 +22,12 @@ const PasswordField = ({ value, onChange }) => {
         size="small"
         required={true}
         type={showPass ? "text" : "password"}
+        style={{ width: "100%" }}
         value={value}
-        label="Password"
+        label={label}
         onChange={onChange}
         InputProps={{
+          fullWidth: true,
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
@@ -43,4 +45,4 @@ const PasswordField = ({ value, onChange }) => {
   );
 };
 
-export default PasswordField;
+export default memo(PasswordField);
