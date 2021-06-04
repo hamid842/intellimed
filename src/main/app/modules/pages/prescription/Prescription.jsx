@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PrescriptionDetail = ({ item, id }) => {
-  console.log(item);
   const classes = useStyles();
 
   const [sideEffects, setSideEffects] = useState();

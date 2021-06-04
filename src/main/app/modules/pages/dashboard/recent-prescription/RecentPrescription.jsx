@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/styles";
-import axios from "axios";
+import { connect } from "react-redux";
+import { getAllPrescription } from "@shared/constants/get-prescriptions";
 
 import MedicationItem from "./RecentPrescriptionItem";
 
@@ -23,23 +24,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// Endpoints
-const getCurrentMedicinesApi = process.env.REACT_APP_CURRENT_MEDICINES_INFOS;
-
-const CurrentMedication = () => {
+const CurrentMedication = ({ account }) => {
   const classes = useStyles();
 
-  const [medications, setMedications] = useState([]);
-
-  const getCurrentMedication = async () => {
-    axios(getCurrentMedicinesApi)
-      .then((res) => setMedications(res.data))
-      .catch((err) => console.log(err));
-  };
+  const [medications, setMedications] = useState(null);
 
   useEffect(() => {
-    getCurrentMedication();
+    const fetchPrescriptions = async () => {
+      setMedications(await getAllPrescription(account?.id));
+    };
+    fetchPrescriptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const medicines = [];
+  medicines.push(medications);
 
   return (
     <>
@@ -58,12 +57,16 @@ const CurrentMedication = () => {
             },
           }}
         >
-          {medications.map((item, i) => (
-            <MedicationItem key={i} medication={item} />
+          {medicines.map((item, i) => (
+            <MedicationItem key={i} medication={item} id={item?.id} />
           ))}
         </Carousel>
       </Paper>
     </>
   );
 };
-export default CurrentMedication;
+
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+export default connect(mapStateToProps, {})(CurrentMedication);
