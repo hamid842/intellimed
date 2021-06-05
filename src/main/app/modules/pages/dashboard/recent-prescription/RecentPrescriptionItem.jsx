@@ -36,19 +36,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MedicationItem = ({ medication, id }) => {
+const MedicationItem = ({ medication }) => {
   const classes = useStyles();
 
   const [sideEffect, setSideEffect] = useState(null);
 
   useEffect(() => {
     const fetchSideEffects = async () => {
-      setSideEffect(await getSideEffects(id));
+      if (medication?.id) {
+        setSideEffect(await getSideEffects(medication?.id));
+      }
     };
     fetchSideEffects();
+  }, [medication?.id]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       <Paper className={classes.container}>

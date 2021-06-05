@@ -9,7 +9,7 @@ const SideEffects = ({ medication: { sideEffects } }) => {
       </Grid>
       <Grid item xs={12} sm={12} lg={12}>
         {sideEffects?.map((item, i) => (
-          <Typography>-{item}</Typography>
+          <Typography variant="body2">-{item}</Typography>
         ))}
       </Grid>
     </Grid>

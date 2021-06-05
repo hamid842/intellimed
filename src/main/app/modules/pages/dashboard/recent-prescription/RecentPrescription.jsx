@@ -58,7 +58,7 @@ const CurrentMedication = ({ account }) => {
           }}
         >
           {medicines.map((item, i) => (
-            <MedicationItem key={i} medication={item} id={item?.id} />
+            <MedicationItem key={i} medication={item} />
           ))}
         </Carousel>
       </Paper>

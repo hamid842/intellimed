@@ -1,119 +1,70 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  CardMedia,
   Typography,
-  Tooltip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Barcode from "react-barcode";
 import dayjs from "dayjs";
 
-import image from "@images/atorvastatin.jpg";
-import { getSideEffects } from "@shared/constants/get-sideEffects";
+// import { getSideEffects } from "@shared/constants/get-sideEffects";
+import PrescriptionItem from "./PrescriptionItem";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "90%",
-  },
-  name: {
-    fontSize: 18,
-    width: 200,
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-  subheader: {
-    fontSize: 15,
-  },
+const useStyles = makeStyles(() => ({}));
 
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
-
-const PrescriptionDetail = ({ item, id }) => {
+const PrescriptionDetail = ({ prescription }) => {
   const classes = useStyles();
 
-  const [sideEffects, setSideEffects] = useState();
+  // const [sideEffects, setSideEffects] = useState();
 
-  useEffect(() => {
-    const fetchSideEffects = async () => {
-      setSideEffects(await getSideEffects(id));
-    };
-    fetchSideEffects();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   const fetchSideEffects = async () => {
+  //     if (prescription?.id) {
+  //       setSideEffects(await getSideEffects(prescription?.id));
+  //     }
+  //   };
+  //   fetchSideEffects();
+  // }, [prescription?.id]);
 
   return (
-    <Grid container spacing={2} className="mt-2">
-      <Grid xs={12} sm={4} lg={4}>
-        <Card className={classes.root}>
-          <CardHeader
-            title={
-              <Tooltip title={item?.prescriptionCode}>
-                <div className={classes.name}>{item?.prescriptionCode}</div>
-              </Tooltip>
-            }
-            subheader={item?.usageDescription}
-            classes={{ subheader: classes.subheader }}
-          />
-          <CardMedia
-            className={classes.media}
-            image={image}
-            title={item?.prescriptionCode}
-          />
-          <CardContent>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              id="1"
-            >
-              Promised: {dayjs(item?.issueDate).format("YYYY-MM-DD HH:mm")}
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Grid container alignItems="center" spacing={2}>
+          <Grid item xs={12} sm={5} lg={5}>
+            <Barcode
+              value={prescription?.barCode}
+              width={0.7}
+              height={30}
+              fontSize={14}
+              background="transparent"
+            />
+          </Grid>
+          <Grid item xs={12} sm={3} lg={3}>
+            <Typography variant="body2">
+              <strong>Name: </strong>
+              {prescription?.prescriptionCode}
             </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              id="2"
-            >
-              Refill Time: {dayjs(item?.refillTime).format("YYYY-MM-DD HH:mm")}
+          </Grid>
+          <Grid item xs={12} sm={3} lg={3}>
+            <Typography variant="body2">
+              <strong>Promised: </strong>
+              {dayjs(prescription?.issueDate).format("YYYY-MM-DD HH:mm")}
             </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid xs={12} sm={4} lg={4}>
-        <Typography color="secondary" variant="subtitle2">
-          Important Information
-        </Typography>
-        <Typography variant="body2">{item?.importantInfo}</Typography>
-      </Grid>
-      <Grid xs={12} sm={4} lg={4}>
-        <Typography color="secondary" variant="subtitle2">
-          Side Effects
-        </Typography>
-        <Typography variant="body2">{sideEffects?.sideEffect}</Typography>
-      </Grid>
-    </Grid>
+          </Grid>
+        </Grid>
+      </AccordionSummary>
+      <AccordionDetails className={classes.accordionDetails}>
+        <PrescriptionItem prescription={prescription} />
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
