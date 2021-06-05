@@ -11,7 +11,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const useStyles = makeStyles(() => ({
   container: {
     width: "100%",
-    height: 450,
+    height: 500,
     borderRadius: 10,
   },
 }));

@@ -22,8 +22,3 @@ export default () => {
   const persistor = persistStore(store);
   return { store, persistor };
 };
-
-// export const store = createStore(
-//   reducer,
-//   composeWithDevTools(applyMiddleware(thunk))
-// );

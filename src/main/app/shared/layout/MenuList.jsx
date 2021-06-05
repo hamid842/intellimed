@@ -33,7 +33,7 @@ const MenuList = () => {
               <span>
                 <DashboardIcon
                   className={classes.icon}
-                //   onClick={handleDrawerOpen}
+                  //   onClick={handleDrawerOpen}
                 />
               </span>
             </Tooltip>
@@ -102,13 +102,13 @@ const MenuList = () => {
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Add a new Prescription">
+            <Tooltip title="Add Prescription">
               <span>
                 <FaPrescription size={24} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Add a new Prescription" />
+          <ListItemText primary="Add Prescription" />
         </ListItem>
         {/* Profile */}
         <ListItem

@@ -15,7 +15,7 @@ import colors from "@config/colors";
 import ToolbarContent from "./ToolbarContent";
 import MenuList from "./MenuList";
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {

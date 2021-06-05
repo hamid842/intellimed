@@ -4,7 +4,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 
-import UserInfo from "./UserInfo";
+import UserInfo from "./user-info-btn/UserInfo";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {

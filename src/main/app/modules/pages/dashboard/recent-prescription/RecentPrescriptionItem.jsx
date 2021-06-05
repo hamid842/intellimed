@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 5,
   },
   sideEffectContainer: {
+    height: 190,
     padding: 10,
     marginTop: 10,
     backgroundColor: "white",
@@ -78,10 +79,10 @@ const MedicationItem = ({ medication, id }) => {
             </Typography>
           </Grid>
           <Divider className={classes.divider} />
-          <Grid item xs={12} sm={12} lg={12}>
+          {/* <Grid item xs={12} sm={12} lg={12}>
             <span className={classes.titles}>Appearance</span>
             <Typography variant="body2">{medication?.medicType}</Typography>
-          </Grid>
+          </Grid> */}
           <Divider className={classes.divider} />
           <Grid item xs={12} sm={12} lg={12}>
             <span className={classes.titles}>Important Information</span>

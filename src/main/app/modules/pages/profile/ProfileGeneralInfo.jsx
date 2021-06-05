@@ -76,7 +76,7 @@ const ProfileGeneralInfo = ({ account }) => {
         <Typography variant="subtitle2">Username :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{account?.username}</Typography>
+        <Typography variant="subtitle2">{account?.login}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className="d-flex">
         <HowToRegIcon className={classes.icons} />
