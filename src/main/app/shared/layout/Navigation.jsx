@@ -14,6 +14,7 @@ import logo from "@images/logo.png";
 import colors from "@config/colors";
 import ToolbarContent from "./ToolbarContent";
 import MenuList from "./MenuList";
+import Footer from "./Footer";
 
 const drawerWidth = 250;
 
@@ -51,6 +52,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     backgroundColor: colors.mainGrey,
+  },
+  wrapper: {
+    minHeight: "85vh",
+    display: "grid",
+    gridTemplateRows: "auto 20px",
+  },
+  main: {
+    flexGrow: 1,
   },
   micIcon: {
     width: 30,
@@ -142,7 +151,12 @@ const ResponsiveDrawer = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {children}
+        <div className={classes.wrapper}>
+          <div className={classes.main}>{children}</div>
+          <div>
+            <Footer />
+          </div>
+        </div>
       </main>
     </div>
   );

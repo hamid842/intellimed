@@ -88,7 +88,7 @@ const PrescriptionDetail = ({ item, id }) => {
               component="p"
               id="1"
             >
-              Issue Date: {dayjs(item?.issueDate).format("YYYY-MM-DD HH:mm")}
+              Promised: {dayjs(item?.issueDate).format("YYYY-MM-DD HH:mm")}
             </Typography>
             <Typography
               variant="body2"

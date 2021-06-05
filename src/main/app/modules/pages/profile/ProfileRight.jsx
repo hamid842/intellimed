@@ -15,7 +15,7 @@ const ProfileRight = ({ accountInfo }) => {
           <ProfileGeneralInfo />
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>
-          <Title title="Devices" />
+          <Title title="Mobile Devices" />
         </Grid>
         <Grid item xs={12} sm={12} lg={12} className="mt-3 mb-3">
           <Devices />

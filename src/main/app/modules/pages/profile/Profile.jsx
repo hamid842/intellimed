@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     borderRadius: 10,
     overflow: "hidden",
-    height: "100%",
+    height: "95%",
     [theme.breakpoints.down("xs")]: {
       display: "flex",
       flexDirection: "column-reverse",

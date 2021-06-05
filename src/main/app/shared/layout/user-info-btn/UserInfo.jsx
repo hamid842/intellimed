@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   paper: {
-    width: 300,
+    width: 270,
     marginRight: theme.spacing(2),
   },
   btn: {
