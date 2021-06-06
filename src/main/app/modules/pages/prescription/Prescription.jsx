@@ -14,7 +14,17 @@ import dayjs from "dayjs";
 // import { getSideEffects } from "@shared/constants/get-sideEffects";
 import PrescriptionItem from "./PrescriptionItem";
 
-const useStyles = makeStyles(() => ({}));
+const useStyles = makeStyles(() => ({
+  accordion: {
+    backgroundColor: "#bfa734",
+    borderRadius: 10,
+    margin: 5,
+  },
+  container: {
+    boxShadow: "none",
+    border: "none",
+  },
+}));
 
 const PrescriptionDetail = ({ prescription }) => {
   const classes = useStyles();
@@ -31,13 +41,26 @@ const PrescriptionDetail = ({ prescription }) => {
   // }, [prescription?.id]);
 
   return (
-    <Accordion>
+    <Accordion className={classes.container}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        className={classes.accordion}
       >
         <Grid container alignItems="center" spacing={2}>
+          <Grid item xs={12} sm={3} lg={3}>
+            <Typography variant="body2">
+              <strong>Name: </strong>
+              {prescription?.prescriptionCode}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={4} lg={4}>
+            <Typography variant="body2">
+              <strong>Promised: </strong>
+              {dayjs(prescription?.issueDate).format("YYYY-MM-DD HH:mm")}
+            </Typography>
+          </Grid>
           <Grid item xs={12} sm={5} lg={5}>
             <Barcode
               value={prescription?.barCode}
@@ -46,18 +69,6 @@ const PrescriptionDetail = ({ prescription }) => {
               fontSize={14}
               background="transparent"
             />
-          </Grid>
-          <Grid item xs={12} sm={3} lg={3}>
-            <Typography variant="body2">
-              <strong>Name: </strong>
-              {prescription?.prescriptionCode}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={3} lg={3}>
-            <Typography variant="body2">
-              <strong>Promised: </strong>
-              {dayjs(prescription?.issueDate).format("YYYY-MM-DD HH:mm")}
-            </Typography>
           </Grid>
         </Grid>
       </AccordionSummary>
