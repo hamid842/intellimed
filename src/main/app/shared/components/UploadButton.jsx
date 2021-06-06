@@ -4,12 +4,13 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles(() => ({
   input: {
-    width: 0,
+    width: "0 !important",
     display: "none",
+    height: 0,
   },
 }));
 
-const UploadButton = ({ title, handleChange }) => {
+const UploadButton = ({ title, className, handleChange }) => {
   const classes = useStyles();
   return (
     <>
@@ -23,10 +24,10 @@ const UploadButton = ({ title, handleChange }) => {
       <label htmlFor="contained-button-file">
         <Button
           fullWidth
-          style={{ height: 45 }}
           variant="outlined"
           component="span"
           startIcon={<CloudUploadIcon />}
+          className={className}
         >
           {title}
         </Button>

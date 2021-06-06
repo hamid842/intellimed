@@ -10,7 +10,8 @@ const AppButton = ({
   color,
   backgroundColor,
   hoverColor,
-  icon,
+  startIcon,
+  endIcon,
   className,
   width,
   disabled,
@@ -36,7 +37,8 @@ const AppButton = ({
       variant={variant}
       size="small"
       onClick={onClick}
-      startIcon={icon}
+      startIcon={startIcon}
+      endIcon={endIcon}
       className={className}
       disabled={disabled}
     >

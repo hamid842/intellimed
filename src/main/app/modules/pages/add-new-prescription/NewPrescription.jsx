@@ -1,113 +1,127 @@
 import React from "react";
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { makeStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepContent from "@material-ui/core/StepContent";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import TextField from "@material-ui/core/TextField";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import CheckIcon from "@material-ui/icons/Check";
 
-import CustomCron from "./CustomCron"
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
+import PrescriptionInformation from "./PrescriptionInfo";
+import MedicineInformation from "./MedicineInfo";
+import PharmacyAndRefill from "./PharmacyAndRefill";
+import AppButton from "@shared/components/AppButton";
+import colors from "@config/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
+    width: "100%",
+  },
+  button: {
+    width: 110,
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(1),
+  },
+  actionsContainer: {
+    marginBottom: theme.spacing(2),
+  },
+  resetContainer: {
+    padding: theme.spacing(3),
   },
 }));
 
-export default function FullWidthTabs() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-  
+function getSteps() {
+  return [
+    "Prescription Information",
+    "Medicine Information",
+    "Pharmacy & Refill",
+  ];
+}
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <PrescriptionInformation />;
+    case 1:
+      return <MedicineInformation />;
+    case 2:
+      return <PharmacyAndRefill />;
+    default:
+      return "Unknown step";
+  }
+}
+
+export default function VerticalLinearStepper() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
   };
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="Pill" {...a11yProps(0)} />
-          <Tab label="Liquid" {...a11yProps(1)} />
-          <Tab label="Ampoul" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-          <TextField variant="outlined" size="small" label="Medicine Name" />
-        </TabPanel>
-      </SwipeableViews>
-      
-      <CustomCron></CustomCron>
-
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+            <StepContent>
+              <Typography>{getStepContent(index)}</Typography>
+              <div className={classes.actionsContainer}>
+                <div>
+                  <AppButton
+                    label="back"
+                    variant="outlined"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.button}
+                    startIcon={<ArrowLeftIcon />}
+                  />
+                  <AppButton
+                    label={activeStep === steps.length - 1 ? "Finish" : "Next"}
+                    variant="outlined"
+                    color={
+                      activeStep === steps.length - 1
+                        ? "green"
+                        : colors.darkBlue
+                    }
+                    onClick={handleNext}
+                    className={classes.button}
+                    endIcon={
+                      activeStep === steps.length - 1 ? (
+                        <CheckIcon />
+                      ) : (
+                        <ArrowRightIcon />
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} className={classes.resetContainer}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} className={classes.button}>
+            Reset
+          </Button>
+        </Paper>
+      )}
     </div>
   );
 }

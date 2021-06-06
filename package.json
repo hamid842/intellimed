@@ -13,6 +13,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.11.4",
     "@sbzen/re-cron": "^1.0.1",
+    "antd": "^4.16.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "date-fns": "^2.20.1",
