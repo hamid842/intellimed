@@ -19,13 +19,13 @@ const AppTextField = ({
       required={required}
       name={name}
       label={label}
-      value={value}
+      value={value || ""}
       onChange={onChange}
       size="small"
       variant="outlined"
       InputProps={{
         endAdornment: (
-          <InputAdornment position="start">{endAdornment || ""}</InputAdornment>
+          <InputAdornment position="start">{endAdornment}</InputAdornment>
         ),
       }}
     />

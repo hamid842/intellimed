@@ -10,11 +10,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UploadButton = ({ title, className, handleChange }) => {
+const UploadButton = ({ title, name, className, handleChange }) => {
   const classes = useStyles();
   return (
     <>
       <input
+        name={name}
         accept="image/*"
         className={classes.input}
         id="contained-button-file"

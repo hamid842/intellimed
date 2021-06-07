@@ -12,44 +12,68 @@ const options = [
   { label: "LIQUID", value: "LIQUID" },
 ];
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   rows: {
     marginTop: 15,
   },
   uploadBtn: {
-    width: "320px !important",
+    width: "310px !important",
     height: 45,
     marginBottom: 3,
     textTransform: "capitalize",
   },
 }));
 
-const MedicineInformation = () => {
+const MedicineInformation = ({
+  value,
+  onChange,
+  onChangeFile,
+  onChangeCron,
+}) => {
   const classes = useStyles();
   return (
     <ThemeProvider theme={formLabelsTheme}>
       <form>
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
-            <AppTextField label="Brand Name" />
+            <AppTextField
+              label="Generic Name"
+              name="genericName"
+              value={value.genericName}
+              onChange={onChange}
+            />
           </Grid>
           <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
-            <AppTextField label="Generic Name" />
+            <AppSelectField
+              label="Type"
+              name="medicType"
+              options={options}
+              value={value.medicType}
+              onChange={onChange}
+            />
           </Grid>
           <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
-            <AppSelectField label="Type" options={options} />
-          </Grid>
-          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
-            <UploadButton
-              title="Upload Medicine Image"
-              className={classes.uploadBtn}
+            <AppTextField
+              label="Usage Description"
+              name="usageDescription"
+              value={value.usageDescription}
+              onChange={onChange}
             />
           </Grid>
           <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
-            <Usage />
+            <UploadButton
+              name="medicImageUrl"
+              title={
+                value.medicImageUrl?.name
+                  ? value.medicImageUrl?.name
+                  : "Upload Medicine Image"
+              }
+              className={classes.uploadBtn}
+              handleChange={onChangeFile}
+            />
           </Grid>
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
-            <AppTextField label="Imported Usage" />
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
+            <Usage value={value} setValue={onChangeCron} />
           </Grid>
         </Grid>
       </form>

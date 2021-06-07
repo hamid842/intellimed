@@ -43,7 +43,13 @@ const Usage = ({ value, setValue, onError }) => {
       >
         Click to import usage
       </Button>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+      <Popper
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        transition
+        placement="bottom"
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={500}>
             <div className={classes.paper}>
@@ -67,6 +73,7 @@ const Usage = ({ value, setValue, onError }) => {
                     variant="outlined"
                     color="green"
                     label={<CheckIcon fontSize="small" />}
+                    onClick={handleClick}
                   />
                 </Grid>
               </Grid>
