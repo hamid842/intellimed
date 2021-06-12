@@ -63,9 +63,9 @@ export const login =
           });
           dispatch({ type: TOGGLE_LOAD });
           history.push("/dashboard");
-          getAccountInfo();
         }
       })
+      .then(async () => await getAccountInfo())
       .catch((err) => {
         dispatch({ type: TOGGLE_LOAD });
         if (err) {

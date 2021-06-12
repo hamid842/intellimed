@@ -15,7 +15,6 @@
     "@sbzen/re-cron": "^1.0.1",
     "antd": "^4.16.1",
     "axios": "^0.21.1",
-    "bootstrap": "^5.0.1",
     "date-fns": "^2.20.1",
     "dayjs": "^1.10.4",
     "material-table": "^1.69.3",

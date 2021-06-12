@@ -25,7 +25,7 @@ const AppTextField = ({
       variant="outlined"
       InputProps={{
         endAdornment: (
-          <InputAdornment position="start">{endAdornment}</InputAdornment>
+          <InputAdornment position="start">{endAdornment || ""}</InputAdornment>
         ),
       }}
     />

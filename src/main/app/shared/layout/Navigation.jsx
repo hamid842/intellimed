@@ -93,11 +93,11 @@ const ResponsiveDrawer = (props) => {
     <div>
       <img src={logo} alt="Logo" className={classes.logo} />
       <Grid container spacing={1} alignItems="center">
-        <Grid item className="ml-2">
+        <Grid item>
           <MicNoneOutlinedIcon className={classes.micIcon} />
         </Grid>
         <Grid item>
-          <Typography className="mt-4 mb-4">Emergency Help</Typography>
+          <Typography>Emergency Help</Typography>
         </Grid>
       </Grid>
       <div className={classes.toolbar} />

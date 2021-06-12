@@ -12,6 +12,9 @@ const useStyles = makeStyles(() => ({
   image: {
     borderRadius: "50%",
   },
+  actionsContainer: {
+    textAlign: "center",
+  },
 }));
 
 const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
@@ -21,7 +24,7 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
     <>
       <Grid container spacing={3}>
         {/* Left Side */}
-        <Grid item xs={12} sm={12} lg={3} className="text-center">
+        <Grid item xs={12} sm={12} lg={3} className={classes.actionsContainer}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} lg={12}>
               <img
@@ -46,6 +49,7 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
                 color="red"
                 variant="outlined"
                 icon={<DeleteOutlineIcon />}
+                width={95}
               />
             </Grid>
           </Grid>

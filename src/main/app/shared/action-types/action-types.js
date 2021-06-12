@@ -5,3 +5,4 @@ export const TOGGLE_LOAD = "TOGGLE_LOAD";
 export const GET_ACCOUNT_INFO = "GET_ACCOUNT_INFO";
 
 export const GET_PATIENTS = "GET_PATIENTS";
+export const SELECT_PATIENT = "SELECT_PATIENT";

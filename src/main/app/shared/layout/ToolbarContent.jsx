@@ -1,5 +1,5 @@
-import React from "react";
-import { Grid, IconButton } from "@material-ui/core";
+import { connect } from "react-redux";
+import { Grid, IconButton, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
@@ -39,21 +39,29 @@ const useStyles = makeStyles((theme) => ({
     width: 180,
     marginTop: 20,
   },
+  name: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
-const Tool = ({ handleDrawerToggle }) => {
+const ToolbarContent = ({ handleDrawerToggle, account }) => {
   const classes = useStyles();
 
   return (
     <>
       <Grid
         container
-        spacing={1}
+        // spacing={1}
         justify="space-between"
         alignItems="center"
         className={classes.topDetails}
       >
-        <Grid item xs={6} sm={6} lg={6}>
+        <Grid item xs={4} sm={4} lg={4} className={classes.name}>
+          <Typography variant="body2">{`${account?.firstName}'s Dashboard`}</Typography>
+        </Grid>
+        <Grid item xs={2} sm={2} lg={2}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -64,6 +72,7 @@ const Tool = ({ handleDrawerToggle }) => {
             <MenuIcon />
           </IconButton>
         </Grid>
+
         <Grid item xs={6} sm={6} lg={6}>
           <Grid container spacing={1} alignItems="center" justify="flex-end">
             <Grid item>
@@ -79,4 +88,8 @@ const Tool = ({ handleDrawerToggle }) => {
   );
 };
 
-export default Tool;
+const mapStateToProps = ({ login }) => ({
+  account: login.account,
+});
+
+export default connect(mapStateToProps, {})(ToolbarContent);

@@ -1,30 +1,36 @@
 import { useState, useRef, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
+import {
+  Grow,
+  Paper,
+  Popper,
+  MenuItem,
+  MenuList,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Typography,
+  Button,
+  ClickAwayListener,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
 import GroupIcon from "@material-ui/icons/Group";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import PatientsListCollapse from "./PatientsListCollapse";
-import { getAccountPatients } from "@shared/reducers/patients/patient-reducer";
-
+import {
+  getAccountPatients,
+  selectPatient,
+} from "@shared/reducers/patients/patient-reducer";
 import hamid from "@images/hamid.png";
 import { history } from "@shared/history";
+import NoPatient from "./NoPatient";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +50,12 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     borderRadius: 5,
   },
+  nested: {
+    paddingLeft: theme.spacing(5),
+  },
 }));
 const UserInfo = (props) => {
-  const { account, patients } = props;
+  const { account, patients, selectedPatient } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -90,9 +99,10 @@ const UserInfo = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const patientsArray = [];
-  patientsArray.push(patients);
-  console.log(patients);
+  const handleSelectPatient = (id) => {
+    alert(id);
+    props.selectPatient(id);
+  };
 
   return (
     <div className={classes.root}>
@@ -106,7 +116,10 @@ const UserInfo = (props) => {
         endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         className={classes.btn}
       >
-        {`${account?.firstName} ${account?.lastName}`}
+        <Typography variant="body2">
+          <strong>Patient:</strong> {selectedPatient?.firstName}{" "}
+          {selectedPatient?.lastName}
+        </Typography>
       </Button>
       <Popper
         open={open}
@@ -133,8 +146,12 @@ const UserInfo = (props) => {
                   onKeyDown={handleListKeyDown}
                 >
                   <MenuItem>
-                    <List style={{ width: "100%" }}>
-                      <ListItem onClick={handleClick}>
+                    <List
+                      style={{ width: "100%" }}
+                      component="div"
+                      disablePadding
+                    >
+                      <ListItem button onClick={handleClick}>
                         <ListItemIcon>
                           <GroupIcon />
                         </ListItemIcon>
@@ -145,15 +162,35 @@ const UserInfo = (props) => {
                         in={openPatientsList}
                         timeout="auto"
                         unmountOnExit
+                        className={classes.collapse}
                       >
-                        {patientsArray.length > 0 &&
-                          patientsArray.map((patient, i) => {
-                            return (
-                              <PatientsListCollapse key={i} patient={patient} />
-                            );
-                          })}
+                        <List component="div" disablePadding>
+                          {patients.length > 0 ? (
+                            patients.map((patient, i) => {
+                              return (
+                                <ListItem
+                                  button
+                                  key={i}
+                                  className={classes.nested}
+                                  onClick={() =>
+                                    handleSelectPatient(patient.id)
+                                  }
+                                >
+                                  <PatientsListCollapse
+                                    patient={patient}
+                                    onClock={() =>
+                                      handleSelectPatient(patient.id)
+                                    }
+                                  />
+                                </ListItem>
+                              );
+                            })
+                          ) : (
+                            <NoPatient closeMenu={setOpen} />
+                          )}
+                        </List>
                       </Collapse>
-                      <ListItem onClick={() => history.push("/login")}>
+                      <ListItem button onClick={() => history.push("/login")}>
                         <ListItemIcon>
                           <ExitToAppIcon />
                         </ListItemIcon>
@@ -173,7 +210,10 @@ const UserInfo = (props) => {
 
 const mapStateToProps = ({ login, patients }) => ({
   patients: patients.patients,
+  selectedPatient: patients.selectedPatient,
   account: login.account,
 });
 
-export default connect(mapStateToProps, { getAccountPatients })(UserInfo);
+export default connect(mapStateToProps, { getAccountPatients, selectPatient })(
+  UserInfo
+);

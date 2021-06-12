@@ -1,7 +1,6 @@
 import React from "react";
 // import { setConfig, hot } from "react-hot-loader";
 import { SnackbarProvider } from "notistack";
-import "bootstrap/dist/css/bootstrap.css";
 
 import ErrorBoundary from "@shared/error/error-boundary";
 import AppRoutes from "./Routes";

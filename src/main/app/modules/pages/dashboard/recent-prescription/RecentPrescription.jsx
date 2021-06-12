@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CurrentMedication = ({ account }) => {
+const CurrentMedication = ({ account, selectedPatient }) => {
   const classes = useStyles();
 
   const [medications, setMedications] = useState(null);
@@ -35,7 +35,7 @@ const CurrentMedication = ({ account }) => {
     };
     fetchPrescriptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedPatient?.id]);
 
   const medicines = [];
   medicines.push(medications);
@@ -66,7 +66,8 @@ const CurrentMedication = ({ account }) => {
   );
 };
 
-const mapStateToProps = ({ login }) => ({
+const mapStateToProps = ({ login, patients }) => ({
   account: login.account,
+  selectedPatient: patients.selectedPatient,
 });
 export default connect(mapStateToProps, {})(CurrentMedication);

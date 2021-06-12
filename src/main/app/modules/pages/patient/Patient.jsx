@@ -24,10 +24,21 @@ const useStyles = makeStyles(() => ({
     borderBottom: "1px solid grey",
     paddingBottom: 10,
   },
+  infos: {
+    marginTop: 10,
+  },
+  noPatient: {
+    backgroundColor: colors.mainGrey,
+    padding: 10,
+    margin: 20,
+    borderRadius: 10,
+    textAlign: "center",
+  },
 }));
 
-const Patient = ({ account }) => {
+const Patient = (props) => {
   const classes = useStyles();
+  const { account } = props;
   const [patientInfo, setPatientInfo] = useState();
   const [editMode, setEditMode] = useState(false);
   const [addMode, setAddMode] = useState(false);
@@ -53,6 +64,11 @@ const Patient = ({ account }) => {
     fetchPatients();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // TODO remove this when api is repaired
+  const patientArray = [];
+  patientArray.push(patientInfo);
+
   return (
     <Paper className={classes.container}>
       <Grid
@@ -78,7 +94,8 @@ const Patient = ({ account }) => {
           </Grid>
         )}
       </Grid>
-      <Grid container spacing={1} className="mt-3">
+
+      <Grid container spacing={1} className={classes.infos}>
         {editMode || addMode ? (
           <Grid item xs={12} sm={12} lg={12}>
             <PatientGeneralInfo
@@ -95,11 +112,18 @@ const Patient = ({ account }) => {
           </Grid>
         ) : (
           <Grid item xs={12} sm={12} lg={12}>
-            <CurrentPatient
-              patientInfo={patientInfo}
-              editMode={editMode}
-              setEditMode={setEditMode}
-            />
+            {patientArray?.length > 0 ? (
+              <CurrentPatient
+                patientInfo={patientInfo}
+                editMode={editMode}
+                setEditMode={setEditMode}
+              />
+            ) : (
+              <div className={classes.noPatient}>
+                No patient added yet. You can do this with "Add New" button
+                above.
+              </div>
+            )}
           </Grid>
         )}
       </Grid>
