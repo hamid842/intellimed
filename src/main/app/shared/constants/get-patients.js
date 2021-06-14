@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Endpoints
-const getPatientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
+const getPatientInfosApi = process.env.REACT_APP_GET_ALL_PATIENTS_API;
 
 export const getPatients = async (id) => {
   try {

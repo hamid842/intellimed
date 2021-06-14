@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { connect } from "react-redux";
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
@@ -7,6 +8,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import hamid from "@images/hamid.png";
 import AppButton from "@components/AppButton";
 import colors from "@config/colors";
+import { selectPatient } from "@shared/reducers/patients/patient-reducer";
 
 const useStyles = makeStyles(() => ({
   image: {
@@ -17,8 +19,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
+const CurrentPatient = (props) => {
+  const { patientInfo, setEditMode, onClick } = props;
   const classes = useStyles();
+
+  const handleClickEdit = () => {
+    props.selectPatient(patientInfo?.id);
+    setEditMode(true);
+  };
 
   return (
     <>
@@ -38,9 +46,9 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
                 label="Edit"
                 color={colors.mainBlue}
                 variant="outlined"
-                icon={<EditIcon />}
+                startIcon={<EditIcon />}
                 width={95}
-                onClick={() => setEditMode(!editMode)}
+                onClick={handleClickEdit}
               />
             </Grid>
             <Grid item xs={12} sm={12} lg={12}>
@@ -48,8 +56,9 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
                 label="Delete"
                 color="red"
                 variant="outlined"
-                icon={<DeleteOutlineIcon />}
+                startIcon={<DeleteOutlineIcon />}
                 width={95}
+                onClick={onClick}
               />
             </Grid>
           </Grid>
@@ -161,4 +170,4 @@ const CurrentPatient = ({ patientInfo, editMode, setEditMode }) => {
   );
 };
 
-export default memo(CurrentPatient);
+export default connect(null, { selectPatient })(memo(CurrentPatient));

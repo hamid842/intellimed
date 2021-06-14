@@ -21,7 +21,6 @@ export const getAccountPatients = (id) => async (dispatch) => {
 
 export const selectPatient = (id) => (dispatch, getState) => {
   const state = getState();
-  console.log(state);
   dispatch({
     type: SELECT_PATIENT,
     payload: state.patients?.patients?.find((item) => item.id === id),
@@ -33,14 +32,9 @@ export const selectPatient = (id) => (dispatch, getState) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PATIENTS: {
-      // TODO remove this later
-      const createArray = [];
-      createArray.push(action.payload);
-      createArray.push(action.payload);
       return {
         ...state,
-        // TODO remove this
-        patients: createArray,
+        patients: action.payload,
       };
     }
     case SELECT_PATIENT: {
