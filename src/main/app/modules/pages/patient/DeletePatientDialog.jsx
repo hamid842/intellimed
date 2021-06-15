@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import { memo, forwardRef } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -17,6 +18,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    color: "black",
   },
 }));
 
@@ -30,6 +32,7 @@ const DeletePatientDialog = ({
   onDelete,
   patientInfo,
   loading,
+  selectedPatient,
 }) => {
   const classes = useStyles();
   return (
@@ -50,7 +53,7 @@ const DeletePatientDialog = ({
           <WarningIcon color="secondary" />
           You sure want to delete Patient named &nbsp;
           <strong>
-            {patientInfo?.firstName} {patientInfo?.firstName}?
+            {selectedPatient?.firstName} {selectedPatient?.lastName}?
           </strong>
         </DialogContentText>
       </DialogContent>
@@ -73,4 +76,8 @@ const DeletePatientDialog = ({
     </Dialog>
   );
 };
-export default DeletePatientDialog;
+const mapStateToProps = ({ patients }) => ({
+  selectedPatient: patients.selectedPatient,
+});
+
+export default connect(mapStateToProps, {})(memo(DeletePatientDialog));

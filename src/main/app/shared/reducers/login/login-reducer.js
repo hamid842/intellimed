@@ -19,6 +19,7 @@ const initialState = {
   isAuthenticated: false,
   errorMessage: "",
   account: {},
+  userInfos: {},
   status: false,
   loading: false,
 };

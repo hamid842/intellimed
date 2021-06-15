@@ -61,6 +61,9 @@ const PatientGeneralInfo = (props) => {
     bloodType: editMode ? selectedPatient?.bloodType : "",
     maritalStatus: editMode ? selectedPatient?.maritalStatus : "",
     relationshipWithUser: editMode ? selectedPatient?.relationshipWithUser : "",
+    userInfo: {
+      id: account?.id,
+    },
   });
   const [loading, setLoading] = useState(false);
 

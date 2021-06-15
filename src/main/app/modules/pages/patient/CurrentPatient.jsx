@@ -20,12 +20,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CurrentPatient = (props) => {
-  const { patientInfo, setEditMode, onClick } = props;
+  const { patientInfo, setEditMode, setOpenDeleteDialog } = props;
   const classes = useStyles();
 
   const handleClickEdit = () => {
     props.selectPatient(patientInfo?.id);
     setEditMode(true);
+  };
+  const handleClickDelete = () => {
+    props.selectPatient(patientInfo?.id);
+    setOpenDeleteDialog(true);
   };
 
   return (
@@ -58,7 +62,7 @@ const CurrentPatient = (props) => {
                 variant="outlined"
                 startIcon={<DeleteOutlineIcon />}
                 width={95}
-                onClick={onClick}
+                onClick={handleClickDelete}
               />
             </Grid>
           </Grid>

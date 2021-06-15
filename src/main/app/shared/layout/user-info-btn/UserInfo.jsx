@@ -26,7 +26,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PatientsListCollapse from "./PatientsListCollapse";
 import {
   getAccountPatients,
-  selectPatient,
+  selectPatientFromTopMenu,
 } from "@shared/reducers/patients/patient-reducer";
 import hamid from "@images/hamid.png";
 import { history } from "@shared/history";
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const UserInfo = (props) => {
-  const { account, patients, selectedPatient } = props;
+  const { account, patients, selectedPatientFromTopMenu } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -97,11 +97,12 @@ const UserInfo = (props) => {
   useEffect(() => {
     props.getAccountPatients(account?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [account?.id]);
 
   const handleSelectPatient = (id) => {
     alert(id);
-    props.selectPatient(id);
+    props.selectPatientFromTopMenu(id);
+    handleToggle();
   };
 
   return (
@@ -117,8 +118,8 @@ const UserInfo = (props) => {
         className={classes.btn}
       >
         <Typography variant="body2">
-          <strong>Patient:</strong> {selectedPatient?.firstName}{" "}
-          {selectedPatient?.lastName}
+          <strong>Patient:</strong> {selectedPatientFromTopMenu?.firstName}{" "}
+          {selectedPatientFromTopMenu?.lastName}
         </Typography>
       </Button>
       <Popper
@@ -210,10 +211,11 @@ const UserInfo = (props) => {
 
 const mapStateToProps = ({ login, patients }) => ({
   patients: patients.patients,
-  selectedPatient: patients.selectedPatient,
+  selectedPatientFromTopMenu: patients.selectedPatientFromTopMenu,
   account: login.account,
 });
 
-export default connect(mapStateToProps, { getAccountPatients, selectPatient })(
-  UserInfo
-);
+export default connect(mapStateToProps, {
+  getAccountPatients,
+  selectPatientFromTopMenu,
+})(UserInfo);

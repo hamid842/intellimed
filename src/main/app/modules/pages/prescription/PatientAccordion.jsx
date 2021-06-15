@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Accordion,
@@ -12,8 +12,10 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import hamid from "@images/hamid.png";
 import Prescription from "./Prescription";
 import RadioButton from "./RadioButton";
+import NoPrescription from "./NoPrescription";
+import { getAllPrescriptions } from "@shared/constants/get-prescriptions";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   accordion: {
     background: "transparent",
     border: "none",
@@ -28,22 +30,27 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: 20,
-    // backgroundColor: colors.mainGrey,
   },
 }));
 
-const PatientAccordion = ({ patient, prescriptions }) => {
+const PatientAccordion = ({ patient }) => {
   const classes = useStyles();
   const [selectedValue, setSelectedValue] = useState("ACTIVE");
+  const [prescriptions, setPrescriptions] = useState([]);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
-  const items = [];
-  items.push(prescriptions);
-  items.push(prescriptions);
-  items.push({ prescriptionCode: "Hello", status: "INACTIVE" });
-  const filteredItems = items.filter((item) => item?.status === "ACTIVE");
+
+  useEffect(() => {
+    if (patient) {
+      const fetchPrescriptions = async () => {
+        setPrescriptions(await getAllPrescriptions(patient.id));
+      };
+      fetchPrescriptions();
+    }
+  }, [patient]);
+
   return (
     <Accordion className={classes.accordion}>
       <AccordionSummary
@@ -77,13 +84,13 @@ const PatientAccordion = ({ patient, prescriptions }) => {
       </AccordionSummary>
       <AccordionDetails className={classes.accordionDetails}>
         <RadioButton value={selectedValue} onChange={handleChange} />
-        {selectedValue === "ACTIVE"
-          ? filteredItems.map((item, i) => (
-              <Prescription key={i} prescription={item} />
-            ))
-          : items.map((item, i) => (
-              <Prescription key={i} prescription={item} />
-            ))}
+        {prescriptions.length > 0 ? (
+          prescriptions.map((item, i) => (
+            <Prescription key={i} prescription={item} />
+          ))
+        ) : (
+          <NoPrescription />
+        )}
       </AccordionDetails>
     </Accordion>
   );

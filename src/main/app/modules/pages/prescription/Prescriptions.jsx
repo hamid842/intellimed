@@ -1,11 +1,9 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 
-import { getPatients } from "@shared/constants/get-patients";
 import PatientAccordion from "./PatientAccordion";
-import { getAllPrescription } from "@shared/constants/get-prescriptions";
 import Title from "@shared/components/Title";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,45 +23,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Prescriptions = ({ account }) => {
+const Prescriptions = ({ account, patients }) => {
   const classes = useStyles();
-
-  const [patientInfo, setPatientInfo] = useState();
-  const [prescriptions, setPrescriptions] = useState();
-
-  useEffect(() => {
-    const fetchPatients = async () => {
-      setPatientInfo(await getPatients(account?.id));
-    };
-    fetchPatients();
-    const fetchPrescriptions = async () => {
-      setPrescriptions(await getAllPrescription(account?.id));
-    };
-    fetchPrescriptions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const patients = [];
-  patients.push(patientInfo);
 
   return (
     <Paper className={classes.root}>
       <Title title="Patient(s) and Prescription(s)" />
       {patients.map((item, i) => {
-        return (
-          <PatientAccordion
-            key={i}
-            patient={item}
-            prescriptions={prescriptions}
-          />
-        );
+        return <PatientAccordion key={i} patient={item} />;
       })}
     </Paper>
   );
 };
 
-const mapStateToProps = ({ login }) => ({
+const mapStateToProps = ({ login, patients }) => ({
   account: login.account,
+  patients: patients.patients,
 });
 
 export default connect(mapStateToProps, {})(memo(Prescriptions));

@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
 import CloseIcon from "@material-ui/icons/Close";
 import CheckIcon from "@material-ui/icons/Check";
@@ -13,10 +13,17 @@ import PasswordField from "@shared/components/PasswordField";
 import AppTextField from "@shared/components/AppTextField";
 import Title from "@shared/components/Title";
 
+const useStyles = makeStyles(() => ({
+  changeBtn: {
+    textAlign: "end",
+  },
+}));
+
 // Endpoints
 const changePasswordApi = process.env.REACT_APP_CHANGE_PASSWORD_API;
 
 const ResetPass = ({ setShowResetPass }) => {
+  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
   const [currentPassword, setCurrentPassword] = useState("");
@@ -71,23 +78,23 @@ const ResetPass = ({ setShowResetPass }) => {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6} sm={6} lg={6} className="text-center">
+            <Grid item xs={6} sm={6} lg={6}>
               <AppButton
                 label="Cancel"
                 variant="outlined"
                 color="red"
-                icon={<CloseIcon />}
+                startIcon={<CloseIcon />}
                 onClick={() => setShowResetPass(false)}
               />
             </Grid>
-            <Grid item xs={6} sm={6} lg={6} className="text-center">
+            <Grid item xs={6} sm={6} lg={6} className={classes.changeBtn}>
               <AppButton
                 type="submit"
                 label="Change"
                 variant="outlined"
                 color="green"
                 disabled={currentPassword === newPassword ? false : true}
-                icon={
+                startIcon={
                   loading ? (
                     <CircularProgress size="15px" color="inherit" />
                   ) : (

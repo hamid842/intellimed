@@ -41,6 +41,10 @@ const Profile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [showResetPass, setShowResetPass] = useState(false);
 
+  const onCancelClick = () => {
+    setEditProfile(false);
+  };
+
   return (
     <Paper elevation={3} className={classes.container}>
       <Grid container>
@@ -53,7 +57,7 @@ const Profile = () => {
           />
         </Grid>
         <Grid item xs={12} sm={8} lg={8} className={classes.right}>
-          {editProfile && <EditProfile setEditProfile={setEditProfile} />}
+          {editProfile && <EditProfile onCancelClick={onCancelClick} />}
           {showResetPass && <ResetPass setShowResetPass={setShowResetPass} />}
           {!editProfile && !showResetPass && <ProfileRight />}
         </Grid>

@@ -1,6 +1,7 @@
 import {
   GET_PATIENTS,
   SELECT_PATIENT,
+  SELECT_PATIENT_FROM_TOP_MENU,
 } from "@shared/action-types/action-types";
 import { getPatients } from "@shared/constants/get-patients";
 
@@ -9,6 +10,7 @@ const initialState = {
   // TODO should be an array
   patients: [],
   selectedPatient: {},
+  selectedPatientFromTopMenu: {},
 };
 
 // Actions
@@ -27,6 +29,14 @@ export const selectPatient = (id) => (dispatch, getState) => {
   });
 };
 
+export const selectPatientFromTopMenu = (id) => (dispatch, getState) => {
+  const state = getState();
+  dispatch({
+    type: SELECT_PATIENT_FROM_TOP_MENU,
+    payload: state.patients?.patients?.find((item) => item.id === id),
+  });
+};
+
 // Reducer
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
@@ -41,6 +51,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedPatient: action.payload,
+      };
+    }
+    case SELECT_PATIENT_FROM_TOP_MENU: {
+      return {
+        ...state,
+        selectedPatientFromTopMenu: action.payload,
       };
     }
     default:

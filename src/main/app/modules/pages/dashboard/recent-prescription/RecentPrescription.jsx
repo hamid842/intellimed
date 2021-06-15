@@ -3,7 +3,7 @@ import Carousel from "react-material-ui-carousel";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
-import { getAllPrescription } from "@shared/constants/get-prescriptions";
+import { getAllPrescriptions } from "@shared/constants/get-prescriptions";
 
 import MedicationItem from "./RecentPrescriptionItem";
 
@@ -31,7 +31,7 @@ const CurrentMedication = ({ account, selectedPatient }) => {
 
   useEffect(() => {
     const fetchPrescriptions = async () => {
-      setMedications(await getAllPrescription(account?.id));
+      setMedications(await getAllPrescriptions(account?.id));
     };
     fetchPrescriptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps

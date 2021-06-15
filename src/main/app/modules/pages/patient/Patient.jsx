@@ -11,7 +11,10 @@ import AppButton from "@components/AppButton";
 import CurrentPatient from "./CurrentPatient";
 import colors from "@config/colors";
 import DeletePatientDialog from "./DeletePatientDialog";
-import { getAccountPatients } from "@shared/reducers/patients/patient-reducer";
+import {
+  getAccountPatients,
+  selectPatient,
+} from "@shared/reducers/patients/patient-reducer";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -57,10 +60,6 @@ const Patient = (props) => {
 
   const handleClickAdd = () => {
     setAddMode(true);
-  };
-
-  const handleOpenDeleteDialog = () => {
-    setOpenDeleteDialog(true);
   };
 
   const handleCloseDeleteDialog = () => {
@@ -133,7 +132,7 @@ const Patient = (props) => {
                       patientInfo={item}
                       editMode={editMode}
                       setEditMode={setEditMode}
-                      onClick={handleOpenDeleteDialog}
+                      setOpenDeleteDialog={setOpenDeleteDialog}
                     />
                     <DeletePatientDialog
                       patientInfo={item}
@@ -166,4 +165,6 @@ const mapStateToProps = ({ login, patients }) => ({
   patients: patients.patients,
 });
 
-export default connect(mapStateToProps, { getAccountPatients })(memo(Patient));
+export default connect(mapStateToProps, { getAccountPatients, selectPatient })(
+  memo(Patient)
+);

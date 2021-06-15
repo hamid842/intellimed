@@ -18,6 +18,10 @@ const useStyles = makeStyles(() => ({
     fontSize: 20,
     color: "grey",
   },
+  rows: {
+    display: "flex",
+    padding: 2,
+  },
 }));
 
 // Endpoints
@@ -50,56 +54,56 @@ const ProfileGeneralInfo = ({ account }) => {
 
   return (
     <Grid container alignItems="center">
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PersonIcon className={classes.icons} />
         <Typography variant="subtitle2">First Name :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{account?.firstName}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PersonIcon className={classes.icons} />
         <Typography variant="subtitle2">Last Name :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{account?.lastName}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <AlternateEmailIcon className={classes.icons} />
         <Typography variant="subtitle2">Email :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{account?.email}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <HowToRegIcon className={classes.icons} />
         <Typography variant="subtitle2">Username :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{account?.login}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <HowToRegIcon className={classes.icons} />
         <Typography variant="subtitle2">UseCode :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{userInfos?.userCode}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PhoneIcon className={classes.icons} />
         <Typography variant="subtitle2">Phone Number :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{userInfos?.phoneNumber1}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PhoneIphoneIcon className={classes.icons} />
         <Typography variant="subtitle2">Mobile Number :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <Typography variant="subtitle2">{userInfos?.phoneNumber2}</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6} className="d-flex">
+      <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <BusinessIcon className={classes.icons} />
         <Typography variant="subtitle2">Address :</Typography>
       </Grid>

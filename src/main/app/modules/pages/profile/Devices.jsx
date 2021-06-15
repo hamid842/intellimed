@@ -1,18 +1,41 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useRef } from "react";
+import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
 import MaterialTable from "material-table";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import DoneIcon from "@material-ui/icons/Done";
+import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 
 const getDevicesListApi = process.env.REACT_APP_GET_DEVICES_LIST_API;
 
 const Devices = ({ account }) => {
-  const [devices, setDevices] = useState();
+  const tableRef = useRef();
+  const { enqueueSnackbar } = useSnackbar();
+  const [devices, setDevices] = useState(null);
   const [columns] = useState([
     { title: "Name", field: "name" },
     { title: "Model", field: "model" },
     { title: "Serial No.", field: "serialNo" },
   ]);
+
+  const deleteDevice = async (id) => {
+    await axios
+      .delete(`${getDevicesListApi}/${id}`)
+      .then((res) => {
+        if (res.status === 200 || 201) {
+          enqueueSnackbar("Device deleted successfully.", {
+            variant: "success",
+          });
+          tableRef.current.onQueryChange();
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          enqueueSnackbar("Something went wrong!", { variant: "error" });
+        }
+      });
+  };
 
   const getDevicesList = async () => {
     await axios(`${getDevicesListApi}/${account?.id}`)
@@ -30,7 +53,6 @@ const Devices = ({ account }) => {
 
   useEffect(() => {
     getDevicesList();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,14 +74,13 @@ const Devices = ({ account }) => {
       }}
       icons={{
         Delete: () => <DeleteOutlineIcon color="secondary" />,
+        Check: () => <DoneIcon style={{ color: "green" }} />,
+        Clear: () => <CloseIcon color="secondary" />,
       }}
-      actions={[
-        (rowData) => ({
-          icon: "delete_outline",
-          tooltip: "Delete Device",
-        }),
-      ]}
       data={createTableData(devices)}
+      editable={{
+        onRowDelete: (oldData) => deleteDevice(oldData.id),
+      }}
     />
   );
 };
