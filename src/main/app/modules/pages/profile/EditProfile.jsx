@@ -79,6 +79,7 @@ const EditProfile = (props) => {
         </Grid> */}
         <Grid item xs={12} sm={12} lg={12}>
           <AppTextField
+            multiline={true}
             name="address"
             label="Address"
             value={editProfileData.address}
@@ -97,7 +98,7 @@ const EditProfile = (props) => {
             onChange={(phone) =>
               setEditProfileData({
                 ...editProfileData,
-                phoneNumber1: phone,
+                phoneNumber1: "+" + phone,
               })
             }
           />
@@ -109,7 +110,7 @@ const EditProfile = (props) => {
             onChange={(phone) =>
               setEditProfileData({
                 ...editProfileData,
-                phoneNumber2: phone,
+                phoneNumber2: "+" + phone,
               })
             }
           />

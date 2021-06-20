@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     placeItems: "center",
     textAlign: "center",
     justifyContent: "center",
-    backgroundColor: colors.mainBlue,
+    backgroundColor: colors.bgGrey,
     color: colors.white,
   },
   right: {

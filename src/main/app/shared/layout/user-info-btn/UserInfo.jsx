@@ -28,9 +28,9 @@ import {
   getAccountPatients,
   selectPatientFromTopMenu,
 } from "@shared/reducers/patients/patient-reducer";
-import hamid from "@images/hamid.png";
 import { history } from "@shared/history";
 import NoPatient from "./NoPatient";
+import colors from "@config/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +49,12 @@ const useStyles = makeStyles((theme) => ({
     width: 50,
     height: 50,
     borderRadius: 5,
+  },
+  noImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: colors.mediumGrey,
   },
   nested: {
     paddingLeft: theme.spacing(5),
@@ -100,7 +106,6 @@ const UserInfo = (props) => {
   }, [account?.id]);
 
   const handleSelectPatient = (id) => {
-    alert(id);
     props.selectPatientFromTopMenu(id);
     handleToggle();
   };
@@ -113,14 +118,24 @@ const UserInfo = (props) => {
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
-        startIcon={<img src={hamid} alt="Pic" className={classes.image} />}
+        startIcon={
+          account?.imageUrl ? (
+            <img src={account?.imageUrl} alt="Pic" className={classes.image} />
+          ) : (
+            <div className={classes.noImage} />
+          )
+        }
         endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         className={classes.btn}
       >
-        <Typography variant="body2">
-          <strong>Patient:</strong> {selectedPatientFromTopMenu?.firstName}{" "}
-          {selectedPatientFromTopMenu?.lastName}
-        </Typography>
+        {selectedPatientFromTopMenu?.id ? (
+          <Typography variant="body2">
+            <strong>Patient:</strong> {selectedPatientFromTopMenu?.firstName}{" "}
+            {selectedPatientFromTopMenu?.lastName}
+          </Typography>
+        ) : (
+          <Typography>No Patient Selected!</Typography>
+        )}
       </Button>
       <Popper
         open={open}

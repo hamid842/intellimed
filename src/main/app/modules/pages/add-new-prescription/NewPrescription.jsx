@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSnackbar } from "notistack";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -45,10 +46,10 @@ const initialState = {
   issueDate: new Date(),
   barCode: "",
   prescriptionImageUrl: null,
+  medicImageUrl: null,
   genericName: "",
   medicType: "",
   usageDescription: "",
-  medicImageUrl: null,
   cron: "",
   pharmacy: "",
   refillTime: new Date(),
@@ -56,11 +57,16 @@ const initialState = {
 
 // Endpoints
 const createNewPrescriptionApi = process.env.REACT_APP_GET_ALL_PRESCRIPTION;
+const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
 
 const NewDescription = () => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [activeStep, setActiveStep] = useState(0);
   const [newDescription, setNewDescription] = useState(initialState);
+  const [prescriptionImageUrl, setPrescriptionImageUrl] = useState(null);
+  const [medicineImageUrl, setMedicineImageUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -75,10 +81,35 @@ const NewDescription = () => {
     });
   };
 
-  const handleChangeFile = (event) => {
-    const name = event.target.name;
-    const file = event.target.files[0];
-    setNewDescription({ ...newDescription, [name]: file });
+  const handleChangeFile = async (e, type) => {
+    setLoading(true);
+    type === "prescription" && setPrescriptionImageUrl(e.target.files[0]);
+    type === "medicine" && setMedicineImageUrl(e.target.files[0]);
+    var data = new FormData();
+    data.append("file", e.target.files[0]);
+    var config = {
+      method: "post",
+      url: `${uploadImageApi}?imageSourceType=${type}`,
+      data,
+    };
+    await axios(config)
+      .then(async (res) => {
+        if (res.status === 200 || 201) {
+          enqueueSnackbar(
+            `${e.target.files[0]?.name} file is Uploaded successfully.`,
+            {
+              variant: "success",
+            }
+          );
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          setLoading(false);
+          enqueueSnackbar("Something went wrong!", { variant: "error" });
+        }
+      });
   };
 
   const handleChangeCron = (value) => {
@@ -99,6 +130,8 @@ const NewDescription = () => {
         return (
           <PrescriptionInformation
             value={newDescription}
+            image={prescriptionImageUrl}
+            loading={loading}
             onChange={handleChange}
             onChangeDate={handleChangeDate}
             onChangeFile={handleChangeFile}
@@ -108,6 +141,7 @@ const NewDescription = () => {
         return (
           <MedicineInformation
             value={newDescription}
+            image={medicineImageUrl}
             onChange={handleChange}
             onChangeFile={handleChangeFile}
             onChangeCron={handleChangeCron}

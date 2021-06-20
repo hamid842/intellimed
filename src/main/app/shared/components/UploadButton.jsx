@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   input: {
@@ -10,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UploadButton = ({ title, name, className, handleChange }) => {
+const UploadButton = ({ title, name, className, handleChange, loading }) => {
   const classes = useStyles();
   return (
     <>
@@ -27,7 +28,13 @@ const UploadButton = ({ title, name, className, handleChange }) => {
           fullWidth
           variant="outlined"
           component="span"
-          startIcon={<CloudUploadIcon />}
+          startIcon={
+            loading ? (
+              <CircularProgress size={15} color="inherit" />
+            ) : (
+              <CloudUploadIcon />
+            )
+          }
           className={className}
         >
           {title}

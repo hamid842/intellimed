@@ -6,4 +6,5 @@ export default {
   mainGrey: "#f1f4f8",
   // Canadian Pallete
   mediumGrey: "#c8d6e5",
+  bgGrey: "#688ba1",
 };

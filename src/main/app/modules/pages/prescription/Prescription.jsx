@@ -1,4 +1,3 @@
-// import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -11,7 +10,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Barcode from "react-barcode";
 import dayjs from "dayjs";
 
-// import { getSideEffects } from "@shared/constants/get-sideEffects";
 import PrescriptionItem from "./PrescriptionItem";
 
 const useStyles = makeStyles(() => ({
@@ -28,17 +26,6 @@ const useStyles = makeStyles(() => ({
 
 const PrescriptionDetail = ({ prescription }) => {
   const classes = useStyles();
-
-  // const [sideEffects, setSideEffects] = useState();
-
-  // useEffect(() => {
-  //   const fetchSideEffects = async () => {
-  //     if (prescription?.id) {
-  //       setSideEffects(await getSideEffects(prescription?.id));
-  //     }
-  //   };
-  //   fetchSideEffects();
-  // }, [prescription?.id]);
 
   return (
     <Accordion className={classes.container}>

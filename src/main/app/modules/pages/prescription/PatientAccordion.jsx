@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import hamid from "@images/hamid.png";
 import Prescription from "./Prescription";
 import RadioButton from "./RadioButton";
 import NoPrescription from "./NoPrescription";
 import { getAllPrescriptions } from "@shared/constants/get-prescriptions";
+import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
   accordion: {
@@ -25,6 +25,12 @@ const useStyles = makeStyles(() => ({
     width: 50,
     height: 50,
     borderRadius: 10,
+  },
+  noImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: colors.mediumGrey,
   },
   accordionDetails: {
     display: "flex",
@@ -60,7 +66,15 @@ const PatientAccordion = ({ patient }) => {
       >
         <Grid container alignItems="center">
           <Grid item xs={12} sm={2} lg={2}>
-            <img src={hamid} alt="Patient Pic" className={classes.image} />
+            {patient?.patientImageUrl ? (
+              <img
+                src={patient?.patientImageUrl}
+                alt="Pic"
+                className={classes.image}
+              />
+            ) : (
+              <div className={classes.noImage} />
+            )}
           </Grid>
           <Grid item xs={12} sm={3} lg={3}>
             <Typography variant="subtitle2">

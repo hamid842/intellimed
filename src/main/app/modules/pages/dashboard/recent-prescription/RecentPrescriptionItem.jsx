@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 
 import { getSideEffects } from "@shared/constants/get-sideEffects";
 import atorvastatin from "@images/atorvastatin.jpg";
+import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -37,9 +39,14 @@ const useStyles = makeStyles(() => ({
   title: {
     textAlign: "center",
   },
+  name: {
+    color: colors.darkBlue,
+    fontWeight: 700,
+    fontStyle: "italic",
+  },
 }));
 
-const MedicationItem = ({ medication }) => {
+const MedicationItem = ({ medication, selectedPatientFromTopMenu }) => {
   const classes = useStyles();
 
   const [sideEffect, setSideEffect] = useState(null);
@@ -59,7 +66,10 @@ const MedicationItem = ({ medication }) => {
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12} lg={12}>
             <Typography variant="subtitle2" className={classes.title}>
-              Current Medications
+              Current Medications of{" "}
+              <strong className={classes.name}>
+                {selectedPatientFromTopMenu?.firstName}
+              </strong>
             </Typography>
           </Grid>
           <Divider className={classes.divider} />
@@ -84,11 +94,6 @@ const MedicationItem = ({ medication }) => {
               {medication?.usageDescription}
             </Typography>
           </Grid>
-          <Divider className={classes.divider} />
-          {/* <Grid item xs={12} sm={12} lg={12}>
-            <span className={classes.titles}>Appearance</span>
-            <Typography variant="body2">{medication?.medicType}</Typography>
-          </Grid> */}
           <Divider className={classes.divider} />
           <Grid item xs={12} sm={12} lg={12}>
             <span className={classes.titles}>Important Information</span>
@@ -119,4 +124,8 @@ const MedicationItem = ({ medication }) => {
   );
 };
 
-export default MedicationItem;
+const mapStateToProps = ({ patients }) => ({
+  selectedPatientFromTopMenu: patients.selectedPatientFromTopMenu,
+});
+
+export default connect(mapStateToProps, {})(memo(MedicationItem));

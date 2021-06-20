@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     height: 45,
     marginBottom: 3,
   },
+  saveBtn: {
+    textAlign: "end",
+  },
 }));
 
 const Usage = ({ value, setValue, onError }) => {
@@ -60,7 +63,7 @@ const Usage = ({ value, setValue, onError }) => {
                 clearButton={false}
               />
               <Grid container alignItems="center" className="mt-2">
-                <Grid item xs={6} sm={6} lg={6} className="text-center">
+                <Grid item xs={6} sm={6} lg={6}>
                   <AppButton
                     color="red"
                     variant="outlined"
@@ -68,7 +71,7 @@ const Usage = ({ value, setValue, onError }) => {
                     onClick={handleClick}
                   />
                 </Grid>
-                <Grid item xs={6} sm={6} lg={6} className="text-center">
+                <Grid item xs={6} sm={6} lg={6} className={classes.saveBtn}>
                   <AppButton
                     variant="outlined"
                     color="green"

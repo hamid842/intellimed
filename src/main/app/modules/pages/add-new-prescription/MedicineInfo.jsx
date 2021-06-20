@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
 
 const MedicineInformation = ({
   value,
+  image,
   onChange,
   onChangeFile,
   onChangeCron,
@@ -63,13 +64,9 @@ const MedicineInformation = ({
           <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <UploadButton
               name="medicImageUrl"
-              title={
-                value.medicImageUrl?.name
-                  ? value.medicImageUrl?.name
-                  : "Upload Medicine Image"
-              }
+              title={image?.name ? image?.name : "Upload Medicine Image"}
               className={classes.uploadBtn}
-              handleChange={onChangeFile}
+              handleChange={(e) => onChangeFile(e, "medicine")}
             />
           </Grid>
           <Grid item xs={12} sm={6} lg={4} className={classes.rows}>

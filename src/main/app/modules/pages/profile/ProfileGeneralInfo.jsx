@@ -10,8 +10,12 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import BusinessIcon from "@material-ui/icons/Business";
 import axios from "axios";
+import PhoneInput from "@components/PhoneInput";
 
 const useStyles = makeStyles(() => ({
+  container: {
+    margin: 10,
+  },
   icons: {
     marginRight: 5,
     marginBottom: 5,
@@ -21,6 +25,12 @@ const useStyles = makeStyles(() => ({
   rows: {
     display: "flex",
     padding: 2,
+  },
+  rowsValue: {
+    paddingLeft: 10,
+  },
+  phone: {
+    border: "none",
   },
 }));
 
@@ -53,40 +63,40 @@ const ProfileGeneralInfo = ({ account }) => {
   }, []);
 
   return (
-    <Grid container alignItems="center">
+    <Grid container alignItems="center" className={classes.container}>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PersonIcon className={classes.icons} />
         <Typography variant="subtitle2">First Name :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{account?.firstName}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PersonIcon className={classes.icons} />
         <Typography variant="subtitle2">Last Name :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{account?.lastName}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <AlternateEmailIcon className={classes.icons} />
         <Typography variant="subtitle2">Email :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{account?.email}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <HowToRegIcon className={classes.icons} />
         <Typography variant="subtitle2">Username :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{account?.login}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <HowToRegIcon className={classes.icons} />
         <Typography variant="subtitle2">UseCode :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{userInfos?.userCode}</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
@@ -94,20 +104,34 @@ const ProfileGeneralInfo = ({ account }) => {
         <Typography variant="subtitle2">Phone Number :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{userInfos?.phoneNumber1}</Typography>
+        <PhoneInput
+          label=""
+          disabled={true}
+          height={10}
+          value={userInfos?.phoneNumber1}
+          disableDropdown={true}
+          inputStyle={{ border: "none" }}
+        />
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <PhoneIphoneIcon className={classes.icons} />
         <Typography variant="subtitle2">Mobile Number :</Typography>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
-        <Typography variant="subtitle2">{userInfos?.phoneNumber2}</Typography>
+        <PhoneInput
+          label=""
+          height={10}
+          disabled={true}
+          value={userInfos?.phoneNumber2}
+          disableDropdown={true}
+          inputStyle={{ border: "none" }}
+        />
       </Grid>
       <Grid item xs={6} sm={6} lg={6} className={classes.rows}>
         <BusinessIcon className={classes.icons} />
         <Typography variant="subtitle2">Address :</Typography>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={6} sm={6} lg={6} className={classes.rowsValue}>
         <Typography variant="subtitle2">{userInfos?.address}</Typography>
       </Grid>
     </Grid>

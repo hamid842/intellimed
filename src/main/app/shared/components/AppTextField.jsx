@@ -10,10 +10,12 @@ const AppTextField = ({
   type,
   endAdornment,
   error,
+  multiline,
 }) => {
   return (
     <TextField
       fullWidth
+      multiline={multiline}
       type={type}
       error={error}
       required={required}

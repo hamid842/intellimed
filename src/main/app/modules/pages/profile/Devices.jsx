@@ -1,15 +1,23 @@
 import { memo, useState, useEffect, useRef } from "react";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import MaterialTable from "material-table";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 
+const useStyles = makeStyles(() => ({
+  actions: {
+    marginTop: 10,
+  },
+}));
+
 const getDevicesListApi = process.env.REACT_APP_GET_DEVICES_LIST_API;
 
 const Devices = ({ account }) => {
+  const classes = useStyles();
   const tableRef = useRef();
   const { enqueueSnackbar } = useSnackbar();
   const [devices, setDevices] = useState(null);
@@ -65,6 +73,7 @@ const Devices = ({ account }) => {
   };
   return (
     <MaterialTable
+      classes={{ actions: classes.table }}
       columns={columns}
       options={{
         toolbar: false,

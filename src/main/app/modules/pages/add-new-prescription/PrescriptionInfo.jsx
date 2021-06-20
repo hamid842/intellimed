@@ -11,15 +11,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 15,
   },
   uploadBtn: {
-    width: "320px !important",
-    height: 45,
-    marginBottom: 3,
+    height: 40,
     textTransform: "capitalize",
   },
 }));
 
 const PrescriptionInformation = ({
   value,
+  image,
+  loading,
   onChange,
   onChangeDate,
   onChangeFile,
@@ -48,13 +48,10 @@ const PrescriptionInformation = ({
           <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <UploadButton
               name="prescriptionImageUrl"
-              title={
-                value.prescriptionImageUrl?.name
-                  ? value.prescriptionImageUrl?.name
-                  : "Upload Prescription Image"
-              }
+              loading={loading}
+              title={image?.name ? image?.name : "Upload Prescription Image"}
               className={classes.uploadBtn}
-              handleChange={onChangeFile}
+              handleChange={(e) => onChangeFile(e, "prescription")}
             />
           </Grid>
         </Grid>

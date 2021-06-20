@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Paper } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
 import { getAllPrescriptions } from "@shared/constants/get-prescriptions";
 
 import MedicationItem from "./RecentPrescriptionItem";
+import NoPrescription from "./NoPrescription";
 
 const useStyles = makeStyles(() => ({
   carouselContainer: {
@@ -22,23 +23,26 @@ const useStyles = makeStyles(() => ({
   container: {
     height: 300,
   },
+  noPrescription: {
+    height: 300,
+    padding: 10,
+    backgroundColor: "white",
+    display: "flex",
+    placeItems: "center",
+  },
 }));
 
-const CurrentMedication = ({ account, selectedPatient }) => {
+const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
   const classes = useStyles();
 
-  const [medications, setMedications] = useState(null);
+  const [medications, setMedications] = useState([]);
 
   useEffect(() => {
     const fetchPrescriptions = async () => {
-      setMedications(await getAllPrescriptions(account?.id));
+      setMedications(await getAllPrescriptions(selectedPatientFromTopMenu?.id));
     };
     fetchPrescriptions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPatient?.id]);
-
-  const medicines = [];
-  medicines.push(medications);
+  }, [selectedPatientFromTopMenu?.id]);
 
   return (
     <>
@@ -57,17 +61,20 @@ const CurrentMedication = ({ account, selectedPatient }) => {
             },
           }}
         >
-          {medicines.map((item, i) => (
-            <MedicationItem key={i} medication={item} />
-          ))}
+          {medications.length > 0 ? (
+            medications.map((item, i) => (
+              <MedicationItem key={i} medication={item} />
+            ))
+          ) : (
+            <NoPrescription />
+          )}
         </Carousel>
       </Paper>
     </>
   );
 };
 
-const mapStateToProps = ({ login, patients }) => ({
-  account: login.account,
-  selectedPatient: patients.selectedPatient,
+const mapStateToProps = ({ patients }) => ({
+  selectedPatientFromTopMenu: patients.selectedPatientFromTopMenu,
 });
 export default connect(mapStateToProps, {})(CurrentMedication);
