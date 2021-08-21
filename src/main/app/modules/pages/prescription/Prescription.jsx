@@ -39,7 +39,7 @@ const PrescriptionDetail = ({ prescription }) => {
           <Grid item xs={12} sm={3} lg={3}>
             <Typography variant="body2">
               <strong>Name: </strong>
-              {prescription?.prescriptionCode}
+              {prescription?.medicine?.brandName}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} lg={4}>

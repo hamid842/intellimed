@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     textTransform: "capitalize",
     width: "100%",
-    height: 45,
+    height: 40,
     marginBottom: 3,
   },
   saveBtn: {

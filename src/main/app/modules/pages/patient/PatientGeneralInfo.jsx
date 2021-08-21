@@ -49,7 +49,7 @@ const PatientGeneralInfo = (props) => {
     id: editMode ? selectedPatient?.id : null,
     firstName: editMode ? selectedPatient?.firstName : "",
     lastName: editMode ? selectedPatient?.lastName : "",
-    birthDate: editMode ? selectedPatient?.birthDate : new Date("2014-08-18"),
+    birthDate: editMode ? selectedPatient?.birthDate : new Date(),
     idNo: editMode ? selectedPatient?.idNo : "",
     address: editMode ? selectedPatient?.address : "",
     phoneNumber1: editMode ? selectedPatient?.phoneNumber1 : "",

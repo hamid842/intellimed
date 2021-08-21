@@ -1,15 +1,23 @@
-import { Grid } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import {
+  Grid,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+} from "@material-ui/core";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 import AppSelectField from "@components/AppSelectField";
 import AppTextField from "@components/AppTextField";
-import UploadButton from "@shared/components/UploadButton";
 import { formLabelsTheme } from "@shared/constants/formLabelsTheme";
 import Usage from "./Usage";
 
 const options = [
-  { label: "TABLET", value: "TABLET" },
-  { label: "LIQUID", value: "LIQUID" },
+  { label: "OTHER", value: "OTHER" },
+  { label: "ORAL", value: "ORAL" },
+  { label: "INJECTION", value: "INJECTION" },
 ];
 
 const useStyles = makeStyles(() => ({
@@ -24,27 +32,55 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MedicineInformation = ({
-  value,
-  image,
-  onChange,
-  onChangeFile,
-  onChangeCron,
-}) => {
+// Endpoints
+const getAllMedicinesApi = process.env.REACT_APP_GET_ALL_MEDICINES;
+
+const MedicineInformation = ({ value, onChange, onChangeCron }) => {
   const classes = useStyles();
+  const [medicines, setMedicines] = useState([]);
+
+  const getAllMedicines = async (id) => {
+    await axios(`${getAllMedicinesApi}/${id}`)
+      .then((res) => {
+        if (res.status === 200 || 201) {
+          setMedicines([res.data]);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAllMedicines(1);
+  }, []);
+
   return (
     <ThemeProvider theme={formLabelsTheme}>
       <form>
         <Grid container spacing={1} alignItems="center">
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
-            <AppTextField
-              label="Generic Name"
-              name="genericName"
-              value={value.genericName}
-              onChange={onChange}
-            />
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
+            <FormControl variant="outlined" fullWidth size="small">
+              <InputLabel id="demo-simple-select-outlined-label">
+                Select Medicine
+              </InputLabel>
+              <Select
+                required
+                name="medicine"
+                label="Select Medicine"
+                id="demo-simple-select-outlined-label"
+                value={value.medicine.brandName}
+                onChange={onChange}
+              >
+                {medicines?.map((medicine, i) => {
+                  return (
+                    <MenuItem key={i} value={medicine}>
+                      {medicine.brandName}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </Grid>
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <AppSelectField
               label="Type"
               name="medicType"
@@ -53,7 +89,7 @@ const MedicineInformation = ({
               onChange={onChange}
             />
           </Grid>
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <AppTextField
               label="Usage Description"
               name="usageDescription"
@@ -61,14 +97,7 @@ const MedicineInformation = ({
               onChange={onChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
-            <UploadButton
-              name="medicImageUrl"
-              title={image?.name ? image?.name : "Upload Medicine Image"}
-              className={classes.uploadBtn}
-              handleChange={(e) => onChangeFile(e, "medicine")}
-            />
-          </Grid>
+
           <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <Usage value={value} setValue={onChangeCron} />
           </Grid>

@@ -70,9 +70,9 @@ export const login =
       .catch((err) => {
         dispatch({ type: TOGGLE_LOAD });
         if (err) {
-          toast(err.response?.data?.detail, { variant: "error" });
+          toast && toast(err.response?.data?.detail, { variant: "error" });
         } else {
-          toast("Something went wrong!", { variant: "error" });
+          toast && toast("Something went wrong!", { variant: "error" });
         }
       });
   };

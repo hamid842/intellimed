@@ -16,11 +16,10 @@ const LoginScreen = (props) => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [user, setUser] = useState({
     activated: true,
-    login: "true",
+    login: "",
     firstName: "",
     lastName: "",
     email: "",
-    username: "",
     password: "",
   });
   const [loginUser, setLoginUser] = useState({
@@ -46,11 +45,16 @@ const LoginScreen = (props) => {
             lastName: "",
             email: "",
             password: "",
+            login: "",
           });
+          props.login(user.login, user.password, enqueueSnackbar);
         }
       })
       .catch((err) => {
         setRegisterLoading(false);
+        enqueueSnackbar(err?.response?.data?.title, {
+          variant: "error",
+        });
         console.log(err.response);
       });
   };

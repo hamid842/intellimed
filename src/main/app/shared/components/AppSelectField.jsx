@@ -13,7 +13,7 @@ const AppSelectField = ({ options, value, name, label, onChange }) => {
         onChange={onChange}
         label={label}
       >
-        {options.map((item, i) => {
+        {options?.map((item, i) => {
           return (
             <MenuItem key={i} value={item.value}>
               {item.label}

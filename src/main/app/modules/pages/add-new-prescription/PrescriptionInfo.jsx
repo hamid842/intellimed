@@ -29,7 +29,7 @@ const PrescriptionInformation = ({
     <ThemeProvider theme={formLabelsTheme}>
       <form>
         <Grid container spacing={1} alignItems="center">
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <AppDatePicker
               label="Promised"
               name="issueDate"
@@ -37,7 +37,7 @@ const PrescriptionInformation = ({
               onChange={(e) => onChangeDate(e, "issueDate")}
             />
           </Grid>
-          <Grid item xs={12} sm={4} lg={4} className={classes.rows}>
+          <Grid item xs={12} sm={6} lg={4} className={classes.rows}>
             <AppTextField
               label="Barcode"
               name="barCode"

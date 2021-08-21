@@ -7,7 +7,6 @@ import { getPatients } from "@shared/constants/get-patients";
 
 // State
 const initialState = {
-  // TODO should be an array
   patients: [],
   selectedPatient: {},
   selectedPatientFromTopMenu: {},

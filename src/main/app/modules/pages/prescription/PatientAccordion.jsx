@@ -42,20 +42,18 @@ const useStyles = makeStyles(() => ({
 const PatientAccordion = ({ patient }) => {
   const classes = useStyles();
   const [selectedValue, setSelectedValue] = useState("ACTIVE");
-  const [prescriptions, setPrescriptions] = useState([]);
+  const [prescriptions, setPrescriptions] = useState();
 
+  console.log(prescriptions);
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
   useEffect(() => {
-    if (patient) {
-      const fetchPrescriptions = async () => {
-        setPrescriptions(await getAllPrescriptions(patient.id));
-      };
-      fetchPrescriptions();
+    if (patient?.id) {
+      getAllPrescriptions(patient?.id, setPrescriptions);
     }
-  }, [patient]);
+  }, [patient?.id]);
 
   return (
     <Accordion className={classes.accordion}>
@@ -98,10 +96,10 @@ const PatientAccordion = ({ patient }) => {
       </AccordionSummary>
       <AccordionDetails className={classes.accordionDetails}>
         <RadioButton value={selectedValue} onChange={handleChange} />
-        {prescriptions.length > 0 ? (
-          prescriptions.map((item, i) => (
-            <Prescription key={i} prescription={item} />
-          ))
+        {prescriptions?.length > 0 ? (
+          prescriptions?.map((item, i) => {
+            return <Prescription key={i} prescription={item} />;
+          })
         ) : (
           <NoPrescription />
         )}

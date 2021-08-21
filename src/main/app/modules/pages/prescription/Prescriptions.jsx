@@ -23,21 +23,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Prescriptions = ({ account, patients }) => {
+const Prescriptions = ({ patients }) => {
   const classes = useStyles();
 
   return (
     <Paper className={classes.root}>
       <Title title="Patient(s) and Prescription(s)" />
-      {patients.map((item, i) => {
-        return <PatientAccordion key={i} patient={item} />;
-      })}
+      {patients?.length > 0 &&
+        patients?.map((patient) => (
+          <PatientAccordion key={patient.id} patient={patient} />
+        ))}
     </Paper>
   );
 };
 
-const mapStateToProps = ({ login, patients }) => ({
-  account: login.account,
+const mapStateToProps = ({ patients }) => ({
   patients: patients.patients,
 });
 

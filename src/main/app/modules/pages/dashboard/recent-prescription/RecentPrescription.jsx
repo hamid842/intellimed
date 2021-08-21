@@ -61,8 +61,8 @@ const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
             },
           }}
         >
-          {medications.length > 0 ? (
-            medications.map((item, i) => (
+          {medications?.length > 0 ? (
+            medications?.map((item, i) => (
               <MedicationItem key={i} medication={item} />
             ))
           ) : (

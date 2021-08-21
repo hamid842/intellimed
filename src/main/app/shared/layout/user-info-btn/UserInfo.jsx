@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
   Grow,
   Paper,
@@ -105,10 +105,20 @@ const UserInfo = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account?.id]);
 
-  const handleSelectPatient = (id) => {
-    props.selectPatientFromTopMenu(id);
-    handleToggle();
-  };
+  const handleSelectPatient = useCallback(
+    (id) => {
+      props.selectPatientFromTopMenu(id);
+      handleToggle();
+    },
+    [props]
+  );
+
+  useEffect(() => {
+    if (patients?.length > 0) {
+      const firstId = patients[0]?.id;
+      handleSelectPatient(firstId);
+    }
+  }, [patients, handleSelectPatient]);
 
   return (
     <div className={classes.root}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
+import { connect } from "react-redux";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -10,7 +11,10 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import CheckIcon from "@material-ui/icons/Check";
+import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -20,6 +24,7 @@ import PharmacyAndRefill from "./PharmacyAndRefill";
 import AppButton from "@shared/components/AppButton";
 import colors from "@config/colors";
 import Title from "@shared/components/Title";
+import NoPatient from "./NoPatient";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,32 +45,38 @@ const useStyles = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
+  alert: {
+    marginTop: 20,
+  },
 }));
-
-const initialState = {
-  issueDate: new Date(),
-  barCode: "",
-  prescriptionImageUrl: null,
-  medicImageUrl: null,
-  genericName: "",
-  medicType: "",
-  usageDescription: "",
-  cron: "",
-  pharmacy: "",
-  refillTime: new Date(),
-};
 
 // Endpoints
 const createNewPrescriptionApi = process.env.REACT_APP_GET_ALL_PRESCRIPTION;
 const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
 
-const NewDescription = () => {
+const NewDescription = ({ patients, selectedPatientFromTopMenu }) => {
   const classes = useStyles();
+  const initialState = {
+    issueDate: new Date(),
+    hasRefill: false,
+    importantInfo: "",
+    barCode: "",
+    qty: "1",
+    prescriptionImageUrl: null,
+    medicine: {},
+    medicType: "",
+    usageDescription: "",
+    cron: "",
+    pharmacy: {},
+    loading: false,
+    refillTime: new Date(),
+    patientInfo: selectedPatientFromTopMenu,
+    status: "ACTIVE",
+  };
   const { enqueueSnackbar } = useSnackbar();
   const [activeStep, setActiveStep] = useState(0);
   const [newDescription, setNewDescription] = useState(initialState);
   const [prescriptionImageUrl, setPrescriptionImageUrl] = useState(null);
-  const [medicineImageUrl, setMedicineImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
@@ -77,14 +88,13 @@ const NewDescription = () => {
   const handleChangeDate = (date, name) => {
     setNewDescription({
       ...newDescription,
-      [name]: dayjs(date).format("YYYY-MM-DD HH:mm"),
+      [name]: dayjs(date),
     });
   };
 
   const handleChangeFile = async (e, type) => {
     setLoading(true);
     type === "prescription" && setPrescriptionImageUrl(e.target.files[0]);
-    type === "medicine" && setMedicineImageUrl(e.target.files[0]);
     var data = new FormData();
     data.append("file", e.target.files[0]);
     var config = {
@@ -141,9 +151,7 @@ const NewDescription = () => {
         return (
           <MedicineInformation
             value={newDescription}
-            image={medicineImageUrl}
             onChange={handleChange}
-            onChangeFile={handleChangeFile}
             onChangeCron={handleChangeCron}
           />
         );
@@ -163,10 +171,21 @@ const NewDescription = () => {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
+      setLoading(true);
       axios
         .post(createNewPrescriptionApi, newDescription)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
+        .then((res) => {
+          if (res.status === 200 || 201) {
+            setLoading(false);
+            enqueueSnackbar("Prescription Created Successfully.", {
+              variant: "success",
+            });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -183,60 +202,86 @@ const NewDescription = () => {
   return (
     <Paper className={classes.container}>
       <Title title="Add New Description" />
-      <div className={classes.root}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-              <StepContent>
-                <Typography>{getStepContent(index)}</Typography>
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <AppButton
-                      label="back"
-                      variant="outlined"
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                      startIcon={<ArrowLeftIcon />}
-                    />
-                    <AppButton
-                      label={
-                        activeStep === steps.length - 1 ? "Finish" : "Next"
-                      }
-                      variant="outlined"
-                      color={
-                        activeStep === steps.length - 1
-                          ? "green"
-                          : colors.darkBlue
-                      }
-                      onClick={handleNext}
-                      className={classes.button}
-                      endIcon={
-                        activeStep === steps.length - 1 ? (
-                          <CheckIcon />
-                        ) : (
-                          <ArrowRightIcon />
-                        )
-                      }
-                    />
+      {patients?.length > 0 ? (
+        <div className={classes.root}>
+          <div className={classes.alert}>
+            <Alert severity="warning">
+              You are adding a new prescription for{" "}
+              <strong>
+                {selectedPatientFromTopMenu?.firstName}{" "}
+                {selectedPatientFromTopMenu?.lastName}
+              </strong>
+              ! If you want to add for another patient, please select from top
+              menu.
+            </Alert>
+          </div>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((label, index) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+                <StepContent>
+                  <Typography>{getStepContent(index)}</Typography>
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <AppButton
+                        label="back"
+                        variant="outlined"
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                        startIcon={<ArrowLeftIcon />}
+                      />
+                      <AppButton
+                        label={
+                          activeStep === steps.length - 1 ? "Finish" : "Next"
+                        }
+                        variant="outlined"
+                        color={
+                          activeStep === steps.length - 1
+                            ? "green"
+                            : colors.darkBlue
+                        }
+                        onClick={handleNext}
+                        className={classes.button}
+                        endIcon={
+                          activeStep === steps.length - 1 ? (
+                            loading ? (
+                              <CircularProgress />
+                            ) : (
+                              <CheckIcon />
+                            )
+                          ) : (
+                            <ArrowRightIcon />
+                          )
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </Paper>
-        )}
-      </div>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === steps.length && (
+            <Paper square elevation={0} className={classes.resetContainer}>
+              <Typography>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Button onClick={handleReset} className={classes.button}>
+                Reset
+              </Button>
+            </Paper>
+          )}
+        </div>
+      ) : (
+        <NoPatient />
+      )}
     </Paper>
   );
 };
 
-export default NewDescription;
+const mapStateToProps = ({ patients }) => ({
+  patients: patients.patients,
+  selectedPatientFromTopMenu: patients.selectedPatientFromTopMenu,
+});
+
+export default connect(mapStateToProps, {})(NewDescription);
