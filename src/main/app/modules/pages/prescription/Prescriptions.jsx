@@ -5,6 +5,7 @@ import { Paper } from "@material-ui/core";
 
 import PatientAccordion from "./PatientAccordion";
 import Title from "@shared/components/Title";
+import NoPrescription from "./NoPrescription";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +30,13 @@ const Prescriptions = ({ patients }) => {
   return (
     <Paper className={classes.root}>
       <Title title="Patient(s) and Prescription(s)" />
-      {patients?.length > 0 &&
+      {patients?.length > 0 ? (
         patients?.map((patient) => (
           <PatientAccordion key={patient.id} patient={patient} />
-        ))}
+        ))
+      ) : (
+        <NoPrescription />
+      )}
     </Paper>
   );
 };

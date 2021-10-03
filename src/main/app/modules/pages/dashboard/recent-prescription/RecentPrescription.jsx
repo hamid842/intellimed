@@ -39,7 +39,10 @@ const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
 
   useEffect(() => {
     const fetchPrescriptions = async () => {
-      setMedications(await getAllPrescriptions(selectedPatientFromTopMenu?.id));
+      selectedPatientFromTopMenu?.id &&
+        setMedications(
+          await getAllPrescriptions(selectedPatientFromTopMenu?.id)
+        );
     };
     fetchPrescriptions();
   }, [selectedPatientFromTopMenu?.id]);

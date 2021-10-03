@@ -9,7 +9,7 @@ export const getPatients = async (id) => {
     if (data && data.length > 0) {
       return data;
     } else {
-      return [data];
+      return [];
     }
   } catch (error) {
     console.log(error);

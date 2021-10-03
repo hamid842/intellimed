@@ -68,7 +68,9 @@ const MedicationItem = ({ medication, selectedPatientFromTopMenu }) => {
             <Typography variant="subtitle2" className={classes.title}>
               Current Medications of{" "}
               <strong className={classes.name}>
-                {selectedPatientFromTopMenu?.firstName}
+                {selectedPatientFromTopMenu?.firstName
+                  ? selectedPatientFromTopMenu?.firstName
+                  : "No Patient!"}
               </strong>
             </Typography>
           </Grid>

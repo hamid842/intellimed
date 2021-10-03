@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
     padding: 10,
     borderRadius: 10,
     backgroundColor: colors.mainGrey,
+    marginTop: 20,
   },
   btnContainer: {
     textAlign: "end",

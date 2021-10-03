@@ -39,6 +39,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 // Endpoints
+const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
 const patientInfosApi = process.env.REACT_APP_CREATE_PATIENT_INFOS;
 
 const PatientGeneralInfo = (props) => {
@@ -66,6 +67,7 @@ const PatientGeneralInfo = (props) => {
     },
   });
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const maritalStatusOptions = [
     { label: "Married", value: "MARRIED" },
@@ -97,6 +99,36 @@ const PatientGeneralInfo = (props) => {
 
   const handleChangePhone = (name, value) => {
     setNewPatientInfo({ ...newPatientInfo, [name]: "+" + value });
+  };
+
+  const handleChangePatientImage = async (e) => {
+    setImageLoading(true);
+    var data = new FormData();
+    data.append("file", e.target.files[0]);
+    var config = {
+      method: "post",
+      url: `${uploadImageApi}?imageSourceType=patient`,
+      data,
+    };
+    await axios(config)
+      .then(async (res) => {
+        if (res.status === 200 || 201) {
+          enqueueSnackbar(
+            `${e.target.files[0]?.name} file is Uploaded successfully.`,
+            {
+              variant: "success",
+            }
+          );
+          setImageLoading(false);
+          // setDownloadedImage(await downloadFile(res.data));
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          setImageLoading(false);
+          enqueueSnackbar("Something went wrong!", { variant: "error" });
+        }
+      });
   };
 
   const handleEditPatientInfo = (e) => {
@@ -216,6 +248,7 @@ const PatientGeneralInfo = (props) => {
 
               <Grid item xs={12} sm={6} lg={6}>
                 <PhoneInput
+                  height={40}
                   name="phoneNumber1"
                   label="Phone Number"
                   value={newPatientInfo.phoneNumber1}
@@ -224,6 +257,7 @@ const PatientGeneralInfo = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} lg={6}>
                 <PhoneInput
+                  height={40}
                   name="phoneNumber2"
                   label="Mobile Number"
                   value={newPatientInfo.phoneNumber2}
@@ -302,7 +336,11 @@ const PatientGeneralInfo = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} lg={6}>
-                <UploadButton title="Upload image" />
+                <UploadButton
+                  title="Upload image"
+                  loading={imageLoading}
+                  onChange={handleChangePatientImage}
+                />
               </Grid>
               <Grid item xs={12} sm={6} lg={6} className={classes.btnContainer}>
                 <AppButton

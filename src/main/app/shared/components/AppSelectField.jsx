@@ -11,7 +11,7 @@ const AppSelectField = ({ options, value, name, label, onChange }) => {
         id="demo-simple-select-outlined-label"
         value={value}
         onChange={onChange}
-        label={label}
+        InputLabel={label}
       >
         {options?.map((item, i) => {
           return (

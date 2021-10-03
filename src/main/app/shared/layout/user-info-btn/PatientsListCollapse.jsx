@@ -3,14 +3,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 
-import hamid from "@images/hamid.png";
-
 const PatientsListCollapse = ({ patient }) => {
   return (
     <>
       <ListItemAvatar>
         <Avatar>
-          <img src={hamid || patient.imageUrl} alt="Patient" />
+          <img src={patient.imageUrl} alt="Patient" />
         </Avatar>
       </ListItemAvatar>
       <ListItemText

@@ -124,8 +124,8 @@ const Patient = (props) => {
           </Grid>
         ) : (
           <Grid item xs={12} sm={12} lg={12}>
-            {patients?.length > 0 ? (
-              patients.map((item, i) => {
+            {patients?.length > 0 &&
+              patients?.map((item, i) => {
                 return (
                   <div key={i}>
                     <CurrentPatient
@@ -146,8 +146,8 @@ const Patient = (props) => {
                     )}
                   </div>
                 );
-              })
-            ) : (
+              })}
+            {patients.length === 0 && (
               <div className={classes.noPatient}>
                 No patient added yet. You can do this with "Add New" button
                 above.

@@ -116,7 +116,7 @@ const UserInfo = (props) => {
   useEffect(() => {
     if (patients?.length > 0) {
       const firstId = patients[0]?.id;
-      handleSelectPatient(firstId);
+      firstId && handleSelectPatient(firstId);
     }
   }, [patients, handleSelectPatient]);
 
@@ -191,8 +191,10 @@ const UserInfo = (props) => {
                         className={classes.collapse}
                       >
                         <List component="div" disablePadding>
-                          {patients.length > 0 ? (
-                            patients.map((patient, i) => {
+                          {!Array.isArray(patients) || !patients.length ? (
+                            <NoPatient closeMenu={setOpen} />
+                          ) : (
+                            patients?.map((patient, i) => {
                               return (
                                 <ListItem
                                   button
@@ -211,8 +213,6 @@ const UserInfo = (props) => {
                                 </ListItem>
                               );
                             })
-                          ) : (
-                            <NoPatient closeMenu={setOpen} />
                           )}
                         </List>
                       </Collapse>
