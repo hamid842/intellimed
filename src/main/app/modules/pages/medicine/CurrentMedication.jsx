@@ -1,11 +1,11 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import LinkIcon from "@material-ui/icons/Link";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import LinkIcon from "@mui/icons/Link";
 
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 import colors from "@config/colors";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
 const CurrentMedication = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.container}>
+    <Paper elevation={1} className={classes.container}>
       <Typography className="mt-2">Prescriber Name</Typography>
       <Grid container spacing={1} className="mt-2">
         <Grid item>

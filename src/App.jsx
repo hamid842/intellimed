@@ -1,24 +1,21 @@
 import React from "react";
-// import { setConfig, hot } from "react-hot-loader";
-import { SnackbarProvider } from "notistack";
+import {BrowserRouter} from "react-router-dom";
+import {SnackbarProvider} from "notistack";
 
 import ErrorBoundary from "@shared/error/error-boundary";
-import AppRoutes from "./Routes";
+import AppRoutes from "./AppRoutes";
 
-// setConfig({
-//   showReactDomPatchNotification: false,
-// });
 
 function App() {
-  return (
-    <>
-      <SnackbarProvider maxSnack={3}>
-        <ErrorBoundary>
-          <AppRoutes />
-        </ErrorBoundary>
-      </SnackbarProvider>
-    </>
-  );
+    return (
+        <SnackbarProvider maxSnack={3}>
+            <ErrorBoundary>
+                <BrowserRouter>
+                    <AppRoutes/>
+                </BrowserRouter>
+            </ErrorBoundary>
+        </SnackbarProvider>
+    );
 }
 
 export default App;

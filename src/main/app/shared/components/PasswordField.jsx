@@ -1,8 +1,8 @@
 import { memo, useState } from "react";
 
-import { TextField, InputAdornment, IconButton } from "@material-ui/core";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const PasswordField = ({ label, value, onChange }) => {
   const [showPass, setShowPass] = useState(false);

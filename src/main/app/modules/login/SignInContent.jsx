@@ -1,12 +1,11 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CircularProgress from "@mui/material/CircularProgress";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { ThemeProvider, makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
 
 import { formLabelsTheme } from "@shared/constants/formLabelsTheme";

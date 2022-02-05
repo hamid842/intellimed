@@ -1,11 +1,11 @@
 import { memo, useState, useEffect, useRef } from "react";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import MaterialTable from "material-table";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
 const useStyles = makeStyles(() => ({
@@ -53,9 +53,7 @@ const Devices = ({ account }) => {
         }
       })
       .catch((err) => {
-        if (err) {
-          return;
-        }
+        console.log(err)
       });
   };
 

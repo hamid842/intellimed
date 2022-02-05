@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
+import {useNavigate} from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -8,11 +9,10 @@ import {
   Divider,
   IconButton,
   Tooltip,
-} from "@material-ui/core";
-import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+} from "@mui/material";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { history } from "@shared/history";
 import colors from "@config/colors";
 
 const useStyles = makeStyles(() => ({
@@ -52,9 +52,9 @@ const useStyles = makeStyles(() => ({
 
 const NoPrescription = ({ selectedPatientFromTopMenu }) => {
   const classes = useStyles();
+  const navigate = useNavigate()
   return (
-    <>
-      <Paper className={classes.container}>
+      <Paper elevation={0} className={classes.container}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12} lg={12}>
             <Typography variant="subtitle2" className={classes.title}>
@@ -75,15 +75,14 @@ const NoPrescription = ({ selectedPatientFromTopMenu }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} lg={12} className={classes.btn}>
-            <IconButton onClick={() => history.push("/add-new-prescription")}>
-              <Tooltip>
+            <IconButton onClick={() => navigate("/add-new-prescription")}>
+              <Tooltip title={'Add Patient'}>
                 <AddCircleIcon color="primary" className={classes.addBtn} />
               </Tooltip>
             </IconButton>
           </Grid>
         </Grid>
       </Paper>
-    </>
   );
 };
 

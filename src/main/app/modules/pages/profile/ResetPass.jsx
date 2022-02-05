@@ -1,10 +1,10 @@
 import { memo, useState } from "react";
-import { Grid } from "@material-ui/core";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@mui/material";
+import { ThemeProvider, makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import CloseIcon from "@material-ui/icons/Close";
-import CheckIcon from "@material-ui/icons/Check";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 
 import AppButton from "@components/AppButton";

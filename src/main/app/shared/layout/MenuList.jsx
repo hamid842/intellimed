@@ -1,24 +1,24 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Tooltip from "@material-ui/core/Tooltip";
-import ListItemText from "@material-ui/core/ListItemText";
+import { makeStyles } from "@mui/styles";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Tooltip from "@mui/material/Tooltip";
+import ListItemText from "@mui/material/ListItemText";
 // Icons
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import PersonIcon from "@material-ui/icons/Person";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { AiFillMedicineBox } from "react-icons/ai";
 import { GiDoctorFace } from "react-icons/gi";
 import { FaPrescription } from "react-icons/fa";
+import {useNavigate} from "react-router-dom";
 // ====
-import { history } from "@shared/history";
 
 const useStyles = makeStyles(() => ({}));
 
 const MenuList = () => {
   const classes = useStyles();
+  const navigate = useNavigate()
   return (
     <>
       <List className={classes.root}>
@@ -26,7 +26,7 @@ const MenuList = () => {
         <ListItem
           button
           className={classes.menu}
-          onClick={() => history.push("/dashboard")}
+          onClick={() => navigate("/dashboard")}
         >
           <ListItemIcon>
             <Tooltip title="Dashboard">
@@ -45,7 +45,7 @@ const MenuList = () => {
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/patient");
+           navigate("/patient");
             //   handleDrawerOpen();
           }}
         >
@@ -63,25 +63,25 @@ const MenuList = () => {
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/prescription");
+            navigate("/prescriptions");
             //   handleDrawerOpen();
           }}
         >
           <ListItemIcon>
-            <Tooltip title="Prescription">
+            <Tooltip title="Prescriptions">
               <span>
                 <AiFillMedicineBox size={24} />
               </span>
             </Tooltip>
           </ListItemIcon>
-          <ListItemText primary="Prescription" />
+          <ListItemText primary="Prescriptions" />
         </ListItem>
         {/* Prescriber */}
         <ListItem
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/prescriber");
+            navigate("/prescriber");
           }}
         >
           <ListItemIcon>
@@ -98,7 +98,7 @@ const MenuList = () => {
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/add-new-prescription");
+            navigate("/add-new-prescription");
           }}
         >
           <ListItemIcon>
@@ -115,7 +115,7 @@ const MenuList = () => {
           button
           className={classes.menu}
           onClick={() => {
-            history.push("/profile");
+            navigate("/profile");
             //   handleDrawerOpen();
           }}
         >
@@ -132,7 +132,7 @@ const MenuList = () => {
         <ListItem
           button
           onClick={() => {
-            history.push("/login");
+            navigate("/login");
           }}
         >
           <ListItemIcon>

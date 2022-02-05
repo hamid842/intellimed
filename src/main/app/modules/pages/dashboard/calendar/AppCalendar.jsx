@@ -1,20 +1,20 @@
 // import { useState, useEffect } from "react";
 import "./style.css";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import { Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import {Calendar, momentLocalizer} from "react-big-calendar";
+import {Paper} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 // import { getTimeTables } from "@shared/constants/get-time-tables";
 
-const useStyles = makeStyles(() => ({
-  container: {
-    width: "100%",
-    height: 500,
-    borderRadius: 10,
-  },
-}));
+const useStyles = makeStyles({
+    container: {
+        width: "100%",
+        height: 500,
+        borderRadius: 10,
+    },
+});
 
 const localizer = momentLocalizer(moment);
 
@@ -34,40 +34,40 @@ const localizer = momentLocalizer(moment);
 // };
 
 const formats = {
-  dayFormat: "dddd",
-  weekdayFormat: "dddd",
-  // timeGutterFormat: timeFormat,
+    dayFormat: "dddd",
+    weekdayFormat: "dddd",
+    // timeGutterFormat: timeFormat,
 };
 
 const AppCalendar = () => {
-  const classes = useStyles();
-  // const [timeTables, setTimeTables] = useState([]);
+    const classes = useStyles();
+    // const [timeTables, setTimeTables] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchStates = async () => {
-  //     setTimeTables(await getTimeTables());
-  //   };
-  //   fetchStates();
-  // }, []);
-  return (
-    <Paper className={classes.container}>
-      <Calendar
-        culture="en-GB"
-        // events={timeTables}
-        events={([], [])}
-        defaultView="month"
-        views={["month", "week", "day"]}
-        step={60}
-        showMultiDayTimes
-        //min={new Date(2021, 1, 1, 0, 0, 0)}
-        // max={new Date(2022, 1, 0, 23, 59, 59)}
-        defaultDate={new Date()}
-        localizer={localizer}
-        // timeslots={6}
-        formats={formats}
-      />
-    </Paper>
-  );
+    // useEffect(() => {
+    //   const fetchStates = async () => {
+    //     setTimeTables(await getTimeTables());
+    //   };
+    //   fetchStates();
+    // }, []);
+    return (
+        <Paper elevation={0} className={classes.container}>
+            <Calendar
+                culture="en-GB"
+                // events={timeTables}
+                events={([], [])}
+                defaultView="month"
+                views={["month", "week", "day"]}
+                step={60}
+                showMultiDayTimes
+                //min={new Date(2021, 1, 1, 0, 0, 0)}
+                // max={new Date(2022, 1, 0, 23, 59, 59)}
+                defaultDate={new Date()}
+                localizer={localizer}
+                // timeslots={6}
+                formats={formats}
+            />
+        </Paper>
+    );
 };
 
 export default AppCalendar;

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 
 import ProfileGeneralInfo from "./ProfileGeneralInfo";
 import Devices from "./Devices";

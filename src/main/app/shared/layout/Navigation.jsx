@@ -1,169 +1,105 @@
-import React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-// ====
-import logo from "@images/logo.png";
-import colors from "@config/colors";
-import ToolbarContent from "./ToolbarContent";
+import {useState} from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Drawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import {Outlet} from "react-router-dom";
+
 import MenuList from "./MenuList";
-import Footer from "./Footer";
+import logo from "@images/logo.png";
+import ToolbarContent from "./ToolbarContent";
+import colors from '@config/colors'
 
-const drawerWidth = 250;
+const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    backgroundColor: colors.mainGrey,
-    height: "100vh",
-  },
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    color: "grey",
-    boxShadow: "none",
-    backgroundColor: colors.mainGrey,
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      backgroundColor: colors.mainGrey,
-    },
-  },
+function ResponsiveDrawer(props) {
+    const {window} = props;
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: colors.mainGrey,
-    borderRight: "none",
-    overflowX: "hidden",
-  },
-  content: {
-    marginTop: 60,
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    backgroundColor: colors.mainGrey,
-  },
-  wrapper: {
-    minHeight: "85vh",
-    display: "grid",
-    gridTemplateRows: "auto 20px",
-  },
-  main: {
-    flexGrow: 1,
-  },
-  micIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 5,
-    color: colors.mainGrey,
-    backgroundColor: colors.darkBlue,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  calendar: {
-    position: "absolute",
-    right: 0,
-    top: 0,
-    marginTop: 133,
-    marginRight: 10,
-  },
-}));
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
 
-const ResponsiveDrawer = (props) => {
-  const { window, children } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <div>
-      <img src={logo} alt="Logo" className={classes.logo} />
-      <Grid container spacing={1} alignItems="center">
-        <Grid item>
-          <MicNoneOutlinedIcon className={classes.micIcon} />
-        </Grid>
-        <Grid item>
-          <Typography>Emergency Help</Typography>
-        </Grid>
-      </Grid>
-      <div className={classes.toolbar} />
-
-      {/* <Divider /> */}
-      <MenuList />
-    </div>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <ToolbarContent handleDrawerToggle={handleDrawerToggle} />
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <div className={classes.wrapper}>
-          <div className={classes.main}>{children}</div>
-          <div>
-            <Footer />
-          </div>
+    const drawer = (
+        <div>
+            <img src={logo} alt="Logo"/>
+            <MenuList/>
         </div>
-      </main>
-    </div>
-  );
-};
+    );
 
-ResponsiveDrawer.propTypes = {
-  window: PropTypes.func,
-};
+    const container = window !== undefined ? () => window().document.body : undefined;
+
+    return (
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <AppBar
+                position="fixed"
+                sx={{
+                    width: {sm: `calc(100% - ${drawerWidth}px)`},
+                    ml: {sm: `${drawerWidth}px`},
+                    backgroundColor: colors.mainGrey
+                }}
+                elevation={0}
+            >
+                <Toolbar>
+                    <ToolbarContent handleDrawerToggle={handleDrawerToggle}/>
+                </Toolbar>
+            </AppBar>
+            <Box
+                component="nav"
+                sx={{
+                    width: {sm: drawerWidth},
+                    backgroundColor: colors.mainGrey,
+                    flexShrink: {sm: 0},
+                    borderRight: 'none'
+                }}
+                aria-label="mailbox folders"
+            >
+                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                <Drawer
+                    container={container}
+                    elevation={0}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: {xs: 'block', sm: 'none'},
+                        borderRight: 'none',
+                        backgroundColor: colors.mainGrey,
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+                <Drawer
+                    variant="permanent"
+                    elevation={0}
+                    sx={{
+                        display: {xs: 'none', sm: 'block'},
+                        borderRight: 'none',
+                        backgroundColor: colors.mainGrey,
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                    }}
+                    open
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+            <Box
+                component="main"
+                sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
+            >
+                <Toolbar/>
+                <Outlet/>
+            </Box>
+        </Box>
+    );
+}
+
 
 export default ResponsiveDrawer;
+

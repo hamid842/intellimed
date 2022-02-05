@@ -1,5 +1,4 @@
-import React from 'react'
-import {Grid} from '@material-ui/core'
+import {Grid} from '@mui/material'
 
 import PrescriberItem  from "./PrescriberItem"; 
 import AddNewPrescriberItem from "./AddNewPrescriberItem" ; 

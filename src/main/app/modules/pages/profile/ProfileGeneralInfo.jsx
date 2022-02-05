@@ -1,14 +1,14 @@
 import { memo, useEffect, useState } from "react";
-import { Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
-import PersonIcon from "@material-ui/icons/Person";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
-import HowToRegIcon from "@material-ui/icons/HowToReg";
-import PhoneIcon from "@material-ui/icons/Phone";
-import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
-import BusinessIcon from "@material-ui/icons/Business";
+import PersonIcon from "@mui/icons-material/Person";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import PhoneIcon from "@mui/icons-material/Phone";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import BusinessIcon from "@mui/icons-material/Business";
 import axios from "axios";
 import PhoneInput from "@components/PhoneInput";
 

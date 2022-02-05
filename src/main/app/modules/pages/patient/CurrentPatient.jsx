@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { connect } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { Grid, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import AppButton from "@components/AppButton";
 import colors from "@config/colors";

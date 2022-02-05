@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Paper } from "@material-ui/core";
+import { Paper } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import { getAllPrescriptions } from "@shared/constants/get-prescriptions";
 
 import MedicationItem from "./RecentPrescriptionItem";
 import NoPrescription from "./NoPrescription";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   carouselContainer: {
     backgroundColor: "transparent",
     boxShadow: "none",
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     placeItems: "center",
   },
-}));
+});
 
 const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
   const classes = useStyles();
@@ -48,8 +48,7 @@ const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
   }, [selectedPatientFromTopMenu?.id]);
 
   return (
-    <>
-      <Paper className={classes.carouselContainer}>
+      <Paper elevation={1}>
         <Carousel
           navButtonsAlwaysVisible
           fullHeightHover={false}
@@ -73,11 +72,10 @@ const CurrentMedication = ({ selectedPatientFromTopMenu }) => {
           )}
         </Carousel>
       </Paper>
-    </>
   );
 };
 
 const mapStateToProps = ({ patients }) => ({
-  selectedPatientFromTopMenu: patients.selectedPatientFromTopMenu,
+  selectedPatientFromTopMenu: patients?.selectedPatientFromTopMenu,
 });
 export default connect(mapStateToProps, {})(CurrentMedication);

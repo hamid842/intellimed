@@ -1,8 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Popper, Button, Fade, Grid } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import CheckIcon from "@material-ui/icons/Check";
+import { makeStyles } from "@mui/styles";
+import { Popper, Button, Fade, Grid } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 import Corn from "react-js-cron";
 
 import colors from "@config/colors";

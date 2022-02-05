@@ -1,8 +1,7 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider, makeStyles } from "@mui/styles";
+import CircularProgress from "@mui/material/CircularProgress";
 import PasswordStrengthBar from "react-password-strength-bar";
 
 import { formLabelsTheme } from "@shared/constants/formLabelsTheme";

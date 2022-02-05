@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import CheckIcon from "@material-ui/icons/Check";
-import Alert from "@material-ui/lab/Alert";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import StepContent from "@mui/material/StepContent";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import CircularProgress from "@mui/material/CircularProgress";
+import CheckIcon from "@mui/icons-material/Check";
+import Alert from "@mui/material/Alert";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -94,9 +94,9 @@ const NewDescription = ({ patients, selectedPatientFromTopMenu }) => {
   const handleChangeFile = async (e, type) => {
     setLoading(true);
     type === "prescription" && setPrescriptionImageUrl(e.target.files[0]);
-    var data = new FormData();
+    let data = new FormData();
     data.append("file", e.target.files[0]);
-    var config = {
+    let config = {
       method: "post",
       url: `${uploadImageApi}?imageSourceType=${type}`,
       data,
@@ -199,7 +199,7 @@ const NewDescription = ({ patients, selectedPatientFromTopMenu }) => {
   };
 
   return (
-    <Paper className={classes.container}>
+    <Paper elevation={1} className={classes.container}>
       <Title title="Add New Description" />
       {patients?.length > 0 ? (
         <div className={classes.root}>
@@ -261,7 +261,7 @@ const NewDescription = ({ patients, selectedPatientFromTopMenu }) => {
             ))}
           </Stepper>
           {activeStep === steps.length && (
-            <Paper square elevation={0} className={classes.resetContainer}>
+            <Paper square elevation={0}>
               <Typography>
                 All steps completed - you&apos;re finished
               </Typography>

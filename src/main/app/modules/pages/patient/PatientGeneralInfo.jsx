@@ -1,16 +1,15 @@
 import { memo, useState, Suspense } from "react";
 import { connect } from "react-redux";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider, makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Grid from "@material-ui/core/Grid";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import Grid from "@mui/material/Grid";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import CircularProgress from "@mui/material/CircularProgress";
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import axios from "axios";
 
 import { formLabelsTheme } from "@shared/constants/formLabelsTheme";
@@ -215,27 +214,15 @@ const PatientGeneralInfo = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} lg={6}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    fullWidth
-                    required
-                    label="Birth Date"
-                    error={false}
-                    size="small"
-                    helperText={false}
-                    id="date-picker-dialog"
-                    inputVariant="outlined"
-                    format="yyyy-MM-dd"
-                    value={newPatientInfo.birthDate}
-                    onChange={handleChangeDate}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                      required
+                      label="Birth Date"
+                      value={newPatientInfo.birthDate}
+                      onChange={handleChangeDate}
+                      renderInput={(params) => <TextField size={'small'} {...params} />}
                   />
-                </MuiPickersUtilsProvider>
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={12} lg={12}>
                 <AppTextField

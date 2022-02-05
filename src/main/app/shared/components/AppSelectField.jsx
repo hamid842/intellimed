@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { FormControl, MenuItem, Select, InputLabel } from "@material-ui/core";
+import { FormControl, MenuItem, Select, InputLabel } from "@mui/material";
 
 const AppSelectField = ({ options, value, name, label, onChange }) => {
   return (
@@ -11,7 +11,7 @@ const AppSelectField = ({ options, value, name, label, onChange }) => {
         id="demo-simple-select-outlined-label"
         value={value}
         onChange={onChange}
-        InputLabel={label}
+        label={label}
       >
         {options?.map((item, i) => {
           return (

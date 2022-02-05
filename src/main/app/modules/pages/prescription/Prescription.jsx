@@ -1,12 +1,12 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import {
   Grid,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-} from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Barcode from "react-barcode";
 import dayjs from "dayjs";
 

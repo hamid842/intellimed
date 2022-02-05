@@ -1,9 +1,9 @@
-import { Grid, IconButton, Tooltip, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import AddBoxIcon from "@material-ui/icons/AddBox";
+import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {useNavigate} from 'react-router-dom';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 import colors from "@config/colors";
-import { history } from "@shared/history";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -19,12 +19,13 @@ const useStyles = makeStyles(() => ({
 
 const NoPrescription = () => {
   const classes = useStyles();
+  const navigate = useNavigate()
   return (
     <Grid
       container
       className={classes.container}
       alignItems="center"
-      justify="center"
+      justifyContent="center"
     >
       <Grid item xs={8} sm={8} lg={8}>
         <Typography>
@@ -32,7 +33,7 @@ const NoPrescription = () => {
         </Typography>
       </Grid>
       <Grid item xs={4} sm={4} lg={4} className={classes.btnContainer}>
-        <IconButton onClick={() => history.push("/add-new-prescription")}>
+        <IconButton onClick={() => navigate("/add-new-prescription")}>
           <Tooltip title="Add Prescription">
             <AddBoxIcon color="primary" fontSize="large" />
           </Tooltip>

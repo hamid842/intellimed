@@ -1,10 +1,10 @@
 import { memo } from "react";
-import { IconButton, Grid, Tooltip } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { IconButton, Grid, Tooltip } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 import colors from "@config/colors";
-import { history } from "@shared/history";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -18,11 +18,12 @@ const useStyles = makeStyles(() => ({
 
 const NoPatient = ({ closeMenu }) => {
   const classes = useStyles();
+  const navigate = useNavigate()
   return (
     <Grid
       container
       alignItems="center"
-      justify="space-between"
+      justifyContent="space-between"
       className={classes.container}
     >
       <Grid item xs={6} sm={6} lg={6}>
@@ -31,7 +32,7 @@ const NoPatient = ({ closeMenu }) => {
       <Grid item xs={6} sm={6} lg={6} className={classes.btn}>
         <IconButton
           onClick={() => {
-            history.push("/patient");
+            navigate("/patient");
             closeMenu(false);
           }}
         >

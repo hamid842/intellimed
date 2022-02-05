@@ -5,8 +5,8 @@ import {
   MenuItem,
   Select,
   InputLabel,
-} from "@material-ui/core";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { ThemeProvider, makeStyles } from "@mui/styles";
 import axios from "axios";
 
 import AppSelectField from "@components/AppSelectField";

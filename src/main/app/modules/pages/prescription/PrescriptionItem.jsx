@@ -1,5 +1,5 @@
-import { Grid, Box, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Box, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import dayjs from "dayjs";
 
 const useStyles = makeStyles(() => ({

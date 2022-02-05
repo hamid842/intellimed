@@ -1,6 +1,6 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material";
 
-export const formLabelsTheme = createMuiTheme({
+export const formLabelsTheme = createTheme({
   overrides: {
     MuiFormLabel: {
       asterisk: {

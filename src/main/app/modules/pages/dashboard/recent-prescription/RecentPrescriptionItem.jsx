@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@mui/styles";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
 import dayjs from "dayjs";
 
 import { getSideEffects } from "@shared/constants/get-sideEffects";
@@ -62,7 +62,7 @@ const MedicationItem = ({ medication, selectedPatientFromTopMenu }) => {
 
   return (
     <>
-      <Paper className={classes.container}>
+      <Paper elevation={0} className={classes.container}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12} lg={12}>
             <Typography variant="subtitle2" className={classes.title}>
@@ -112,7 +112,7 @@ const MedicationItem = ({ medication, selectedPatientFromTopMenu }) => {
       </Paper>
 
       {/* Side Effect Part */}
-      <Paper className={classes.sideEffectContainer}>
+      <Paper elevation={1} className={classes.sideEffectContainer}>
         <Grid container>
           <Grid item xs={12} sm={12} lg={12}>
             <Typography variant="subtitle2">Side Effects</Typography>

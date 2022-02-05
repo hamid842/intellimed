@@ -1,10 +1,10 @@
 import colors from "@config/colors";
-import { Grid, IconButton, Tooltip, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {useNavigate} from 'react-router-dom'
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { history } from "@shared/history";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -20,22 +20,22 @@ const useStyles = makeStyles(() => ({
 
 const NoPatient = () => {
   const classes = useStyles();
+  const navigate = useNavigate()
   return (
     <Grid container className={classes.container}>
-      <Grid item xs={12} sm={12} lg={12} className={classes.emptyIcon}>
+      <Grid item xs={12} sm={12} lg={12}>
         <HourglassEmptyIcon color="primary" fontSize="large" />
       </Grid>
-      <Grid item xs={12} sm={12} lg={12} className={classes.text}>
+      <Grid item xs={12} sm={12} lg={12}>
         <Typography variant="subtitle1">
           Have to define a patient first. You can add using button below.
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={12} lg={12} className={classes.btn}>
-        <IconButton onClick={() => history.push("/patient")}>
+      <Grid item xs={12} sm={12} lg={12}>
+        <IconButton onClick={() => navigate("/patient")}>
           <Tooltip title="Add Patient">
             <AddCircleIcon
               color="primary"
-              className={classes.addBtn}
               fontSize="large"
             />
           </Tooltip>

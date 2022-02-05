@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@mui/styles";
+import { Button } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   input: {

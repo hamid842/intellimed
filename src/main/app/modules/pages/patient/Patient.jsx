@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
-import { Grid, Paper, Typography, Divider } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper, Typography, Divider } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import { useSnackbar } from "notistack";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 
 import PatientGeneralInfo from "./PatientGeneralInfo";
@@ -81,21 +81,22 @@ const Patient = (props) => {
         }
       })
       .catch((err) => {
+        console.log(err)
         setLoading(false);
         enqueueSnackbar("Something went wrong!", { variant: "error" });
       });
   };
 
   return (
-    <Paper className={classes.container}>
+    <Paper elevation={1} className={classes.container}>
       <Grid
         container
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="center"
         className={classes.header}
       >
         <Grid item>
-          <Typography variant="h5" className={classes.title}>
+          <Typography variant="h5">
             Patient(s)
           </Typography>
         </Grid>
@@ -147,7 +148,7 @@ const Patient = (props) => {
                   </div>
                 );
               })}
-            {patients.length === 0 && (
+            {patients?.length === 0 && (
               <div className={classes.noPatient}>
                 No patient added yet. You can do this with "Add New" button
                 above.

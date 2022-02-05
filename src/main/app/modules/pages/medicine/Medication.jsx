@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 import MedicationItem from "../medicine/MedicationItem";
 import { getAllMedicines } from "@shared/constants/get-all-medicines";

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import "./login-style.css";
 import SignUpContent from "./SignUpContent";
@@ -13,6 +14,7 @@ const registerUserApi = process.env.REACT_APP_REGISTER_USER_API;
 
 const LoginScreen = (props) => {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const [registerLoading, setRegisterLoading] = useState(false);
   const [user, setUser] = useState({
     activated: true,
@@ -65,7 +67,8 @@ const LoginScreen = (props) => {
       loginUser.userName,
       loginUser.password,
       loginUser.rememberMe,
-      enqueueSnackbar
+      enqueueSnackbar,
+        navigate
     );
   };
 

@@ -1,17 +1,18 @@
 import { memo, forwardRef } from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
-import WarningIcon from "@material-ui/icons/Warning";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
+import { makeStyles } from "@mui/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import WarningIcon from "@mui/icons-material/Warning";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import AppButton from "@shared/components/AppButton";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   content: {

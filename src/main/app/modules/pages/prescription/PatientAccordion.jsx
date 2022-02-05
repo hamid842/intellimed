@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
   Grid,
-} from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Prescription from "./Prescription";
 import RadioButton from "./RadioButton";

@@ -1,32 +1,19 @@
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
 const AppDatePicker = ({ label, value, onChange }) => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        fullWidth
-        required
-        label={label}
-        error={false}
-        size="small"
-        helperText={false}
-        id="date-picker-dialog"
-        inputVariant="outlined"
-        format="yyyy-MM-dd"
-        value={value}
-        onChange={onChange}
-        KeyboardButtonProps={{
-          "aria-label": "change date",
-        }}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    </MuiPickersUtilsProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+              required
+              label={label}
+              value={value}
+              onChange={onChange}
+              renderInput={(params) => <TextField {...params} size={'small'} />}
+          />
+      </LocalizationProvider>
   );
 };
 
