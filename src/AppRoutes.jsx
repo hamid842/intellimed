@@ -7,7 +7,7 @@ import Profile from '@pages/profile/Profile';
 import Prescriptions from "@pages/prescription/Prescriptions";
 import Prescriber from "@pages/prescriber/Prescriber";
 import Dashboard from "@pages/dashboard/Dashboard";
-import AddNewPrescriberItem from "@pages/prescriber/AddNewPrescriberItem";
+import AddNewPrescription from "@pages/add-new-prescription/NewPrescription";
 
 
 const AppRoutes = () => {
@@ -31,7 +31,7 @@ const AppRoutes = () => {
                 {path: 'patient', exact: true, element: <Patient/>},
                 {path: 'profile', exact: true, element: <Profile/>},
                 {path: 'prescriptions', exact: true, element: <Prescriptions/>},
-                {path: 'add-new-prescription', exact: true, element: <AddNewPrescriberItem/>},
+                {path: 'add-new-prescription', exact: true, element: <AddNewPrescription/>},
                 {path: 'prescriber', exact: true, element: <Prescriber/>},
             ]
         }

@@ -102,9 +102,9 @@ const PatientGeneralInfo = (props) => {
 
   const handleChangePatientImage = async (e) => {
     setImageLoading(true);
-    var data = new FormData();
+    let data = new FormData();
     data.append("file", e.target.files[0]);
-    var config = {
+    let config = {
       method: "post",
       url: `${uploadImageApi}?imageSourceType=patient`,
       data,
@@ -220,7 +220,7 @@ const PatientGeneralInfo = (props) => {
                       label="Birth Date"
                       value={newPatientInfo.birthDate}
                       onChange={handleChangeDate}
-                      renderInput={(params) => <TextField size={'small'} {...params} />}
+                      renderInput={(params) => <TextField fullWidth size={'small'} {...params} />}
                   />
                 </LocalizationProvider>
               </Grid>

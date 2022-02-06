@@ -78,7 +78,7 @@ export const login =
                 }
             });
     };
-export const logout = () => (dispatch) => {
+export const logout = (navigate) => (dispatch) => {
     localStorage.removeItem("token");
     dispatch({
         type: LOGOUT,

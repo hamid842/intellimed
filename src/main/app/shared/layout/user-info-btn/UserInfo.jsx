@@ -16,6 +16,7 @@ import {
     createTheme
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
+import {useNavigate} from 'react-router-dom';
 import {connect} from "react-redux";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -65,6 +66,7 @@ const useStyles = makeStyles(() => ({
 const UserInfo = (props) => {
     const {account, patients, selectedPatientFromTopMenu} = props;
     const classes = useStyles();
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [openPatientsList, setOpenPatientsList] = useState(true);
