@@ -21,14 +21,14 @@ import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
 import dayjs from "dayjs";
 
-import PrescriptionInformation from "./PrescriptionInfo";
-import MedicineInformation from "./MedicineInfo";
 import PharmacyAndRefill from "./PharmacyAndRefill";
 import AppButton from "@shared/components/AppButton";
 import colors from "@config/colors";
 import Title from "@shared/components/Title";
 import NoPatient from "./NoPatient";
 import AddingButtons from "./AddingButtons";
+import StepOne from './step-1/StepOne'
+import StepTwo from "@pages/add-new-prescription/step-2/StepTwo";
 
 const theme = createTheme()
 
@@ -58,10 +58,13 @@ const useStyles = makeStyles({
 
 // Endpoints
 const createNewPrescriptionApi = process.env.REACT_APP_GET_ALL_PRESCRIPTION;
-const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
+// const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
 
 const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
     const classes = useStyles();
+    const {enqueueSnackbar} = useSnackbar();
+
+    //States
     const [manualMode, setManualMode] = useState(false);
     const initialState = {
         issueDate: new Date(),
@@ -71,6 +74,7 @@ const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
         qty: "1",
         prescriptionImageUrl: null,
         medicine: {},
+        strength: "",
         medicType: "",
         usageDescription: "",
         cron: "",
@@ -80,15 +84,13 @@ const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
         patientInfo: selectedPatientFromTopMenu,
         status: "ACTIVE",
     };
-    const {enqueueSnackbar} = useSnackbar();
     const [activeStep, setActiveStep] = useState(0);
     const [newDescription, setNewDescription] = useState(initialState);
-    const [prescriptionImageUrl, setPrescriptionImageUrl] = useState(null);
+    // const [prescriptionImageUrl, setPrescriptionImageUrl] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [howTaken, setHowTaken] = useState("Scheduled Does")
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+    const handleChange = (name, value) => {
         setNewDescription({...newDescription, [name]: value});
     };
 
@@ -99,44 +101,47 @@ const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
         });
     };
 
-    const handleChangeFile = async (e, type) => {
-        setLoading(true);
-        type === "prescription" && setPrescriptionImageUrl(e.target.files[0]);
-        let data = new FormData();
-        data.append("file", e.target.files[0]);
-        let config = {
-            method: "post",
-            url: `${uploadImageApi}?imageSourceType=${type}`,
-            data,
-        };
-        await axios(config)
-            .then(async (res) => {
-                if (res.status === 200 || 201) {
-                    enqueueSnackbar(
-                        `${e.target.files[0]?.name} file is Uploaded successfully.`,
-                        {
-                            variant: "success",
-                        }
-                    );
-                    setLoading(false);
-                }
-            })
-            .catch((err) => {
-                if (err) {
-                    setLoading(false);
-                    enqueueSnackbar("Something went wrong!", {variant: "error"});
-                }
-            });
-    };
+    // const handleChangeFile = async (e, type) => {
+    //     setLoading(true);
+    //     type === "prescription" && setPrescriptionImageUrl(e.target.files[0]);
+    //     let data = new FormData();
+    //     data.append("file", e.target.files[0]);
+    //     let config = {
+    //         method: "post",
+    //         url: `${uploadImageApi}?imageSourceType=${type}`,
+    //         data,
+    //     };
+    //     await axios(config)
+    //         .then(async (res) => {
+    //             if (res.status === 200 || 201) {
+    //                 enqueueSnackbar(
+    //                     `${e.target.files[0]?.name} file is Uploaded successfully.`,
+    //                     {
+    //                         variant: "success",
+    //                     }
+    //                 );
+    //                 setLoading(false);
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             if (err) {
+    //                 setLoading(false);
+    //                 enqueueSnackbar("Something went wrong!", {variant: "error"});
+    //             }
+    //         });
+    // };
 
     const handleChangeCron = (value) => {
         setNewDescription({...newDescription, cron: value});
     };
 
     const getSteps = () => {
-        return [
-            "Prescription Information",
-            "Medicine Information",
+        return howTaken === "As Needed" ? [
+            "Add a new medicine",
+            "Pharmacy & Refill",
+        ] : [
+            "Add a new medicine",
+            `Schedule a dose of ${newDescription.medicine?.brandName || "..."}`,
             "Pharmacy & Refill",
         ];
     };
@@ -145,31 +150,54 @@ const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
         switch (step) {
             case 0:
                 return (
-                    <PrescriptionInformation
+                    <StepOne
                         value={newDescription}
-                        image={prescriptionImageUrl}
-                        loading={loading}
                         onChange={handleChange}
-                        onChangeDate={handleChangeDate}
-                        onChangeFile={handleChangeFile}
+                        howTaken={howTaken}
+                        setHowTaken={setHowTaken}
                     />
+                    // <PrescriptionInformation
+                    //     value={newDescription}
+                    //     image={prescriptionImageUrl}
+                    //     loading={loading}
+                    //     onChange={handleChange}
+                    //     onChangeDate={handleChangeDate}
+                    //     onChangeFile={handleChangeFile}
+                    // />
                 );
             case 1:
-                return (
-                    <MedicineInformation
-                        value={newDescription}
-                        onChange={handleChange}
-                        onChangeCron={handleChangeCron}
-                    />
-                );
+                if (howTaken !== "As Needed") {
+                    return (
+                        <StepTwo
+                            // <MedicineInformation
+                            value={newDescription}
+                            onChange={handleChange}
+                            onChangeCron={handleChangeCron}
+                        />
+                    )
+                } else {
+                    return (
+                        <PharmacyAndRefill
+                            value={newDescription}
+                            onChange={handleChange}
+                            onChangeDate={handleChangeDate}
+                        />
+                    );
+                }
+
             case 2:
-                return (
-                    <PharmacyAndRefill
-                        value={newDescription}
-                        onChange={handleChange}
-                        onChangeDate={handleChangeDate}
-                    />
-                );
+                if (howTaken !== "As Needed") {
+                    return (
+                        <PharmacyAndRefill
+                            value={newDescription}
+                            onChange={handleChange}
+                            onChangeDate={handleChangeDate}
+                        />
+                    )
+                } else {
+                    return;
+                }
+
             default:
                 return "Unknown step";
         }
@@ -214,79 +242,80 @@ const NewDescription = ({patients, selectedPatientFromTopMenu}) => {
                 <AddingButtons onClick={() => setManualMode(true)}/>
             </Stack>) : (
                 <>
-                    {patients?.length > 0 ? (
-                        <div className={classes.root}>
-                            <div className={classes.alert}>
-                                <Alert severity="warning">
-                                    You are adding a new prescription for{" "}
-                                    <strong>
-                                        {selectedPatientFromTopMenu?.firstName}{" "}
-                                        {selectedPatientFromTopMenu?.lastName}
-                                    </strong>
-                                    ! If you want to add for another patient, please select from top
-                                    menu.
-                                </Alert>
-                            </div>
-                            <Stepper activeStep={activeStep} orientation="vertical">
-                                {steps.map((label, index) => (
-                                    <Step key={label}>
-                                        <StepLabel>{label}</StepLabel>
-                                        <StepContent>
-                                            <Typography>{getStepContent(index)}</Typography>
-                                            <div className={classes.actionsContainer}>
-                                                <div>
-                                                    <AppButton
-                                                        label="back"
-                                                        variant="outlined"
-                                                        disabled={activeStep === 0}
-                                                        onClick={handleBack}
-                                                        className={classes.button}
-                                                        startIcon={<ArrowLeftIcon/>}
-                                                    />
-                                                    <AppButton
-                                                        label={
-                                                            activeStep === steps.length - 1 ? "Finish" : "Next"
-                                                        }
-                                                        variant="outlined"
-                                                        color={
-                                                            activeStep === steps.length - 1
-                                                                ? "green"
-                                                                : colors.darkBlue
-                                                        }
-                                                        onClick={handleNext}
-                                                        className={classes.button}
-                                                        endIcon={
-                                                            activeStep === steps.length - 1 ? (
-                                                                loading ? (
-                                                                    <CircularProgress/>
-                                                                ) : (
-                                                                    <CheckIcon/>
-                                                                )
-                                                            ) : (
-                                                                <ArrowRightIcon/>
-                                                            )
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
-                                        </StepContent>
-                                    </Step>
-                                ))}
-                            </Stepper>
-                            {activeStep === steps.length && (
-                                <Paper square elevation={0}>
-                                    <Typography>
-                                        All steps completed - you&apos;re finished
-                                    </Typography>
-                                    <Button onClick={handleReset} className={classes.button}>
-                                        Reset
-                                    </Button>
-                                </Paper>
-                            )}
+                    {/*{patients?.length > 0 ? (*/}
+                    <div className={classes.root}>
+                        <div className={classes.alert}>
+                            <Alert severity="warning">
+                                You are adding a new prescription for{" "}
+                                <strong>
+                                    {selectedPatientFromTopMenu?.firstName}{" "}
+                                    {selectedPatientFromTopMenu?.lastName}
+                                </strong>
+                                ! If you want to add for another patient, please select from top
+                                menu.
+                            </Alert>
                         </div>
-                    ) : (
-                        <NoPatient/>
-                    )}
+                        <Stepper activeStep={activeStep} orientation="vertical">
+                            {steps.map((label, index) => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                    <StepContent>
+                                        <div>{getStepContent(index)}</div>
+                                        <div className={classes.actionsContainer}>
+                                            <div>
+                                                <AppButton
+                                                    label="back"
+                                                    variant="outlined"
+                                                    disabled={activeStep === 0}
+                                                    onClick={handleBack}
+                                                    className={classes.button}
+                                                    startIcon={<ArrowLeftIcon/>}
+                                                />
+                                                <AppButton
+                                                    label={
+                                                        activeStep === steps.length - 1 ? "Finish" : "Next"
+                                                    }
+                                                    disabled={newDescription.strength === ""}
+                                                    variant="outlined"
+                                                    color={
+                                                        activeStep === steps.length - 1
+                                                            ? "green"
+                                                            : colors.darkBlue
+                                                    }
+                                                    onClick={handleNext}
+                                                    className={classes.button}
+                                                    endIcon={
+                                                        activeStep === steps.length - 1 ? (
+                                                            loading ? (
+                                                                <CircularProgress/>
+                                                            ) : (
+                                                                <CheckIcon/>
+                                                            )
+                                                        ) : (
+                                                            <ArrowRightIcon/>
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        {activeStep === steps.length && (
+                            <Paper square elevation={0}>
+                                <Typography>
+                                    All steps completed - you&apos;re finished
+                                </Typography>
+                                <Button onClick={handleReset} className={classes.button}>
+                                    Reset
+                                </Button>
+                            </Paper>
+                        )}
+                    </div>
+                    {/*) : (*/}
+                    <NoPatient/>
+                    {/*)}*/}
                 </>
             )}
         </Paper>

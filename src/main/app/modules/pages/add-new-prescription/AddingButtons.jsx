@@ -1,9 +1,12 @@
+import {useState} from 'react';
 import {Button, Divider, Box, Typography} from '@mui/material';
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@mui/styles";
+import {useSnackbar} from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import axios from "axios";
 
 const useStyles = makeStyles({
     uploadInput: {
@@ -24,9 +27,45 @@ const SelectionButton = styled(Button)({
     textTransform: 'capitalize'
 })
 
+// Endpoints
+const uploadImageApi = process.env.REACT_APP_UPLOAD_FILE_API;
 
-const AddingButtons = ({loading, onChange, onClick}) => {
+
+const AddingButtons = ({ onClick}) => {
     const classes = useStyles()
+    const {enqueueSnackbar} = useSnackbar()
+    const [imageLoading, setImageLoading] = useState(false);
+
+    const handleChangePrescriptionImage = async (e) => {
+        setImageLoading(true);
+        let data = new FormData();
+        data.append("file", e.target.files[0]);
+        let config = {
+            method: "post",
+            url: `${uploadImageApi}?imageSourceType=prescription`,
+            data,
+        };
+        await axios(config)
+            .then(async (res) => {
+                if (res.status === 200 || 201) {
+                    enqueueSnackbar(
+                        `${e.target.files[0]?.name} file is Uploaded successfully.`,
+                        {
+                            variant: "success",
+                        }
+                    );
+                    setImageLoading(false);
+                    // setDownloadedImage(await downloadFile(res.data));
+                }
+            })
+            .catch((err) => {
+                if (err) {
+                    setImageLoading(false);
+                    enqueueSnackbar("Something went wrong!", { variant: "error" });
+                }
+            });
+    };
+
     return (
         <Box
             sx={{
@@ -50,12 +89,12 @@ const AddingButtons = ({loading, onChange, onClick}) => {
                     className={classes.uploadInput}
                     id="contained-button-file"
                     type="file"
-                    onChange={onChange}
+                    onChange={handleChangePrescriptionImage}
                 />
                 <label htmlFor="contained-button-file">
                     <SelectionButton component={'span'} startIcon={
-                        loading ? (
-                            <CircularProgress size={15} color="inherit"/>
+                        imageLoading ? (
+                            <CircularProgress size={15} color="primary"/>
                         ) : (
                             <CloudUploadIcon/>
                         )
