@@ -23,26 +23,28 @@ const initialState = {
     loading: false,
 };
 
+const getAccountInfo = async (dispatch,toast) => {
+    await axios(getAccountInfoApi)
+        .then((res) => {
+            if (res.status === 200 || 201) {
+                dispatch({
+                    type: GET_ACCOUNT_INFO,
+                    payload: res.data,
+                });
+            }
+        })
+        .catch((err) => {
+            if (err) {
+                toast("Could not get account info!", {variant: "error"});
+            }
+        });
+};
+
 // Actions
 export const login =
     (username, password, rememberMe, toast,navigate) => async (dispatch) => {
         dispatch({type: TOGGLE_LOAD});
-        const getAccountInfo = async () => {
-            await axios(getAccountInfoApi)
-                .then((res) => {
-                    if (res.status === 200 || 201) {
-                        dispatch({
-                            type: GET_ACCOUNT_INFO,
-                            payload: res.data,
-                        });
-                    }
-                })
-                .catch((err) => {
-                    if (err) {
-                        toast("Could not get account info!", {variant: "error"});
-                    }
-                });
-        };
+
         const requestBody = {
             username,
             password,
@@ -68,7 +70,7 @@ export const login =
                     navigate("/dashboard");
                 }
             })
-            .then(async () => await getAccountInfo())
+            .then(async () => await getAccountInfo(dispatch,toast))
             .catch((err) => {
                 dispatch({type: TOGGLE_LOAD});
                 if (err) {
