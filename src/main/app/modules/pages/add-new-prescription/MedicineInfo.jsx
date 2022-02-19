@@ -1,3 +1,7 @@
+/**
+ * @param {{brandName:string}} data
+ */
+
 import { useState, useEffect } from "react";
 import {
   Grid,
@@ -50,7 +54,7 @@ const MedicineInformation = ({ value, onChange, onChangeCron }) => {
   };
 
   useEffect(() => {
-    getAllMedicines(1);
+    getAllMedicines(1).then(() =>{});
   }, []);
 
   return (

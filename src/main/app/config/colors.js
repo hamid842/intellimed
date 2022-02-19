@@ -3,8 +3,8 @@ export default {
   white: "#ffff",
   mainBlue: "#0b4167",
   darkBlue: "#064067",
-  mainGrey: "#f1f4f8",
+  mainGray: "#f1f4f8",
   // Canadian Pallete
-  mediumGrey: "#c8d6e5",
-  bgGrey: "#688ba1",
+  mediumGray: "#c8d6e5",
+  bgGray: "#688ba1",
 };

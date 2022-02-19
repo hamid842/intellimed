@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
         marginRight: theme.spacing(2),
     },
     btn: {
-        color: "grey",
+        color: "gray",
         border: "none !important",
         textTransform: "capitalize",
     },
@@ -57,7 +57,7 @@ const useStyles = makeStyles(() => ({
         width: 50,
         height: 50,
         borderRadius: 5,
-        backgroundColor: colors.mediumGrey,
+        backgroundColor: colors.mediumGray,
     },
     nested: {
         paddingLeft: theme.spacing(5),

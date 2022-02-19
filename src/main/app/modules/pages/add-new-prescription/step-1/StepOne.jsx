@@ -1,9 +1,13 @@
+/**
+ * @param {{brandName:string,strength:string}} data
+ */
+
 import {FormControl, Grid, InputLabel, MenuItem, Select} from '@mui/material'
 
 import MedicineAutoComplete from "./MedicineAutoComplete";
 import HowTaken from "@pages/add-new-prescription/step-1/HowTaken";
 
-const dosages = ['10', '20']
+const dosages = ['10 mg', '20 mg']
 
 const StepOne = ({value, onChange, howTaken, setHowTaken}) => {
     return (
@@ -21,6 +25,7 @@ const StepOne = ({value, onChange, howTaken, setHowTaken}) => {
                         name="medicine"
                         label="The strength of a dose"
                         id="demo-simple-select-outlined-label"
+                        value={value.strength || ""}
                         onChange={(e) => onChange('strength', e.target.value)}
                     >
                         {dosages?.map((dose, i) => {

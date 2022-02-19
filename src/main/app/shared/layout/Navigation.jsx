@@ -22,10 +22,10 @@ function ResponsiveDrawer(props) {
     };
 
     const drawer = (
-        <div>
+        <>
             <img src={logo} alt="Logo"/>
             <MenuList/>
-        </div>
+        </>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
@@ -38,7 +38,7 @@ function ResponsiveDrawer(props) {
                 sx={{
                     width: {sm: `calc(100% - ${drawerWidth}px)`},
                     ml: {sm: `${drawerWidth}px`},
-                    backgroundColor: colors.mainGrey
+                    backgroundColor: `${colors.mainGray} !important`
                 }}
                 elevation={0}
             >
@@ -50,9 +50,9 @@ function ResponsiveDrawer(props) {
                 component="nav"
                 sx={{
                     width: {sm: drawerWidth},
-                    backgroundColor: colors.mainGrey,
+                    backgroundColor: `${colors.mainGray} !important`,
                     flexShrink: {sm: 0},
-                    borderRight: 'none'
+                    borderRight: 'none !important'
                 }}
                 aria-label="mailbox folders"
             >
@@ -68,8 +68,8 @@ function ResponsiveDrawer(props) {
                     }}
                     sx={{
                         display: {xs: 'block', sm: 'none'},
-                        borderRight: 'none',
-                        backgroundColor: colors.mainGrey,
+                        borderRight: 'none !important',
+                        backgroundColor: `${colors.mainGray} !important`,
                         '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
                 >
@@ -80,9 +80,12 @@ function ResponsiveDrawer(props) {
                     elevation={0}
                     sx={{
                         display: {xs: 'none', sm: 'block'},
-                        borderRight: 'none',
-                        backgroundColor: colors.mainGrey,
-                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box',
+                            width: drawerWidth,
+                            backgroundColor: `${colors.mainGray} !important`,
+                            borderRight: 'none !important',
+                        },
                     }}
                     open
                 >

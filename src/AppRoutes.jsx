@@ -13,6 +13,7 @@ import AddNewPrescription from "@pages/add-new-prescription/NewPrescription";
 const AppRoutes = () => {
     return useRoutes([
         {
+            path: '*',
             element: <PageNotFound/>
         },
         {
@@ -27,8 +28,8 @@ const AppRoutes = () => {
         {
             element: <Layout/>,
             children: [
-                {path: 'dashboard', exact: true, element: <Dashboard/>},
                 {path: 'patient', exact: true, element: <Patient/>},
+                {path: 'dashboard', exact: true, element: <Dashboard/>},
                 {path: 'profile', exact: true, element: <Profile/>},
                 {path: 'prescriptions', exact: true, element: <Prescriptions/>},
                 {path: 'add-new-prescription', exact: true, element: <AddNewPrescription/>},

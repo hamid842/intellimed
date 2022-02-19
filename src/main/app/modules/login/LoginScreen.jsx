@@ -89,7 +89,7 @@ const LoginScreen = (props) => {
   };
 
   return (
-    <div className="body">
+        <div className="body">
       <div className="login-container" id="login-container">
         {/* Sign up Container */}
         <div className="form-container sign-up-container">

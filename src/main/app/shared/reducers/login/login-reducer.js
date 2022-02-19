@@ -1,3 +1,6 @@
+/**
+ * @param {{id_token:string}} data
+ */
 import axios from "axios";
 
 
@@ -23,7 +26,7 @@ const initialState = {
     loading: false,
 };
 
-const getAccountInfo = async (dispatch,toast) => {
+const getAccountInfo = async (dispatch, toast) => {
     await axios(getAccountInfoApi)
         .then((res) => {
             if (res.status === 200 || 201) {
@@ -42,9 +45,8 @@ const getAccountInfo = async (dispatch,toast) => {
 
 // Actions
 export const login =
-    (username, password, rememberMe, toast,navigate) => async (dispatch) => {
+    (username, password, rememberMe, toast, navigate) => async (dispatch) => {
         dispatch({type: TOGGLE_LOAD});
-
         const requestBody = {
             username,
             password,
@@ -58,9 +60,6 @@ export const login =
             .then((response) => {
                 const status = response?.status;
                 if (status === 200 || 201) {
-                    /**
-                     * @param {{id_token:string}} data
-                     */
                     localStorage.setItem("token", response.data.id_token);
                     dispatch({
                         type: LOGIN,
@@ -70,7 +69,7 @@ export const login =
                     navigate("/dashboard");
                 }
             })
-            .then(async () => await getAccountInfo(dispatch,toast))
+            .then(async () => await getAccountInfo(dispatch, toast))
             .catch((err) => {
                 dispatch({type: TOGGLE_LOAD});
                 if (err) {
